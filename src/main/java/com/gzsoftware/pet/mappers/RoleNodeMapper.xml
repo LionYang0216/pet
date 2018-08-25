@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.RoleNodeDao">
+ 	<cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+	<resultMap type="RoleNode" id="RoleNodeResult"></resultMap>
+	
+	<select id="getRoleNodeList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="RoleNode">
+		select * from role_node where 1=1
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+
+
+	<select id="getRoleNode" parameterType="java.lang.Integer" resultType="RoleNode">
+		select * from role_node where ID = #{id}
+	</select>
+
+
+	<insert id="addRoleNode" parameterType="RoleNode">
+		insert into role_node(ROLE_ID,NODE_ID) values(#{roleId}, #{nodeId})
+	</insert>
+
+
+	<update id="updateRoleNode" parameterType="RoleNode">
+		UPDATE role_node SET ROLE_ID=#{roleId},NODE_ID = #{nodeId} WHERE ID = #{id}
+	</update>
+
+	<delete id="deleteRoleNode" parameterType="java.lang.Integer">
+		delete from role_node where ID = #{id}
+	</delete>
+	<delete id="deleteRoleNodeByRoleId" parameterType="java.lang.Integer">
+		delete from role_node where ROLE_ID = #{id}
+	</delete>
+</mapper> 

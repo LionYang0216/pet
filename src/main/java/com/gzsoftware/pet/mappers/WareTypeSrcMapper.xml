@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 商品原材料类型表：PET,PP,PE...(WARE_TYPE_SRC) -->
+<mapper namespace="com.gzsoftware.pet.dao.WareTypeSrcDao">
+ <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <!-- 结果映射 -->
+    <resultMap id="wareTypeSrcMap" type="com.gzsoftware.pet.entity.po.WareTypeSrc">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="NAME_CN" property="nameCn" jdbcType="VARCHAR" />
+        <result column="NAME_EN" property="nameEn" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_ADMIN_ID" property="lastUpdateAdminId" jdbcType="INTEGER" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="PRIORITY" property="priority" jdbcType="INTEGER" />
+        <result column="IS_ENABLE" property="isEnable" jdbcType="SMALLINT" />
+   <association property="lastUpdateAdmin" column="LAST_UPDATE_ADMIN_ID" javaType="Admin" fetchType="eager" select="com.gzsoftware.pet.dao.AdminDao.getSmAdmin" />
+    </resultMap>
+    
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        ID, NAME_CN, NAME_EN, LAST_UPDATE_ADMIN_ID, LAST_UPDATE_TIME, 
+        PRIORITY, IS_ENABLE
+    </sql>
+    <!-- 获取物理类目个数 -->
+  <select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultType="Integer">
+		select count(*) from WARE_TYPE_SRC where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.nameEn!='' and condition.nameEn!=null">
+				and NAME_EN like CONCAT('%',#{condition.nameEn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isEnable!=''and condition.isEnable!=null">
+				and IS_ENABLE = #{condition.isEnable}
+			</if>
+		</if>
+	</select>
+	
+	<select id="getWareTypeSrcList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultMap="wareTypeSrcMap">
+		select * from WARE_TYPE_SRC where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.nameEn!='' and condition.nameEn!=null">
+				and NAME_EN like CONCAT('%',#{condition.nameEn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isEnable!=''and condition.isEnable!=null">
+				and IS_ENABLE = #{condition.isEnable}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+	
+	<select id="getWareTypeSrcSelect"  resultMap="wareTypeSrcMap">
+		select * from WARE_TYPE_SRC where IS_ENABLE = 1 	order by PRIORITY asc
+	</select>	
+	
+	   <select id="getWareTypeSrc" parameterType="java.lang.Integer" resultMap="wareTypeSrcMap">
+    	select * from WARE_TYPE_SRC where ID = #{id,jdbcType=INTEGER}
+  </select>
+    
+    <!-- 插入数据 -->
+    <insert id="addWareTypeSrc" parameterType="com.gzsoftware.pet.entity.po.WareTypeSrc">
+        INSERT INTO WARE_TYPE_SRC (<include refid="allColumns" />)
+        VALUES (
+            #{id},
+            #{nameCn},
+            #{nameEn},
+            #{lastUpdateAdminId},
+            #{lastUpdateTime},
+            #{priority},
+            #{isEnable}
+        )
+    </insert>
+    
+    <!-- 修改数据 -->
+    <update id="updateWareTypeSrc" parameterType="com.gzsoftware.pet.entity.po.WareTypeSrc">
+        UPDATE WARE_TYPE_SRC SET
+            NAME_CN = #{nameCn},
+            NAME_EN = #{nameEn},
+            LAST_UPDATE_ADMIN_ID = #{lastUpdateAdminId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            PRIORITY = #{priority},
+            IS_ENABLE = #{isEnable}
+        WHERE ID = #{id}
+    </update>
+    
+    <!-- 根据主键删除数据 -->
+    <delete id="deleteWareTypeSrc" parameterType="java.lang.Integer">
+        DELETE FROM WARE_TYPE_SRC WHERE ID = #{id}
+    </delete>
+    
+</mapper>

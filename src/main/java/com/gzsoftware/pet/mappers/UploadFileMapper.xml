@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.UploadFileDao">
+  <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+  <resultMap type="UploadFile" id="UploadFileResult"></resultMap>
+  
+  	<select id="getUploadFile" parameterType="java.lang.Integer" resultType="UploadFile">
+		select * from UPLOAD_FILE where ID = #{id}
+	</select>
+	
+	 	<select id="getUploadFileAllNotUse"  resultType="UploadFile">
+		select * from UPLOAD_FILE where IS_USED ='0'
+	</select>
+		
+     <insert id="addUploadFile" useGeneratedKeys="true" keyProperty="id"  parameterType="com.gzsoftware.pet.entity.po.UploadFile">
+     INSERT into  UPLOAD_FILE(ID,FILE_PATH,FILE_NAME,IS_USED)
+    values (#{id,jdbcType=INTEGER}, #{filePath,jdbcType=VARCHAR},#{fileName,jdbcType=VARCHAR},#{isUsed,jdbcType=INTEGER})
+	</insert>
+	
+	<update id="updateUploadFile" parameterType="com.gzsoftware.pet.entity.po.UploadFile">
+     UPDATE UPLOAD_FILE
+      set FILE_PATH = #{filePath,jdbcType=VARCHAR},
+          FILE_NAME = #{fileName,jdbcType=VARCHAR},
+          IS_USED = #{isUsed,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<delete id="deleteUploadFile" parameterType="java.lang.Integer">
+		delete from UPLOAD_FILE where
+		ID = #{id,jdbcType=INTEGER}
+	</delete>
+	
+  <update id="updateFileToUnUsed" parameterType="java.lang.Integer">
+     UPDATE UPLOAD_FILE
+      set  IS_USED ='0'
+      where ID = #{id,jdbcType=INTEGER}
+	</update>
+	  <update id="updateFileToUsed" parameterType="java.lang.Integer">
+     UPDATE UPLOAD_FILE
+      set  IS_USED ='1'
+      where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.NewsTypeDao">
+	<cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <resultMap id="NewsTypeResultMap" type="com.gzsoftware.pet.entity.po.NewsType">
+    	<association property="admin" column="LAST_UPDATE_ADMIN_ID" javaType="Admin" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.AdminDao.getSmAdmin" />
+    </resultMap>
+    
+  	<select id="getNewsType" parameterType="java.lang.Integer" resultMap="NewsTypeResultMap">
+		select * from News_Type where ID = #{id}
+	</select>
+	
+	<select id="getNewsTypeListForSelect" resultType="com.gzsoftware.pet.entity.po.NewsType"  >
+		select * from News_Type where  1=1 
+	</select>
+	
+	<select id="getNewsTypeList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="com.gzsoftware.pet.entity.po.NewsType" resultMap="NewsTypeResultMap">
+		select * from News_Type  where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isEnabled!=''and condition.isEnabled!=null">
+				and IS_ENABLE = #{condition.isEnabled}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+  
+  <select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="Integer">
+		select count(*) from News_Type where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isEnabled!=''and condition.isEnabled!=null">
+				and IS_ENABLE = #{condition.isEnabled}
+			</if>
+		</if>
+
+	</select>
+	
+     <insert id="addNewsType" parameterType="com.gzsoftware.pet.entity.po.NewsType">
+     INSERT into News_Type (ID, NAME_CN, NAME_EN,LAST_UPDATE_ADMIN_ID, LAST_UPDATE_TIME, PRIORITY, IS_ENABLE)
+    values (#{id,jdbcType=INTEGER}, #{nameCn,jdbcType=VARCHAR},#{nameEn,jdbcType=VARCHAR}, #{lastUpdateAdminId,jdbcType=INTEGER}, #{lastUpdateTime,jdbcType=TIMESTAMP},
+    #{priority,jdbcType=INTEGER},1)
+	</insert>
+
+
+	<update id="updateNewsType" parameterType="com.gzsoftware.pet.entity.po.NewsType">
+     UPDATE News_Type set
+      NAME_CN = #{nameCn,jdbcType=VARCHAR},
+      NAME_EN = #{nameEn,jdbcType=VARCHAR},
+      LAST_UPDATE_ADMIN_ID = #{lastUpdateAdminId,jdbcType=INTEGER},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      PRIORITY = #{priority,jdbcType=INTEGER},
+      IS_ENABLE = #{isEnable,jdbcType=SMALLINT}
+      where ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<delete id="deleteNewsType" parameterType="java.lang.Integer">
+		delete from News_Type where
+		ID = #{id,jdbcType=INTEGER}
+	</delete>
+	
+</mapper>

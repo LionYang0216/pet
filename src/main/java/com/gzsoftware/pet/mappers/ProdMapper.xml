@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 产品信息表(PROD) -->
+<mapper namespace="com.gzsoftware.pet.dao.ProdDao">
+	<cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <!-- 结果映射 -->
+    <resultMap id="prodMap" type="com.gzsoftware.pet.entity.po.Prod">
+       <result column="ID" jdbcType="INTEGER" property="id" />
+       <result column="PROD_TYPE_WID_ID" jdbcType="INTEGER" property="prodTypeWidId" />
+       <result column="PROD_TYPE_PHY_ID" jdbcType="INTEGER" property="prodTypePhyId" />
+       <result column="PROD_TYPE_PIC_ID" jdbcType="INTEGER" property="prodTypePicId" />
+       <result column="PROD_TYPE_BIZ_ID" jdbcType="INTEGER" property="prodTypeBizId" />
+       <result column="PROD_TYPE_JAR_ID" jdbcType="INTEGER" property="prodTypeJarId" />
+       <result column="PROD_TYPE_CON_ID" jdbcType="INTEGER" property="prodTypeConId" />
+       <result column="PROD_TYPE_ARE_ID" jdbcType="INTEGER" property="prodTypeAreId" />
+       <result column="PROD_TYPE_HIG_ID" jdbcType="INTEGER" property="prodTypeHigId" />
+       <result column="PROD_TYPE_SOU_ID" jdbcType="INTEGER" property="prodTypeSouId" />
+       <result column="PROD_TYPE_NEK_ID" jdbcType="INTEGER" property="prodTypeNekId" />
+       <result column="PROD_COST_ID" jdbcType="INTEGER" property="prodCostId" />
+
+       <association property="admin" column="LAST_UPDATE_ADMIN_ID" javaType="Admin" fetchType="eager" select="com.gzsoftware.pet.dao.AdminDao.getSmAdmin" />
+   	   <association property="prodTypeWid" column="PROD_TYPE_WID_ID" javaType="ProdTypeWid" fetchType="eager" select="com.gzsoftware.pet.dao.ProdTypeWidDao.getProdTypeWid" />
+	   <association property="prodTypePhy" column="PROD_TYPE_PHY_ID" javaType="ProdTypePhy" fetchType="eager" select="com.gzsoftware.pet.dao.ProdTypePhyDao.getProdTypePhy" />
+	   <association property="prodTypePic" column="PROD_TYPE_PIC_ID" javaType="ProdTypePic" fetchType="eager" select="com.gzsoftware.pet.dao.ProdTypePicDao.getProdTypePic" />
+	   <association property="prodTypeBiz" column="PROD_TYPE_BIZ_ID" javaType="ProdTypeBiz" fetchType="eager" select="com.gzsoftware.pet.dao.ProdTypeBizDao.getProdTypeBiz" />
+	   <association property="prodTypeJar" column="PROD_TYPE_JAR_ID" javaType="ProdTypeJar" fetchType="eager" select="com.gzsoftware.pet.dao.ProdTypeJarDao.getProdTypeJar" />
+	   <association property="prodTypeCon" column="PROD_TYPE_CON_ID" javaType="ProdTypeCon" fetchType="eager" select="com.gzsoftware.pet.dao.ProdTypeConDao.getProdTypeCon" />
+	   <association property="prodTypeAre" column="PROD_TYPE_ARE_ID" javaType="ProdTypeAre" fetchType="eager" select="com.gzsoftware.pet.dao.ProdTypeAreDao.getProdTypeAre" />
+	   <association property="prodTypeHig" column="PROD_TYPE_HIG_ID" javaType="ProdTypeHig" fetchType="eager" select="com.gzsoftware.pet.dao.ProdTypeHigDao.getProdTypeHig" />
+	   <association property="prodTypeSou" column="PROD_TYPE_SOU_ID" javaType="ProdTypeSou" fetchType="eager" select="com.gzsoftware.pet.dao.ProdTypeSouDao.getProdTypeSou" />
+	   <association property="prodTypeNek" column="PROD_TYPE_NEK_ID" javaType="ProdTypeNek" fetchType="eager" select="com.gzsoftware.pet.dao.ProdTypeNekDao.getProdTypeNek" />
+       <association property="prodCost" column="PROD_COST_ID" javaType="ProdCost" fetchType="eager" select="com.gzsoftware.pet.dao.ProdCostDao.getProdCost" />
+       <association property="user" column="USER_ID" javaType="User" fetchType="eager" select="com.gzsoftware.pet.dao.UserDao.getUser" />
+       
+        <association property="majorPic" column="ID" javaType="ProdPic" fetchType="eager" select="com.gzsoftware.pet.dao.ProdPicDao.getMajarProdPic" />
+  		
+  		
+    </resultMap>
+    
+    
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        ID, NAME_CN, NAME_EN, LAST_UPDATE_TIME, PRIORITY, 
+        IS_ENABLE, IS_NEW, USER_ID, LAST_UPDATE_ADMIN_ID, VISIT_CNT, 
+        UP_CNT, FAV_CNT, DESCRIPTION_CN, DESCRIPTION_EN, PROD_TYPE_PHY_ID, 
+        PROD_TYPE_PIC_ID, PROD_TYPE_BIZ_ID, PROD_TYPE_JAR_ID, PROD_TYPE_CON_ID, PROD_TYPE_ARE_ID, 
+        PROD_TYPE_HIG_ID, PROD_TYPE_WID_ID, PROD_TYPE_NEK_ID, PROD_TYPE_SOU_ID, PROD_COST_ID,REF_CODE,REF_NAME
+    </sql>
+    
+    <!-- 插入数据 -->
+    <insert id="addProd" useGeneratedKeys="true" keyProperty="id"  parameterType="com.gzsoftware.pet.entity.po.Prod">
+        INSERT INTO PROD (<include refid="allColumns" />)
+        VALUES (
+            #{id},
+            #{nameCn},
+            #{nameEn},
+            #{lastUpdateTime},
+            #{priority},
+            #{isEnable},
+            #{isNew},
+            #{userId},
+            #{lastUpdateAdminId},
+            #{visitCnt},
+            #{upCnt},
+            #{favCnt},
+            #{descriptionCn},
+            #{descriptionEn},
+            #{prodTypePhyId},
+            #{prodTypePicId},
+            #{prodTypeBizId},
+            #{prodTypeJarId},
+            #{prodTypeConId},
+            #{prodTypeAreId},
+            #{prodTypeHigId},
+            #{prodTypeWidId},
+            #{prodTypeNekId},
+            #{prodTypeSouId},
+            #{prodCostId},
+            #{refCode},
+            #{refName}
+        )
+    </insert>
+    
+     <select id="getProd" parameterType="java.lang.Integer" resultMap="prodMap">
+    	select * from PROD where ID = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="getProdList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultMap="prodMap">
+		select * from PROD where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.prodTypePhyId!=null and condition.prodTypePhyId!=''">
+				and PROD_TYPE_PHY_ID = #{condition.prodTypePhyId,jdbcType=INTEGER}
+			</if>
+           <if test="condition.prodTypeSouId!=null and condition.prodTypeSouId!=''">
+				and PROD_TYPE_SOU_ID = #{condition.prodTypeSouId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeAreId!=null and condition.prodTypeAreId!=''">
+				and PROD_TYPE_ARE_ID = #{condition.prodTypeAreId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeConId!=null and condition.prodTypeConId!=''">
+				and PROD_TYPE_CON_ID = #{condition.prodTypeConId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeJarId!=null and condition.prodTypeJarId!=''">
+				and PROD_TYPE_JAR_ID = #{condition.prodTypeJarId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypePicId!=null and condition.prodTypePicId!=''">
+				and PROD_TYPE_PIC_ID = #{condition.prodTypePicId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeHigId!=null and condition.prodTypeHigId!=''">
+				and PROD_TYPE_Hig_ID = #{condition.prodTypeHigId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeWidId!=null and condition.prodTypeWidId!=''">
+				and PROD_TYPE_WID_ID = #{condition.prodTypeWidId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeBizId!=null and condition.prodTypeBizId!=''">
+				and PROD_TYPE_Biz_ID = #{condition.prodTypeBizId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeNekId!=null and condition.prodTypeNekId!=''">
+				and PROD_TYPE_NEK_ID = #{condition.prodTypeNekId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodCostId!=null and condition.prodCostId!=''">
+				and PROD_COST_ID = #{condition.prodCostId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.isNew!=null and condition.isNew!=''">
+				and IS_NEW = #{condition.isNew,jdbcType=INTEGER}
+			</if>
+			<if test="condition.userId!=null and condition.userId!=''">
+				and USER_ID = #{condition.userId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.isEnable!=null and condition.isEnable!=''">
+				and IS_ENABLE = #{condition.isEnable,jdbcType=INTEGER}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+	
+ 	<select id="getTopVisitProdList" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+		select VISIT_CNT as value,NAME_CN as name from PROD where 1=1 order by VISIT_CNT desc  
+		limit #{length}
+ 	</select>
+ 	<select id="getProdConList" parameterType="java.lang.Integer" resultMap="prodMap">
+		select * from PROD where 1=1 and IS_ENABLE = 2 order by   LAST_UPDATE_TIME desc limit #{length}
+ 	</select>
+	
+	<select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultType="Integer">
+		select count(*) from PROD where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.prodTypePhyId!=null and condition.prodTypePhyId!=''">
+				and PROD_TYPE_PHY_ID = #{condition.prodTypePhyId,jdbcType=INTEGER}
+			</if>
+			 <if test="condition.prodTypeSouId!=null and condition.prodTypeSouId!=''">
+				and PROD_TYPE_SOU_ID = #{condition.prodTypeSouId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeAreId!=null and condition.prodTypeAreId!=''">
+				and PROD_TYPE_ARE_ID = #{condition.prodTypeAreId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeConId!=null and condition.prodTypeConId!=''">
+				and PROD_TYPE_CON_ID = #{condition.prodTypeConId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeJarId!=null and condition.prodTypeJarId!=''">
+				and PROD_TYPE_JAR_ID = #{condition.prodTypeJarId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypePicId!=null and condition.prodTypePicId!=''">
+				and PROD_TYPE_PIC_ID = #{condition.prodTypePicId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeHigId!=null and condition.prodTypeHigId!=''">
+				and PROD_TYPE_Hig_ID = #{condition.prodTypeHigId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeWidId!=null and condition.prodTypeWidId!=''">
+				and PROD_TYPE_WID_ID = #{condition.prodTypeWidId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeBizId!=null and condition.prodTypeBizId!=''">
+				and PROD_TYPE_Biz_ID = #{condition.prodTypeBizId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodTypeNekId!=null and condition.prodTypeNekId!=''">
+				and PROD_TYPE_NEK_ID = #{condition.prodTypeNekId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.prodCostId!=null and condition.prodCostId!=''">
+				and PROD_COST_ID = #{condition.prodCostId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.isNew!=null and condition.isNew!=''">
+				and IS_NEW = #{condition.isNew,jdbcType=INTEGER}
+			</if>
+			<if test="condition.userId!=null and condition.userId!=''">
+				and USER_ID = #{condition.userId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.isEnable!=null and condition.isEnable!=''">
+				and IS_ENABLE = #{condition.isEnable,jdbcType=INTEGER}
+			</if>
+		</if>
+	</select>
+	
+	<select id="getRefProdList" parameterType="String" resultMap="prodMap">
+		select * from PROD where IS_ENABLE=1 and REF_CODE= #{refCode,jdbcType=VARCHAR}
+	</select>
+    
+    <!-- 修改数据 -->
+    <update id="updateProd" parameterType="com.gzsoftware.pet.entity.po.Prod">
+        UPDATE PROD SET
+            NAME_CN = #{nameCn},
+            NAME_EN = #{nameEn},
+            REF_CODE = #{refCode},
+            REF_NAME = #{refName},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            PRIORITY = #{priority},
+            IS_ENABLE = #{isEnable},
+            IS_NEW = #{isNew},
+            USER_ID = #{userId},
+            LAST_UPDATE_ADMIN_ID = #{lastUpdateAdminId},
+            VISIT_CNT = #{visitCnt},
+            UP_CNT = #{upCnt},
+            FAV_CNT = #{favCnt},
+            DESCRIPTION_CN = #{descriptionCn},
+            DESCRIPTION_EN = #{descriptionEn},
+            PROD_TYPE_PHY_ID = #{prodTypePhyId},
+            PROD_TYPE_PIC_ID = #{prodTypePicId},
+            PROD_TYPE_BIZ_ID = #{prodTypeBizId},
+            PROD_TYPE_JAR_ID = #{prodTypeJarId},
+            PROD_TYPE_CON_ID = #{prodTypeConId},
+            PROD_TYPE_ARE_ID = #{prodTypeAreId},
+            PROD_TYPE_HIG_ID = #{prodTypeHigId},
+            PROD_TYPE_WID_ID = #{prodTypeWidId},
+            PROD_TYPE_NEK_ID = #{prodTypeNekId},
+            PROD_TYPE_SOU_ID = #{prodTypeSouId},
+            PROD_COST_ID = #{prodCostId}
+        WHERE ID = #{id}
+    </update>
+    
+        <!-- 根据主键删除数据 -->
+    <delete id="deleteProd" parameterType="java.lang.Integer">
+        DELETE FROM PROD WHERE ID =  #{id,jdbcType=INTEGER}
+    </delete>
+    
+    <!-- 产品分类删除时清空分类ID -->
+    <update id="updateProdForProdTypeDelete"  parameterType="Map">
+       			 UPDATE PROD 
+        	<if test="prodTypeConId!=null and prodTypeConId!=''">
+				 SET PROD_TYPE_CON_ID = null
+				  WHERE PROD_TYPE_CON_ID = #{prodTypeConId,jdbcType=INTEGER}
+			</if>
+			<if test="prodTypePhyId!=null and prodTypePhyId!=''">
+				 SET PROD_TYPE_PHY_ID = null
+				where PROD_TYPE_PHY_ID = #{prodTypePhyId,jdbcType=INTEGER}
+			</if>
+			 <if test="prodTypeSouId!=null and prodTypeSouId!=''">
+			  	SET PROD_TYPE_SOU_ID = null
+				where PROD_TYPE_SOU_ID = #{prodTypeSouId,jdbcType=INTEGER}
+			</if>
+			<if test="prodTypeAreId!=null and prodTypeAreId!=''">
+			 	SET PROD_TYPE_ARE_ID = null
+				where PROD_TYPE_ARE_ID = #{prodTypeAreId,jdbcType=INTEGER}
+			</if>
+			<if test="prodTypeConId!=null and prodTypeConId!=''">
+				 SET PROD_TYPE_CON_ID = null
+				where PROD_TYPE_CON_ID = #{prodTypeConId,jdbcType=INTEGER}
+			</if>
+			<if test="prodTypeJarId!=null and prodTypeJarId!=''">
+			 	SET PROD_TYPE_JAR_ID = null
+				where PROD_TYPE_JAR_ID = #{prodTypeJarId,jdbcType=INTEGER}
+			</if>
+			<if test="prodTypePicId!=null and prodTypePicId!=''">
+				 SET PROD_TYPE_PIC_ID = null
+				where PROD_TYPE_PIC_ID = #{prodTypePicId,jdbcType=INTEGER}
+			</if>
+			<if test="prodTypeHigId!=null and prodTypeHigId!=''">
+				 SET PROD_TYPE_HIG_ID = null
+				where PROD_TYPE_HIG_ID = #{prodTypeHigId,jdbcType=INTEGER}
+			</if>
+			<if test="prodTypeWidId!=null and prodTypeWidId!=''">
+				 SET PROD_TYPE_WID_ID = null
+				where PROD_TYPE_WID_ID = #{prodTypeWidId,jdbcType=INTEGER}
+			</if>
+			<if test="prodTypeBizId!=null and prodTypeBizId!=''">
+				 SET PROD_TYPE_BIZ_ID = null
+				 where PROD_TYPE_Biz_ID = #{prodTypeBizId,jdbcType=INTEGER}
+			</if>
+			<if test="prodTypeNekId!=null and prodTypeNekId!=''">
+				 SET PROD_TYPE_NEK_ID = null
+				where PROD_TYPE_NEK_ID = #{prodTypeNekId,jdbcType=INTEGER}
+			</if>
+			<if test="prodCostId!=null and prodCostId!=''">
+				 SET PROD_COST_ID = null
+				where PROD_COST_ID = #{prodCostId,jdbcType=INTEGER}
+			</if>
+
+    </update>
+    
+    <update id="addProdVisitCnt" parameterType="java.lang.Integer">
+     UPDATE PROD
+      set
+      VISIT_CNT =VISIT_CNT+1 
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	 <update id="addProdUpCnt" parameterType="java.lang.Integer">
+     UPDATE PROD
+      set
+      UP_CNT =UP_CNT+1 
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="addProdFavCnt" parameterType="java.lang.Integer">
+     UPDATE PROD
+      set
+      FAV_CNT =FAV_CNT+1 
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="reduceProdFavCnt" parameterType="com.gzsoftware.pet.entity.po.Prod">
+     UPDATE PROD
+      set
+      FAV_CNT = #{favCnt}
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 产品大图表：每个产品可以有1~5张大图，前台轮播(PROD_PIC) -->
+<mapper namespace="com.gzsoftware.pet.dao.ProdPicDao">
+	<cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <!-- 结果映射 -->
+    <resultMap id="prodPicMap" type="com.gzsoftware.pet.entity.po.ProdPic">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="PROD_ID" property="prodId" jdbcType="INTEGER" />
+        <result column="PIC_FILE_ID" property="picFileId" jdbcType="INTEGER" />
+        <result column="IS_MAJOR" property="isMajor" jdbcType="SMALLINT" />
+        <result column="NAME_CN" property="nameCn" jdbcType="VARCHAR" />
+        <result column="NAME_EN" property="nameEn" jdbcType="VARCHAR" />
+        
+        <association property="picFile" column="PIC_FILE_ID" javaType="UploadFile" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.UploadFileDao.getUploadFile" />
+    </resultMap>
+    
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        ID, PROD_ID, PIC_FILE_ID, IS_MAJOR, NAME_CN, 
+        NAME_EN
+    </sql>
+    
+    <!-- 查询产品图片数据 -->
+    <select id="getProdPicList" resultMap="prodPicMap" parameterType="INTEGER">
+        SELECT *   FROM PROD_PIC where  PROD_ID = #{prodId}    
+    </select>
+    
+    <!-- 根据条件查询数据 -->
+    <select id="getMajarProdPic" resultMap="prodPicMap" parameterType="INTEGER">
+        SELECT *
+        FROM PROD_PIC WHERE 1 = 1
+        AND IS_MAJOR= 1
+        AND PROD_ID = #{prodId}  
+        limit 1   
+    </select>
+    
+
+    
+    <!-- 插入数据 -->
+    <insert id="addProdPic" parameterType="com.gzsoftware.pet.entity.po.ProdPic">
+        INSERT INTO PROD_PIC (<include refid="allColumns" />)
+        VALUES (
+            #{id},
+            #{prodId},
+            #{picFileId},
+            #{isMajor},
+            #{nameCn},
+            #{nameEn}
+        )
+    </insert>
+    
+
+    
+    <!-- 根据主键删除数据 -->
+    <delete id="deleteProdPic" parameterType="INTEGER">
+        DELETE FROM PROD_PIC WHERE ID = #{id}
+    </delete>
+    
+
+</mapper>

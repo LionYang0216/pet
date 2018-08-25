@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Welcome to use the TableGo Tools.
+    
+    http://vipbooks.iteye.com
+    http://blog.csdn.net/vipbooks
+    http://www.cnblogs.com/vipbooks
+    
+    Author:bianj
+    Email:edinsker@163.com
+    Version:5.0.0
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 商品信息表(WARE) -->
+<mapper namespace="com.gzsoftware.pet.dao.WareDao">
+ <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <!-- 结果映射 -->
+    <resultMap id="wareMap" type="com.gzsoftware.pet.entity.po.Ware">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="SHOP_ID" property="shopId" jdbcType="INTEGER" />
+        <result column="PIC_FILE_ID" property="picFileId" jdbcType="INTEGER" />
+         <result column="PRICE" property="price" jdbcType="DECIMAL" />
+        <result column="NAME_CN" property="nameCn" jdbcType="VARCHAR" />
+        <result column="NAME_EN" property="nameEn" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION_EN" property="descriptionEn" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION_CN" property="descriptionCn" jdbcType="VARCHAR" />
+        <result column="LOCATION_CN" property="locationCn" jdbcType="VARCHAR" />
+        <result column="LOCATION_EN" property="locationEn" jdbcType="VARCHAR" />
+        <result column="EXPRESS_CN" property="expressCn" jdbcType="VARCHAR" />
+        <result column="EXPRESS_EN" property="expressEn" jdbcType="VARCHAR" />
+        <result column="AFTER_SERVICE_CN" property="afterServiceCn" jdbcType="VARCHAR" />
+        <result column="AFTER_SERVICE_EN" property="afterServiceEn" jdbcType="VARCHAR" />
+        <result column="ADAPT_MACHINE_CN" property="adaptMachineCn" jdbcType="VARCHAR" />
+        <result column="ADAPT_MACHINE_EN" property="adaptMachineEn" jdbcType="VARCHAR" />
+        <result column="PRODUCE_ABILITY_CN" property="produceAbilityCn" jdbcType="VARCHAR" />
+        <result column="PRODUCE_ABILITY_EN" property="produceAbilityEn" jdbcType="VARCHAR" />
+        <result column="BRAND_CN" property="brandCn" jdbcType="VARCHAR" />
+        <result column="BRAND_EN" property="brandEn" jdbcType="VARCHAR" />
+        <result column="MODAL_CN" property="modalCn" jdbcType="VARCHAR" />
+        <result column="MODAL_CN" property="modalEn" jdbcType="VARCHAR" />
+        <result column="RUNNER_CN" property="runnerCn" jdbcType="VARCHAR" />
+         <result column="RUNNER_EN" property="runnerEn" jdbcType="VARCHAR" />
+        <result column="PRODUCE_PRODUCT_CN" property="produceProductCn" jdbcType="VARCHAR" />
+        <result column="PRODUCE_PRODUCT_EN" property="produceProductEn" jdbcType="VARCHAR" />
+        <result column="MAKE_MODE_CN" property="makeModeCn" jdbcType="VARCHAR" />
+         <result column="MAKE_MODE_EN" property="makeModeEn" jdbcType="VARCHAR" />
+        <result column="PRODUCE_SOURCE_CN" property="produceSourceCn" jdbcType="VARCHAR" />
+        <result column="PRODUCE_SOURCE_EN" property="produceSourceEn" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_USER_ID" property="lastUpdateUserId" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="PRIORITY" property="priority" jdbcType="INTEGER" />
+        <result column="IS_ENABLE" property="isEnable" jdbcType="SMALLINT" />
+        <result column="IS_NEW" property="isNew" jdbcType="SMALLINT" />
+        <result column="VISIT_CNT" property="visitCnt" jdbcType="INTEGER" />
+        <result column="UP_CNT" property="upCnt" jdbcType="INTEGER" />
+        <result column="FAV_CNT" property="favCnt" jdbcType="INTEGER" />
+        <result column="WARE_TYPE_SRC_ID" property="wareTypeSrcId" jdbcType="INTEGER" />
+        <result column="WARE_TYPE_MCH_ID" property="wareTypeMchId" jdbcType="INTEGER" />
+        <result column="WARE_TYPE_STE_ID" property="wareTypeSteId" jdbcType="INTEGER" />
+        <result column="WARE_TYPE_PRD_ID" property="wareTypePrdId" jdbcType="INTEGER" />
+        <association property="shop" column="SHOP_ID" javaType="User" fetchType="eager" select="com.gzsoftware.pet.dao.ShopDao.getShop" />
+        <association property="user" column="LAST_UPDATE_USER_ID" javaType="User" fetchType="eager" select="com.gzsoftware.pet.dao.UserDao.getUser" />
+       		<association property="picFile" column="PIC_FILE_ID" javaType="UploadFile"    		fetchType="eager" select="com.gzsoftware.pet.dao.UploadFileDao.getUploadFile" />
+        <association property="wareTypeSrc" column="WARE_TYPE_SRC_ID" javaType="WareTypeSrc" fetchType="eager" select="com.gzsoftware.pet.dao.WareTypeSrcDao.getWareTypeSrc" />
+        <association property="wareTypeSte" column="WARE_TYPE_STE_ID" javaType="WareTypeSte" fetchType="eager" select="com.gzsoftware.pet.dao.WareTypeSteDao.getWareTypeSte" />
+        <association property="wareTypeMch" column="WARE_TYPE_MCH_ID" javaType="WareTypeMch" fetchType="eager" select="com.gzsoftware.pet.dao.WareTypeMchDao.getWareTypeMch" />
+        <association property="wareTypePrd" column="WARE_TYPE_PRD_ID" javaType="WareTypePrd" fetchType="eager" select="com.gzsoftware.pet.dao.WareTypePrdDao.getWareTypePrd" />
+    </resultMap>
+    
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        ID, SHOP_ID, PIC_FILE_ID, PRICE, NAME_CN, NAME_EN, 
+        DESCRIPTION_EN, DESCRIPTION_CN, LOCATION_CN,LOCATION_EN, EXPRESS_CN,EXPRESS_EN, 
+        AFTER_SERVICE_CN,AFTER_SERVICE_EN, ADAPT_MACHINE_CN,ADAPT_MACHINE_EN, PRODUCE_ABILITY_CN,PRODUCE_ABILITY_EN, BRAND_CN,BRAND_EN, MODAL_CN,MODAL_EN, 
+        RUNNER_CN,RUNNER_EN, PRODUCE_PRODUCT_CN,PRODUCE_PRODUCT_EN, MAKE_MODE_CN,MAKE_MODE_EN, PRODUCE_SOURCE_CN,PRODUCE_SOURCE_EN, LAST_UPDATE_USER_ID, 
+        LAST_UPDATE_TIME, PRIORITY, IS_ENABLE, IS_NEW, VISIT_CNT, 
+        UP_CNT, FAV_CNT, WARE_TYPE_SRC_ID, WARE_TYPE_MCH_ID, WARE_TYPE_STE_ID,WARE_TYPE_PRD_ID
+    </sql>
+    
+      <select id="getWare" parameterType="java.lang.Integer" resultMap="wareMap">
+    	select * from WARE where ID = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <!-- 查询所有数据 -->
+  <select id="getWareList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultMap="wareMap">
+		select * from WARE where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isNew!=null and condition.isNew!=''">
+				and IS_NEW = #{condition.isNew,jdbcType=INTEGER}
+			</if>
+			<if test="condition.isEnable!=null and condition.isEnable!=''">
+				and IS_ENABLE = #{condition.isEnable,jdbcType=INTEGER}
+			</if>
+			<if test="condition.shopId!='' and condition.shopId!=null">
+					and SHOP_ID= #{condition.shopId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.wareTypeSrcId!=null and condition.wareTypeSrcId!=''">
+				and WARE_TYPE_SRC_ID = #{condition.wareTypeSrcId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.wareTypeMchId!=null and condition.wareTypeMchId!=''">
+				and WARE_TYPE_MCH_ID = #{condition.wareTypeMchId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.wareTypeSteId!=null and condition.wareTypeSteId!=''">
+				and WARE_TYPE_STE_ID = #{condition.wareTypeSteId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.wareTypePrdId!=null and condition.wareTypePrdId!=''">
+				and WARE_TYPE_PRD_ID = #{condition.wareTypePrdId,jdbcType=INTEGER}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+	
+	<select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultType="Integer">
+		select count(*) from WARE where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isNew!=null and condition.isNew!=''">
+				and IS_NEW = #{condition.isNew,jdbcType=INTEGER}
+			</if>
+			<if test="condition.isEnable!=null and condition.isEnable!=''">
+				and IS_ENABLE = #{condition.isEnable,jdbcType=INTEGER}
+			</if>
+			<if test="condition.shopId!='' and condition.shopId!=null">
+				and SHOP_ID= #{condition.shopId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.wareTypeSrcId!=null and condition.wareTypeSrcId!=''">
+				and WARE_TYPE_SRC_ID = #{condition.wareTypeSrcId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.wareTypeMchId!=null and condition.wareTypeMchId!=''">
+				and WARE_TYPE_MCH_ID = #{condition.wareTypeMchId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.wareTypeSteId!=null and condition.wareTypeSteId!=''">
+				and WARE_TYPE_STE_ID = #{condition.wareTypeSteId,jdbcType=INTEGER}
+			</if>
+			<if test="condition.wareTypePrdId!=null and condition.wareTypePrdId!=''">
+				and WARE_TYPE_PRD_ID = #{condition.wareTypePrdId,jdbcType=INTEGER}
+			</if>
+		</if>
+	</select>
+    
+    <!-- 插入数据 -->
+    <insert id="addWare" parameterType="map">
+        INSERT INTO WARE (<include refid="allColumns" />)
+        VALUES (
+            #{id},
+            #{shopId},
+            #{picFileId},
+            #{price},
+            #{nameCn},
+            #{nameEn},
+            #{descriptionEn},
+            #{descriptionCn},
+            #{locationCn},
+            #{locationEn},
+            #{expressCn},
+            #{expressEn},
+            #{afterServiceCn},
+            #{afterServiceEn},
+            #{adaptMachineCn},
+            #{adaptMachineEn},
+            #{produceAbilityCn},
+            #{produceAbilityEn},
+            #{brandCn},
+            #{brandEn},
+            #{modalCn},
+            #{modalEn},
+            #{runnerCn},
+            #{runnerEn},
+            #{produceProductCn},
+            #{produceProductEn},
+            #{makeModeCn},
+            #{makeModeEn},
+            #{produceSourceCn},
+            #{produceSourceEn},
+            #{lastUpdateUserId},
+            #{lastUpdateTime},
+            #{priority},
+            #{isEnable},
+            #{isNew},
+            #{visitCnt},
+            #{upCnt},
+            #{favCnt},
+            #{wareTypeSrcId},
+            #{wareTypeMchId},
+            #{wareTypeSteId},
+            #{wareTypePrdId}
+        )
+    </insert>
+    
+    <!-- 修改数据 -->
+    <update id="updateWare" parameterType="map">
+        UPDATE WARE SET
+            SHOP_ID = #{shopId},
+            PIC_FILE_ID = #{picFileId},
+            PRICE = #{price},
+            NAME_CN = #{nameCn},
+            NAME_EN = #{nameEn},
+            DESCRIPTION_EN = #{descriptionEn},
+            DESCRIPTION_CN = #{descriptionCn},
+            LOCATION_CN = #{locationCn},
+             LOCATION_EN = #{locationEn},
+            EXPRESS_CN = #{expressCn},
+            EXPRESS_EN = #{expressEn},
+            AFTER_SERVICE_CN = #{afterServiceCn},
+            AFTER_SERVICE_EN = #{afterServiceEn},
+            ADAPT_MACHINE_CN = #{adaptMachineCn},
+            ADAPT_MACHINE_EN = #{adaptMachineEn},
+            PRODUCE_ABILITY_CN = #{produceAbilityCn},
+            PRODUCE_ABILITY_EN = #{produceAbilityEn},
+            BRAND_CN = #{brandCn},
+            BRAND_EN = #{brandEn},
+            MODAL_CN = #{modalCn},
+            MODAL_EN = #{modalEn},
+            RUNNER_CN = #{runnerCn},
+            RUNNER_EN = #{runnerEn},
+            PRODUCE_PRODUCT_CN = #{produceProductCn},
+            PRODUCE_PRODUCT_EN = #{produceProductEn},
+            MAKE_MODE_CN = #{makeModeCn},
+            MAKE_MODE_EN = #{makeModeEn},
+            PRODUCE_SOURCE_CN = #{produceSourceCn},
+            PRODUCE_SOURCE_EN = #{produceSourceEn},
+            LAST_UPDATE_USER_ID = #{lastUpdateUserId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            PRIORITY = #{priority},
+            IS_ENABLE = #{isEnable},
+            IS_NEW = #{isNew},
+            VISIT_CNT = #{visitCnt},
+            UP_CNT = #{upCnt},
+            FAV_CNT = #{favCnt},
+            WARE_TYPE_SRC_ID = #{wareTypeSrcId},
+            WARE_TYPE_MCH_ID = #{wareTypeMchId},
+            WARE_TYPE_STE_ID = #{wareTypeSteId},
+            WARE_TYPE_PRD_ID = #{wareTypePrdId}
+        WHERE ID = #{id}
+    </update>
+    
+    <!-- 根据主键删除数据 -->
+    <delete id="deleteWare" parameterType="java.lang.Integer">
+        DELETE FROM WARE WHERE ID = #{id}
+    </delete>
+    
+    
+     <update id="addWareVisitCnt" parameterType="java.lang.Integer">
+     UPDATE WARE
+      set
+      VISIT_CNT =VISIT_CNT+1 
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	 <update id="addWareUpCnt" parameterType="java.lang.Integer">
+     UPDATE WARE
+      set
+      UP_CNT =UP_CNT+1 
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	 <update id="addWareFavCnt" parameterType="java.lang.Integer">
+     UPDATE WARE
+      set
+      FAV_CNT =FAV_CNT+1 
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getWareFavTotal" parameterType="java.lang.Integer" resultType="Integer">
+		SELECT ifnull(SUM(FAV_CNT),0) from ware WHERE SHOP_ID= #{shopId,jdbcType=INTEGER};
+	</select>
+	
+    <select id="getWareVisitTotal" parameterType="java.lang.Integer" resultType="Integer">
+		SELECT ifnull(SUM(VISIT_CNT),0) from ware WHERE SHOP_ID= #{shopId,jdbcType=INTEGER};
+	</select>
+	
+	<update id="reduceWareFavCnt" parameterType="com.gzsoftware.pet.entity.po.Ware">
+     UPDATE WARE
+      set
+      FAV_CNT = #{favCnt}
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	 <select id="getTopVisitWareList" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+    	select VISIT_CNT as value,NAME_CN as name from WARE where 1=1 order by VISIT_CNT desc
+    	 limit #{length}
+    </select>
+    
+     <select id="getShopWareList" parameterType="java.lang.Integer" resultMap="wareMap">
+    	select ID,NAME_CN from WARE where SHOP_ID=#{shopId}
+    </select>
+</mapper>

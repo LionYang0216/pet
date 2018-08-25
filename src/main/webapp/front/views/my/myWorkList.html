@@ -1,0 +1,81 @@
+<div class="page-content" style="padding-bottom: 50px;">
+	<div class="container">
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-10 col-center-block myWorkSelectDiv">
+				<div class="col-md-1 no-paddingLeft  no-paddingRight" style="max-width: 70px;">{{"PhysicalType" | translate}}&nbsp;:</div>
+				<div class="col-md-11  no-paddingRight">
+					<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+						<li class="menu-dropdown classic-menu-dropdown" style="display: none;"><a class="color-black myWork-select myWork-select-active" ng-click="selectUI($event,'prodTypePhyId','');">{{"All" | translate}}</a></li>
+						<li class="menu-dropdown classic-menu-dropdown"><a class="color-black myWork-select" ng-click="selectUI($event,'prodTypePhyId','1');">{{"HOME_TITLE_BOTTLE" | translate}}</a></li>
+						<li class="menu-dropdown classic-menu-dropdown"><a class="color-black myWork-select" ng-click="selectUI($event,'prodTypePhyId','2');">{{"HOME_TITLE_CAP" | translate}}</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-10 col-center-block myWorkSelectDiv">
+				<div class="col-md-1 no-paddingLeft  no-paddingRight" style="max-width:70px;">{{"TYPE" | translate}}&nbsp;:</div>
+				<div class="col-md-11  no-paddingRight">
+					<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+						<li class="menu-dropdown classic-menu-dropdown" style="display: none;"><a class="color-black myWork-select myWork-select-active" ng-click="selectUI($event,'prodTypeSouId','');">{{"All" | translate}}</a></li>
+						<li class="menu-dropdown classic-menu-dropdown" ng-repeat="sou in prodTypeSouList">
+							<a class="color-black myWork-select"  ng-click="selectUI($event,'prodTypeSouId',sou.id);">{{curLang=="zh" ? sou.nameCn : sou.nameEn}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-10 col-center-block myWorkSelectDiv">
+				<div class="col-md-1 no-paddingLeft  no-paddingRight" style="max-width:70px;">{{"SORT" | translate}}&nbsp;:</div>
+				<div class="col-md-11  no-paddingRight">
+					<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+						<li class="menu-dropdown classic-menu-dropdown" style="display: none;"><a class="color-black myWork-select myWork-select-active" ng-click="selectUI($event,'order','1');">{{"All" | translate}}</a></li>
+						<li class="menu-dropdown classic-menu-dropdown"><a class="color-black myWork-select" ng-click="selectUI($event,'order','2');">{{"UploadTime" | translate}}</a></li>
+						<li class="menu-dropdown classic-menu-dropdown"><a class="color-black myWork-select" ng-click="selectUI($event,'order','3');">{{"MostBrowse" | translate}}</a></li>
+						<li class="menu-dropdown classic-menu-dropdown"><a class="color-black myWork-select" ng-click="selectUI($event,'order','4');">{{"MostCollection" | translate}}</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="col-md-10 no-paddingLeft no-paddingRight col-center-block  text-center" style="min-height: 50px;height:auto;margin-top: 30px;">
+				<div class="col-md-2 myWorkListDiv  no-paddingRight"  ng-repeat="prod in prodList" ng-if="prod.isEnable>0">
+					<img alt="" src="../upload/{{prod.majorPic.picFile.filePath}}"  style="width: 210px; min-height: 240px; max-width: 210px; max-height: 240px;cursor: pointer;" ng-click="showProdDetail(prod.id)">
+					<table style="width:210px;margin-top:10px;" border="0" class="myWorkTab">
+						<tr>
+							<td colspan="2"><b>{{curLang=="zh" ? prod.nameCn : prod.nameEn}}</b></td>
+						</tr>
+						<tr>
+							<td class="myWorkTabTd" ng-if="prod.prodTypePhy!=null">{{curLang=="zh" ? prod.prodTypePhy.nameCn : prod.prodTypePhy.nameEn}}</td>
+							<td class="myWorkTabTd" ng-if="prod.prodTypePhy==null">{{"All" | translate}}</td>
+							<td class="myWorkTabTd">{{prod.lastUpdateTimeLayout}}</td>
+						</tr>
+						<tr>
+							<td class="myWorkTabTd"  colspan="2">
+								<span class="glyphicon glyphicon-thumbs-up" title="点赞"></span>&nbsp;{{prod.upCnt}}&nbsp;
+								<span class="glyphicon glyphicon-star-empty" title="收藏"></span>&nbsp;{{prod.favCnt}}&nbsp;
+								<span class="glyphicon glyphicon-eye-open" title="浏览"></span>&nbsp;{{prod.visitCnt}}&nbsp;
+							</td>
+							<td class="myWorkTabTd" title="编辑" colspan="1" align="right">
+								<span class="glyphicon glyphicon-pencil" style="cursor: pointer;"  ng-click="updateWork(prod.id)" title="编辑"></span>&nbsp;
+								<span class="glyphicon glyphicon-trash" style="cursor: pointer;" ng-click="toDeleteProd(prod.id)" title="删除"></span>&nbsp;
+							</td>
+						
+						</tr>
+						
+					</table>
+				</div>
+
+				<div style="clear: both;">
+					<!-- 清除浮动 -->
+				</div>
+			</div>
+
+			<div class="col-md-10 no-paddingLeft no-paddingRight col-center-block  text-center" style="min-height: 50px;margin-top: 30px;">
+					<ul class="pagination" style="display: inline-block; float: none;">
+						<li ng-class="{true:'disabled'}[pCurrent==1]"><a class="pages-a" href="javascript:void(0);" ng-click="p_index()">{{"FIRST" | translate}}</a></li>
+						<li ng-repeat="page in pages" ng-class="{true:'active'}[pCurrent==page]"><a href="javascript:void(0);" class="pages-a" ng-click="loadPage(page)">{{ page }}</a></li>
+						<li ng-class="{true:'disabled'}[pCurrent==pAllPage]"><a class="pages-a" href="javascript:void(0);" ng-click="p_last()">{{"LAST" | translate}}</a></li>
+					</ul>
+				<span style="vertical-align: 12px; display: none;"> 共：{{count}} 条</span>
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.UserDrawDao">
+ <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <resultMap id="UserDrawResultMap" type="com.gzsoftware.pet.entity.po.UserDraw">
+     <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+     <result column="LAST_UPDATE_ADMIN_ID" jdbcType="INTEGER" property="lastUpdateAdminId" />
+	   <association property="user" column="USER_ID" javaType="User" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.UserDao.getUser" />
+   		<association property="admin" column="LAST_UPDATE_ADMIN_ID" javaType="Admin" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.AdminDao.getSmAdmin" />
+    </resultMap>
+    
+  	<select id="getUserDraw" parameterType="java.lang.Integer" resultMap="UserDrawResultMap">
+		select * from User_Draw where ID = #{id}
+	</select>
+	
+	<select id="getUserDrawList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="com.gzsoftware.pet.entity.po.UserDraw" resultMap="UserDrawResultMap">
+		select * from User_Draw  where 1=1
+			<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+  
+  <select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="Integer">
+		select count(*) from User_Draw where 1=1
+	</select>
+	
+     <insert id="addUserDraw" parameterType="com.gzsoftware.pet.entity.po.UserDraw">
+     INSERT into User_Draw (ID,USER_ID,DRAW_AMOUNT,STAUTS,USER_REMARK,ADMIN_REMARK,USER_REQUEST_TIME,LAST_UPDATE_TIME,LAST_UPDATE_ADMIN_ID)
+       values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},#{drawAmount,jdbcType=INTEGER},#{stauts,jdbcType=INTEGER},
+       #{userRemark,jdbcType=VARCHAR},#{adminRemark,jdbcType=VARCHAR},#{userRequestTime,jdbcType=TIMESTAMP},#{lastUpdateTime,jdbcType=TIMESTAMP}
+       ,#{lastUpdateAdminId,jdbcType=INTEGER})
+	</insert>
+
+
+	<update id="updateUserDraw" parameterType="com.gzsoftware.pet.entity.po.UserDraw">
+     UPDATE User_Draw
+      set  STAUTS = #{stauts,jdbcType=INTEGER},
+      ADMIN_REMARK = #{adminRemark,jdbcType=VARCHAR},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_ADMIN_ID = #{lastUpdateAdminId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<delete id="deleteUserDraw" parameterType="java.lang.Integer">
+		delete from User_Draw where
+		ID = #{id,jdbcType=INTEGER}
+	</delete>
+
+	
+   <select id="getUserDrawApplyList"  parameterType="java.lang.Integer" resultMap="UserDrawResultMap">
+			select * from User_Draw  where stauts=0
+			order by USER_REQUEST_TIME desc
+		    limit #{length}
+    </select>
+</mapper>

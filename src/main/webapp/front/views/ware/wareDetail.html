@@ -1,0 +1,176 @@
+<div class="form-body">
+
+	<div class="col-md-10 col-center-block">
+		<div class="col-md-9 no-paddingLeft no-paddingRight" >
+			<div class="col-md-4 no-paddingLeft" style="margin-top:30px;">
+				<img src="../upload/{{ware.picFile.filePath}}" style="height:250px;max-height:250px;">
+			</div>
+			<div class="col-md-5 ware no-paddingLeft" style="max-height:180px;margin-top:30px">
+				<div class="wareDetailTitle">{{curLang=="zh" ? ware.nameCn : ware.nameEn}}</div>
+				<div class="wareDetailInfo">{{"WARE_TITLE_LOCATION" | translate}}&nbsp;:&nbsp;{{curLang=="zh" ? ware.locationCn : ware.locationEn}}</div>
+				<div class="wareDetailInfo">{{"WARE_TITLE_EXPRESS" | translate}}&nbsp;:&nbsp;{{curLang=="zh" ? ware.expressCn : ware.expressEn}}</div>
+				<div class="wareDetailInfo">{{"WARE_TITLE_AFTERSERVICE" | translate}}&nbsp;:&nbsp;{{curLang=="zh" ? ware.afterServiceCn : ware.afterServiceEn}}</div>
+				<div class="wareDetailInfo" style="margin-top:10px;">
+					{{"WARE_TITLE_PRICE" | translate}}&nbsp;:
+					<span class="warePrice">&nbsp;¥{{ware.price}}</span>&nbsp;
+				</div>
+				<div class="wareDetailInfo" style="margin-top:10px;">
+					<span class="glyphicon glyphicon-star-empty" style="font-size:14px;"  title="收藏"></span>&nbsp;:&nbsp;{{ware.favCnt}}
+					&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-thumbs-up" style="font-size:14px;"  title="点赞"></span>&nbsp;:&nbsp;{{ware.upCnt}}
+					&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-eye-open" title="浏览"></span>&nbsp;:&nbsp;{{ware.visitCnt}}
+				</div>
+				<div>
+					<a class="wareCollect" ng-click="addWareFavCnt()" ng-if="curUser!=null&&wareFav==0" style="background-color: orange;color:#FFFFFF;margin-right:15px;">
+						<span class="ware glyphicon glyphicon-star-empty">{{"FAV" | translate}}</span>
+					</a>
+					<a class="wareCollect" ng-click="removeWareFavCnt()" ng-if="curUser!=null&&wareFav==1" style="margin-right:15px;">
+						<span class="ware glyphicon glyphicon-star-empty">{{"NOTFAV" | translate}}</span>
+					</a>
+					<a class="wareCollect" ng-click="addWareUpCnt()"  style="margin-right:15px;">
+						<span class="ware glyphicon glyphicon-thumbs-up">{{"UP" | translate}}</span>
+					</a>
+					
+				</div>
+				
+			</div>
+
+		</div>
+		<!-- 公司信息 -->
+		<div class="col-md-3 no-paddingLeft no-paddingRight " style="border:1px solid #808080;height:300px;margin-top:20px;">
+			<div style="background-color:#EEEEEE;text-align: center;height:50px;padding-top:15px;color:#333333;	font-size:1.2vw;font-weight:bold;">
+				{{curLang=="zh" ? shop.nameCn :shop.nameEn}}
+			</div>
+			<div style="width: 100%; padding:5px 10px;" >
+				<table id="wareDetTab" style="width:100%;">
+					<tr>
+						<td style="min-width:82px;max-width:82px;">{{"SHOP_LEVEL" | translate}}&nbsp;:</td>
+						<td id="shopLevel"></td>
+					</tr>
+					<tr>
+						<td style="min-width:82px;max-width:82px;">{{"BUSINESS" | translate}}&nbsp;:</td>
+						<td>{{shop.operMode}}</td>
+					</tr>
+					<tr>
+						<td style="min-width:82px;max-width:82px;">{{"ADDRESS" | translate}}&nbsp;:</td>
+						<td>{{shop.location}}</td>
+					</tr>
+					
+					<tr>
+						<td style="min-width:82px;max-width:82px;">
+							{{"PHONE" | translate}}&nbsp;:
+						</td>
+						<td style="color:#F2AA34;">
+							<b>{{shop.tel}}</b>
+						</td>
+					</tr>
+					<tr>
+						<td style="min-width:82px;max-width:82px;">{{"SHOPURL" | translate}}&nbsp;:</td>
+						<td><a  href="http://{{shop.url}}" target="blank" style="color:#333333;">{{shop.url}}</a></td>
+					</tr>
+					
+					<tr>
+						<td colspan="2" align="center">
+							<a class="wareCollect" href="#/ware/wareList/{{shop.id}}" target="blank" >
+								{{"GOSHOP" | translate}}
+							</a>
+							&nbsp;&nbsp;&nbsp;
+							<a class="wareCollect" ng-click="addShopFavCnt()" ng-if="curUser!=null&&shopFav==0">
+								{{"FAVSHOP" | translate}}
+							</a>
+							<a class="wareCollect" ng-click="removeShopFavCnt()" ng-if="curUser!=null&&shopFav==1">
+								{{"NOTFAVSHOP" | translate}}
+							</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+
+	<!--基本特性  -->
+	<div class="row">
+		<div class="col-md-10 col-center-block " align="center" style="background-color: #878DA5; margin-top:50px; height: 50px;">
+			<div class="col-md-8" style="color: #FFFFFF; text-align: left; padding-top: 10px; font-size: 20px; letter-spacing: 2px;">{{"WAREDETAIL" | translate}}</div>
+			<div class="col-md-4" style="color: #FFFFFF; text-align: right; padding: 10px 20px 0 0; font-size: 20px;"></div>
+		</div>
+		<div class="col-md-10 col-center-block" style="margin-top: 15px;" align="center">
+			<table id="wareInfo" style="width: 90%;" border="1" cellspacing="1" cellpadding="1">
+				<tr>
+					<td class="wareDetail wareTdLeft">{{"WARE_TITLE_BRAND" | translate}}&nbsp;:</td>
+					<td class="wareDetail wareTdRight">{{curLang=="zh" ? ware.brandCn : ware.brandEn}}</td>
+					
+					<td class="wareDetail wareTdLeft">
+						{{"WARE_TITLE_MODAL" | translate}}:
+					</td>
+					<td class="wareDetail wareTdRight">{{curLang=="zh" ? ware.modalCn : ware.modalEn}}</td>
+					
+					<td class="tdPic" rowspan="5" align="center"><img src="../upload/{{ware.picFile.filePath}}" style="width: 210px; height: auto;" /></td>
+				</tr>
+				<tr>
+					<td class="wareDetail wareTdLeft">{{"WARE_TITLE_ADAPTMACHINE" | translate}}&nbsp;:</td>
+					<td class="wareDetail wareTdRight">{{curLang=="zh" ? ware.adaptMachineCn : ware.adaptMachineEn}}</td>
+					
+					<td class="wareDetail wareTdLeft">
+						{{"WARE_TITLE_RUNNER" | translate}}:
+					</td>
+					<td class="wareDetail wareTdRight">{{curLang=="zh" ? ware.runnerCn : ware.runnerEn}}</td>
+				</tr>
+				<tr>
+					<td class="wareDetail wareTdLeft">{{"WARE_TITLE_PROABILITY" | translate}}&nbsp;:</td>
+					<td class="wareDetail wareTdRight">{{curLang=="zh" ? ware.produceAbilityCn : ware.produceAbilityEn}}</td>
+					
+					<td class="wareDetail wareTdLeft">
+						{{"WARE_TITLE_PRODUCT" | translate}}:
+					</td>
+					<td class="wareDetail wareTdRight">{{curLang=="zh" ? ware.produceProductCn : ware.produceProductEn}}</td>
+				</tr>
+				<tr>
+					<td class="wareDetail wareTdLeft">{{"WARE_TITLE_LOCATION" | translate}}&nbsp;:</td>
+					<td class="wareDetail wareTdRight">{{curLang=="zh" ? ware.locationCn : ware.locationEn}}</td>
+					
+					<td class="wareDetail wareTdLeft">
+						{{"WARE_TITLE_MAKEMODAL" | translate}}:
+					</td>
+					<td class="wareDetail wareTdRight">{{curLang=="zh" ? ware.makeModeCn : ware.makeModeEn}}</td>
+				</tr>
+				<tr>
+					<td class="wareDetail wareTdLeft">{{"WARE_TITLE_AFTERSERVICE" | translate}}&nbsp;:</td>
+					<td class="wareDetail wareTdRight">{{curLang=="zh" ? ware.afterServiceCn : ware.afterServiceEn}}</td>
+					
+					<td class="wareDetail wareTdLeft">
+						{{"WARE_TITLE_PROSOURCE" | translate}}:
+					</td>
+					<td class="wareDetail wareTdRight">{{curLang=="zh" ? ware.produceSourceCn : ware.produceSourceEn}}</td>
+				</tr>
+				
+			</table>
+		</div>
+
+		<div class="col-md-10 col-center-block" align="center" style="background-color: #878DA5; margin-top: 30px; height: 50px;">
+			<div class="col-md-8" style="color: #FFFFFF; text-align: left; padding-top: 10px; font-size: 20px; letter-spacing: 2px;">{{"DETAIL" | translate}}</div>
+		</div>
+		<div class="col-md-10 col-center-block" ng-bind-html="curLang=='zh' ? ware.descriptionCn :ware.descriptionEn" id="prodContent" align="center"></div>
+		
+		
+		<div class="col-md-10 col-center-block" align="center" style="background-color: #878DA5; margin-top: 30px; height: 50px;">
+			<div class="col-md-8" style="color: #FFFFFF; text-align: left; padding-top: 10px; font-size: 20px; letter-spacing: 2px;">{{"CompanyProfile" | translate}}</div>
+		</div>
+		<div class="col-md-10 col-center-block" ng-bind-html="shop.introEnt" align="center"></div>
+		
+		
+		<div class="claer"></div>
+		<div align="center" class="col-md-12 margin-bottom-40">
+			<br><br><br>
+			<button class="btn btn-lg btn-default" ng-click="goBack()">
+				<i class="fa fa-reply"></i> {{"BACK" | translate}}
+			</button>
+			<br>
+		</div>
+
+	</div>
+
+</div>
+<br><br><br><br><br><br>

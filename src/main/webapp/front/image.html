@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../assets/global/plugins/ckeditor/plugins/multiimg/dialogs/jquery-2.1.1.min.js"></script>
+    <script src="../assets/global/plugins/ckeditor/plugins/multiimg/dialogs/jquery.ui.widget.js"></script> 
+    <script src="../assets/global/plugins/ckeditor/plugins/multiimg/dialogs/jquery.fileupload.js"></script> 
+    <style>
+		body,div,table,tbody,tr,td{ margin:0; padding:0; } 
+		body>div{ padding:5px;}  
+		form>div{ padding:5px;margin-bottom:2px;} 
+		form>div>div{ width:82%; padding:5px;  overflow:hidden; } 
+		
+		label{ text-align:right;font-weight: bold; width:12%; margin-right:20px; float:left;padding-top:10px; } 
+		#uploadFileInput{display: none; }
+		.upFileBtn { cursor:pointer; width:80px; height:30px;border:1px solid #ccc; margin-left:5px;} 
+		
+		.thumbnail{ display:inline-block; position:relative; float:left;width:116px;height:116px;margin:5px; border:1px solid #ccc;box-sizing: border-box;}
+		table {width:116px;height:116px;}
+		.thumbnail img{max-width:115px;max-height:115px; width:99%;}
+    </style>
+</head>
+<body>
+    <div>
+        <form enctype="multipart/form-data" method="post">
+            <div>
+                <label>上传图片</label>
+                <div>
+                    <input type="file" name="files" multiple id="uploadFileInput" accept="image/png,image/jpg,image/bmp,image/JPEG" />
+                    <input class="upFileBtn" value="选择图片" type="button" onclick="document.getElementById('uploadFileInput').click()" />
+                </div>
+            </div>
+            <div>
+                <label>图片列表</label>
+                <div id="imgGroup">
+                </div>
+            </div>
+         </form>
+    </div>
+
+    <script>
+        $("#uploadFileInput").fileupload({
+            url: "../file/ckEditorUploadList", //文件上传地址
+            async: false,
+            add: function (e, data) {
+                data.submit();
+            },
+            done: function (e, data) {
+                var resultArray = new Array();
+                resultArray = data.result.split(","); //字符分割
+                if (resultArray[0] == "true") {
+                    parent.top.imgs.push(resultArray[1]);
+                    $("#imgGroup").append("<span class='thumbnail'><table><tr><td><img alt='详情图片' src='" + resultArray[1] + "' /></td></tr></table></span>");
+                } else {
+                    alert(resultArray[1]);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

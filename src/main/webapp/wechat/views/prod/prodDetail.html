@@ -1,0 +1,141 @@
+<html class="ui-page-main" data-ng-app="prodApp">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+<title>{{prod.nameCn}}</title>
+
+<link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../../../assets/global/plugins/slider-revolution-slider/rs-plugin/css/settings.css" rel="stylesheet">
+<link href="../../../assets/global/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+<link href="../../../assets/global/css/components.css" rel="stylesheet">
+<link href="../../../assets/project/css/wechat/wechat.css" rel="stylesheet" type="text/css" />
+
+<link href="../../../assets/global/plugins/marquee/pages/css/portfolio.css" rel="stylesheet">
+<link href="../../../assets/global/plugins/marquee/layout/css/style.css" rel="stylesheet">
+<link href="../../../assets/global/plugins/marquee/pages/css/style-revolution-slider.css" rel="stylesheet">
+<!-- metronic revo slider styles -->
+<link href="../../../assets/global/plugins/marquee/layout/css/style-responsive.css" rel="stylesheet">
+<link href="../../../assets/global/plugins/marquee/layout/css/custom.css" rel="stylesheet">
+
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/scripts/mui.js" type="text/javascript"></script>
+
+
+
+</head>
+<!-- END HEAD -->
+
+<body ng-controller="prodDetailController">
+
+
+	<header class="mui-bar-nav">
+		<table class="headerTable" style="position: fixed; top: 0px; height: 110px; background-color: #364150;">
+			<tr>
+				<td class="headerTableLeft"></td>
+				<td class="headerTableMiddle " style="padding-right: 10px;">{{prod.nameCn}}&nbsp;{{prod.extCnLayout}}</td>
+				<td class="headerTableRight"></td>
+			</tr>
+		</table>
+	</header>
+	<div style="clear:both;"></div>
+
+	<!-- 图片滚动 -->
+	<div class="row col-center-block" style="max-width: 450px!important;height:650px!important; margin-top:110px;" align="center">
+		<div class="fullwidthbanner-container revolution-slider" align="center" style="margin-top: 30px"  ng-if=" prod.prodPicList!=null">
+			<div class="fullwidthbanner" align="center">
+				<ul id="revolutionul">
+					<!-- THE NEW SLIDE -->
+					<li data-transition="fade" data-slotamount="5" data-masterspeed="500" data-delay="5400" ng-repeat="pic in prod.prodPicList">
+						<img src="../../../upload/{{pic.picFile.filePath}}" style="height:100%!important;">
+					</li>
+				</ul>
+				<div class="tp-bannertimer tp-bottom"></div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="row col-center-block" align="center">
+		<button  class="btn btn-lg btn-default" ng-click="goRefProd(refProd.id)" ng-repeat="refProd in refProdList" ng-if="refProd.id!=prod.id" style="margin:10px 5px 10px 0;">
+				关联品：&nbsp;{{refProd.refName}}
+		</button>
+	</div>
+	
+		
+	<!--基本特性  -->
+	<div class="row">
+		<div class="col-md-12 " align="center" style="background-color: #878DA5; margin-top: 20px; height: 50px;">
+			<div class="col-md-8" style="color: #FFFFFF; text-align: left; padding-top: 5px; font-size: 20px; letter-spacing: 2px;">瓶样详情</div>
+			<div class="col-md-4" style="color: #FFFFFF; text-align: right; padding: 10px 20px 0 0; font-size: 20px;"></div>
+		</div>
+		<div class="col-md-12 " style="margin-top: 15px;" align="center" >
+			<table id="prodInfo" style="width: 90%;" border="1" cellspacing="1" cellpadding="1">
+				<tr>
+					<td class="prodDetail tdLeft">名称:{{prod.nameCn}}</td>
+					<td class="tdMid" rowspan="4" align="center">
+						<img src="../../../upload/{{prod.majorPic.picFile.filePath}}" style="width:210px; height: auto;" />
+					</td>
+					<td class="prodDetail tdRight">容量:{{prod.prodTypeCon.nameCn}}</td>
+				</tr>
+				<tr>
+					<td class="prodDetail tdLeft">类型:{{prod.prodTypeBiz.nameCn}}</td>
+					<td class="prodDetail tdRight">瓶高:{{prod.prodTypeHig.nameCn}}</td>
+				</tr>
+				<tr>
+					<td class="prodDetail tdLeft">灌装:{{prod.prodTypeJar.nameCn}}</td>
+					<td class="prodDetail tdRight">瓶宽:{{prod.prodTypeWid.nameCn}}</td>
+				</tr>
+				<tr>
+					<td class="prodDetail tdLeft">地区:{{prod.prodTypeAre.nameCn}}</td>
+					<td class="prodDetail tdRight">瓶口:{{prod.prodTypeNek.nameCn}}</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="col-md-12 " align="center" style="background-color: #878DA5; margin-top: 30px; height: 50px;">
+			<div class="col-md-8" style="color: #FFFFFF; text-align: left; padding-top: 10px; font-size: 20px; letter-spacing: 2px;">详情内容</div>
+		</div>
+		<div class="col-md-12 " ng-bind-html="prod.descriptionCn" id="prodContent"  align="center">
+		
+		</div>
+		
+
+	</div>
+	
+
+
+
+	<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="../../../assets/global/scripts/app.min.js" type="text/javascript"></script>
+	<script src="../../../assets/global/plugins/angularjs/angular.min.js" type="text/javascript"></script>
+	<script src="../../../assets/global/plugins/angularjs/angular-sanitize.min.js" type="text/javascript"></script>
+	<script src="../../../assets/global/plugins/angularjs/angular-touch.min.js" type="text/javascript"></script>
+	<script src="../../../assets/global/plugins/angularjs/plugins/angular-ui-router.min.js" type="text/javascript"></script>
+	<script src="../../../assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js" type="text/javascript"></script>
+	<script src="../../../assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
+	<script src="../../../assets/global/plugins/angularjs/angular-sanitize.js"></script>
+	<script src="../../../assets/global/plugins/angularjs/angular-resource.js"></script>
+	<script src="../../../assets/global/plugins/angularjs/angular-route.js"></script>
+	<script src="../../../assets/global/plugins/angularjs/angular-social.js"></script>
+	<script src="../../../assets/global/plugins/angularjs/embed-codepen.min.js"></script>
+	<script src="../../../assets/project/scripts/gzsoftware.js" type="text/javascript"></script>
+	<script src="../../../assets/global/plugins/marquee/layout/scripts/layout.js" type="text/javascript"></script>
+	<script src="../../../assets/project/scripts/petProdTypeSelect.js" type="text/javascript"></script>
+	<script src="../../../wechat/js/controllers/prodCtrl.js" type="text/javascript"></script>
+	
+	<!-- BEGIN RevolutionSlider -->
+	<script src="../../../assets/global/plugins/slider-revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js" type="text/javascript"></script>
+	<script src="../../../assets/global/plugins/slider-revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js" type="text/javascript"></script>
+	<!-- END RevolutionSlider -->
+
+	<script src="../../../assets/global/plugins/marquee/layout/scripts/layout.js" type="text/javascript"></script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<div class="form-body">
+	<div class="page-header-menu">
+		<div class="container">
+			<div class="row" style="min-height: 350px; background-color: #FFFFFF; margin-bottom: 30px;">
+				<div class="col-md-10 col-center-block" style="margin-bottom: 10px;">
+					<div class="game gameTitle text-center" >
+						{{curLang=="zh" ? game.nameCn : game.nameEn}}
+					</div>
+					<div class=" gameTime text-center" >{{"GAME_AUTHOR" | translate}}: {{game.admin.adminName}}</div>
+					<div class=" gameTime text-center" >{{"GAME_PUBLISH" | translate}}: {{game.lastUpdateTimeLayout}}</div>
+					<div>
+						<img src="../upload/{{game.picFile.filePath}}" class="game-image">
+					</div>
+					<div ng-if="game.docFile!=null" style="font-size: 16px;margin-top:20px;letter-spacing:2px;">
+						可下载参赛附件:<a href="../upload/{{game.docFile.filePath}}" download="{{game.docFile.fileName}}"> {{game.docFile.fileName}}</a> 
+					</div>
+					<div ng-bind-html="curLang=='zh' ? game.descriptionCn : game.descriptionEn" class="game gameContent"></div>
+				</div>
+				<div class="col-md-10 col-center-block text-center" style="margin-bottom: 30px;">
+					<ul class="pagination" style="display: inline-block; float: none;">
+						<li>
+							<button class="btn btn-lg btn-default" ng-click="goBack()">
+								<i class="fa fa-reply"></i> {{"BACK" | translate}}
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

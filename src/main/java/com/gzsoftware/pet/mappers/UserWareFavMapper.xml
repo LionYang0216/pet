@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Welcome to use the TableGo Tools.
+    
+    http://vipbooks.iteye.com
+    http://blog.csdn.net/vipbooks
+    http://www.cnblogs.com/vipbooks
+    
+    Author:bianj
+    Email:edinsker@163.com
+    Version:5.0.0
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 用户商品收藏关系表(USER_WARE_FAV) -->
+<mapper namespace="com.gzsoftware.pet.dao.UserWareFavDao">
+ <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <!-- 结果映射 -->
+    <resultMap id="userWareFavMap" type="com.gzsoftware.pet.entity.po.UserWareFav">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+        <result column="WARE_ID" property="wareId" jdbcType="INTEGER" />
+        <association property="user" column="USER_ID" javaType="User" fetchType="eager" select="com.gzsoftware.pet.dao.UserDao.getUser" />
+		<association property="ware" column="WARE_ID" javaType="Ware" fetchType="eager" select="com.gzsoftware.pet.dao.WareDao.getWare" />
+    </resultMap>
+    
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        ID, USER_ID, WARE_ID
+    </sql>
+    
+  
+    
+    <!-- 插入数据 -->
+    <insert id="addWareFav" parameterType="map">
+        INSERT INTO USER_WARE_FAV (<include refid="allColumns" />)
+        VALUES (
+            #{id},
+            #{userId},
+            #{wareId}
+        )
+    </insert>
+    
+   <select id="getWareFavList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultMap="userWareFavMap">
+		select * from USER_WARE_FAV where 1=1
+		<if test="condition!=null">
+			<if test="condition.userId!='' and condition.userId!=null">
+				and USER_ID = #{condition.userId}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+
+	<select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="Integer">
+		select count(*) from USER_WARE_FAV where 1=1
+		<if test="condition!=null">
+			<if test="condition.userId!='' and condition.userId!=null">
+				and USER_ID = #{condition.userId}
+			</if>
+		</if>
+
+	</select>
+    
+    
+    <select id="getUserWareFav" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"	resultMap="userWareFavMap">
+		select * from USER_WARE_FAV where 1=1
+		<if test="condition!=null">
+			<if test="condition.userId!='' and condition.userId!=null">
+				and USER_ID = #{condition.userId}
+			</if>
+		</if>
+	    <if test="condition!=null">
+			<if test="condition.wareId!='' and condition.wareId!=null">
+				and WARE_ID = #{condition.wareId}
+			</if>
+		</if>
+		limit 1
+	</select>
+	
+	<delete id="deleteWareFav" parameterType="java.lang.Integer">
+        DELETE FROM USER_WARE_FAV WHERE ID = #{id}
+    </delete>
+    
+    <delete id="deleteWareFavByWareId" parameterType="java.lang.Integer">
+        DELETE FROM USER_WARE_FAV WHERE WARE_ID = #{wareId}
+    </delete>
+</mapper>

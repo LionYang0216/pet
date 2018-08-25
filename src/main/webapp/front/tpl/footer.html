@@ -1,0 +1,36 @@
+<!-- BEGIN PRE-FOOTER -->
+<div class="page-prefooter">
+	<div class="container">
+		<div class="row">
+			<div class=" col-xs12 col-sm-10  col-md-8  col-center-block text-center" style="padding-top:20px;">
+				<div style="margin: 20px 0;">
+					<img src="../assets/project/img/front/index/petQR.jpg" width="120" height="120">
+				</div>
+				<div>
+					<a class="color-white" href="#/content/content/COMP_PAGE"><span class="foot-title">{{"FOOTER_ABOUT"|translate}}</span></a>&nbsp;&nbsp; 
+					<a class="color-white" href="#/content/content/BRAND_PAGE"><span class="foot-title" >{{"FOOTER_BRAND"|translate}}</span></a>&nbsp;&nbsp; 
+					<a class="color-white" href="#/content/content/CONTACT_PAGE"><span class="foot-title" >{{"FOOTER_CONTACT"|translate}}</span></a>&nbsp;&nbsp; 
+					<a class="color-white" href="#/content/content/LAW_PAGE"><span class="foot-title" >{{"FOOTER_LAW"|translate}}</span></a>&nbsp;&nbsp; 
+				</div>
+				<div class="foot-title">
+					<span>{{"FOOTER_LINK"|translate}}&nbsp;:</span>&nbsp;
+						 
+					<a ng-repeat="link in linkList" class="color-white " href="{{link.url}}"  target="_blank" style="margin-right:15px;">{{curLang=="zh" ? link.nameCn : link.nameEn}}</a>
+					
+				</div>
+				<div class="foot-title">
+					<span>{{"FOOTER_CONTACT"|translate}}&nbsp;:</span>&nbsp;{{"FOOTER_CONTACTADDRESS"|translate}}
+				</div>
+				<div class="foot-title">
+					{{"FOOTER_PHONE"|translate}}&nbsp;:&nbsp;{{"FOOTER_PHONE1"|translate}}&nbsp;{{"FOOTER_PHONE2"|translate}}&nbsp;&nbsp;
+					{{"FOOTER_EMAIL"|translate}}&nbsp;:&nbsp;<a class="color-white" href="mailto:https://jlu@gdxl.com">{{"FOOTER_EMAILADDRESS"|translate}}</a>&nbsp;&nbsp;
+					QQ&nbsp;:&nbsp;{{"FOOTER_QQNUMBER"|translate}}
+				</div>
+				<div class="foot-title">
+					 © 2017 PET 技术交流平台 all rights received Packing Industry Platform <a href="http://www.miitbeian.gov.cn" style="color:white;">粤ICP备18003588号-1</a>
+					by <a href="http://www.gz-software.com" style="color:white;">Gz-software co.,Ltd</a>
+				</div>
+		</div>
+	</div>
+</div>
+<!-- END PRE-FOOTER -->

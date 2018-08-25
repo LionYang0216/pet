@@ -1,0 +1,224 @@
+<div class="form-body">
+	<div class="page-header-menu">
+		<div style="height: 105px; background-color: #FFFFFF; box-shadow: 2px 10px 5px #F0F0F0; margin-bottom: 30px; padding-top: 5px;">
+			<div class="collapse navbar-collapse text-center">
+				<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+					<li  class="menu-dropdown classic-menu-dropdown active product-ul-li-margin"><a name="phy" id="phy_1" class="color-black selectActive" ng-click="setProdCon($event,'prodTypePhyId','');"> <img alt=""
+							src="../assets/project/img/front/product/product-all.jpg" class="product-img-font-margin">{{"All" | translate}}
+					</a></li>
+					<li class="menu-dropdown classic-menu-dropdown product-ul-li-margin"><a name="phy" id="phy_2" class="color-black" ng-click="setProdCon($event,'prodTypePhyId',1);"> <img alt=""
+							src="../assets/project/img/front/product/product-bottle.jpg" class="product-img-font-margin">{{"HOME_TITLE_BOTTLE" | translate}}
+					</a></li>
+					<li class="menu-dropdown classic-menu-dropdown product-ul-li-margin"><a name="phy" id="phy_3" class="color-black" ng-click="setProdCon($event,'prodTypePhyId',2);"> <img alt=""
+							src="../assets/project/img/front/product/product-cap.jpg" class="product-img-font-margin">{{"HOME_TITLE_CAP" | translate}}
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="form-body">
+	<div class="page-header-menu">
+		<div class="container">
+			<div class="row" style="min-height: 300px; background-color: #FFFFFF; margin-bottom: 30px;">
+				<div class="no-paddingLeft no-paddingRight col-center-block " style="width:66.66667%;min-width:970px;min-height: 130px;">
+
+					<div style="width:240px; padding-left: 15px;padding-right: 15px;float:left;">
+						<div class="div-border">
+							<div class="div-border-bottom-helf">
+								<img alt="" src="../assets/project/img/front/product/icon1.png" class="product-icon-img">&nbsp;{{"All" | translate}}&nbsp;:
+							</div>
+							<div class="product-select-title-div">
+								<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+									<li class="menu-dropdown classic-menu-dropdown ">
+										<a name="pic" id="prodTypePic_0" class="color-black product-select-title selectActive" ng-click="setProdCon($event,'prodTypePicId','');">{{"All" | translate}}</a>
+									</li>
+									<li class="menu-dropdown classic-menu-dropdown" ng-repeat="pic in prodTypePicList" id="picLi_{{pic.id}}">
+										<a name="pic" id="prodTypePic_{{pic.id}}" class="color-black product-select-title" ng-click="setProdCon($event,'prodTypePicId', pic.id);">{{curLang=="zh" ? pic.nameCn : pic.nameEn}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div style="width:240px; padding-left: 15px;padding-right: 15px;float:left;">
+						<div class="div-border">
+							<div class="div-border-bottom-helf">
+								<img alt="" src="../assets/project/img/front/product/icon2.png" class="product-icon-img">&nbsp;{{"TYPE" | translate}}&nbsp;:
+							</div>
+							<div class="product-select-title-div">
+								<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+									<li class="menu-dropdown classic-menu-dropdown">
+										<a name="biz" id="prodTypeBiz_0" class="color-black product-select-title selectActive" ng-click="setProdCon($event,'prodTypeBizId','');">{{"All" | translate}}</a>
+									</li>
+									<li class="menu-dropdown classic-menu-dropdown" ng-repeat="biz in prodTypeBizList">
+										<a name="biz" id="prodTypeBiz_{{biz.id}}" class="color-black product-select-title" ng-click="setProdCon($event,'prodTypeBizId', biz.id);">
+											{{curLang=="zh" ? biz.nameCn : biz.nameEn}} </a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+
+					<div style="width:240px; padding-left: 15px;padding-right: 15px;float:left;">
+						<div class="div-border">
+							<div class="div-border-bottom-helf">
+								<img alt="" src="../assets/project/img/front/product/icon3.png" class="product-icon-img">&nbsp;{{"FILLING" | translate}}&nbsp;:
+							</div>
+							<div class="product-select-title-div">
+								<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+									<li class="menu-dropdown classic-menu-dropdown">
+										<a name="jar" id="prodTypeJar_0" class="color-black product-select-title selectActive" ng-click="setProdCon($event,'prodTypeJarId', '');">{{"All" | translate}}</a></li>
+									<li class="menu-dropdown classic-menu-dropdown" ng-repeat="jar in prodTypeJarList">
+										<a name="jar" id="prodTypeJar_{{jar.id}}" class="color-black product-select-title" ng-click="setProdCon($event,'prodTypeJarId', jar.id);">
+											{{curLang=="zh" ? jar.nameCn : jar.nameEn}} </a></li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div style="width:240px; padding-left: 15px;padding-right: 15px;float:left;">
+						<div class="div-border">
+							<div class="div-border-bottom-helf">
+								<img alt="" src="../assets/project/img/front/product/icon4.png" class="product-icon-img">&nbsp;{{"AREA" | translate}}&nbsp;:
+							</div>
+							<div class="product-select-title-div">
+								<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+									<li class="menu-dropdown classic-menu-dropdown">
+										<a name="are" id="prodTypeAre_0" class="color-black product-select-title selectActive" ng-click="setProdCon($event,'prodTypeAreId', '');">{{"All" | translate}}</a></li>
+									<li class="menu-dropdown classic-menu-dropdown" ng-repeat="are in prodTypeAreList">
+										<a name="are" id="prodTypeAre_{{are.id}}" class="color-black product-select-title" ng-click="setProdCon($event,'prodTypeAreId', are.id);">
+											{{curLang=="zh" ? are.nameCn : are.nameEn}} </a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="no-paddingLeft no-paddingRight col-center-block " style="width:66.66667%;min-width:970px;min-height: 130px; margin-top: 10px;">
+					<div style="width:240px; padding-left: 15px;padding-right: 15px;float:left;">
+						<div class="div-border">
+							<div class="div-border-bottom-helf">
+								<img alt="" src="../assets/project/img/front/product/icon5.png" class="product-icon-img">&nbsp;{{"CAPACITY" | translate}}&nbsp;:
+							</div>
+							<div class="product-select-title-div">
+								<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+									<li class="menu-dropdown classic-menu-dropdown">
+										<a name="con" id="prodTypeCon_0" class="color-black product-select-title selectActive" ng-click="setProdCon($event,'prodTypeConId', con.id);">{{"All" | translate}}</a></li>
+									<li class="menu-dropdown classic-menu-dropdown" ng-repeat="con in prodTypeConList">
+										<a name="con" id="prodTypeCon_{{con.id}}" class="color-black product-select-title" ng-click="setProdCon($event,'prodTypeConId', con.id);">
+											{{curLang=="zh" ? con.nameCn : con.nameEn}} </a></li>
+
+								</ul>
+							</div>
+
+						</div>
+					</div>
+					<div style="width:240px; padding-left: 15px;padding-right: 15px;float:left;">
+						<div class="div-border">
+							<div class="div-border-bottom-helf">
+								<img alt="" src="../assets/project/img/front/product/icon6.png" class="product-icon-img">&nbsp;{{"HEIGHT" | translate}}&nbsp;:
+							</div>
+							<div class="product-select-title-div">
+								<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+									<li class="menu-dropdown classic-menu-dropdown">
+										<a name="hig" id="prodTypeHig_0" class="color-black product-select-title selectActive" ng-click="setProdCon($event,'prodTypeHigId', '');">{{"All" | translate}}</a></li>
+									<li class="menu-dropdown classic-menu-dropdown" ng-repeat="hig in prodTypeHigList">
+										<a name="hig" id="prodTypeHig_{{hig.id}}" class="color-black product-select-title" ng-click="setProdCon($event,'prodTypeHigId', hig.id);">
+											{{curLang=="zh" ? hig.nameCn : hig.nameEn}} </a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div style="width:240px; padding-left: 15px;padding-right: 15px;float:left;">
+						<div class="div-border">
+							<div class="div-border-bottom-helf">
+								<img alt="" src="../assets/project/img/front/product/icon7.png" class="product-icon-img">&nbsp;{{"WIDTH" | translate}}&nbsp;:
+							</div>
+							<div class="product-select-title-div">
+								<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+									<li class="menu-dropdown classic-menu-dropdown">
+										<a name="wid" id="prodTypeWid_0" class="color-black product-select-title selectActive" ng-click="setProdCon($event,'prodTypeWidId', '');">{{"All" | translate}}</a></li>
+									<li class="menu-dropdown classic-menu-dropdown" ng-repeat="wid in prodTypeWidList">
+										<a name="wid" id="prodTypeWid_{{wid.id}}" class="color-black product-select-title" ng-click="setProdCon($event,'prodTypeWidId',wid.id);">
+											{{curLang=="zh" ? wid.nameCn : wid.nameEn}} </a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div style="width:240px; padding-left: 15px;padding-right: 15px;float:left;">
+						<div class="mix-inner div-border">
+							<div class="div-border-bottom-helf">
+								<img alt="" src="../assets/project/img/front/product/icon8.png" class="product-icon-img">&nbsp;{{"NECK" | translate}}&nbsp;:
+							</div>
+							<div class="product-select-title-div">
+								<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+									<li class="menu-dropdown classic-menu-dropdown">
+										<a name="nek" id="prodTypeNek_0" class="color-black product-select-title selectActive" ng-click="setProdCon($event,'prodTypeNekId', '');">{{"All" | translate}}</a></li>
+									<li class="menu-dropdown classic-menu-dropdown" ng-repeat="nek in prodTypeNekList">
+										<a name="nek" id="prodTypeNek_{{nek.id}}" class="color-black product-select-title " ng-click="setProdCon($event,'prodTypeNekId',nek.id);">
+											{{curLang=="zh" ? nek.nameCn : nek.nameEn}} </a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-8 no-paddingLeft no-paddingRight col-center-block" style="width:66.66667%;min-width:970px;min-height: 130px;margin-top: 15px;">
+					<div class="mix-grid thumbnails">
+
+						<div class="mix category_1 mix_all" style="display: block;float:left; opacity: 1; cursor: pointer;padding:0 15px 0 15px;" ng-repeat="prod in prodList" ng-click="toProdDetail(prod.id)">
+							<div class="mix-inner" style="width: 210px; height: 240px;">
+								<img alt="" src="../upload/{{prod.majorPic.picFile.filePath}}" class="img-responsive" style="width: 100%; height: 100%;">
+								<div class="mix-details text-center home-bg-opacity" style="padding-top: 10%; background-color: #333333;">
+									<h4>
+										<span >{{curLang=="zh" ?prod.nameCn : prod.nameEn}}</span>
+									</h4>
+
+									<h5>{{"HOME_TITLE_PLACE" | translate}}:
+										<span ng-if="prod.prodTypeAre!=null">{{curLang=="zh" ?prod.prodTypeAre.nameCn : prod.prodTypeAre.nameEn}}</span>
+										<span ng-if="prod.prodTypeAre==null">{{"UNKNOW" | translate}}</span>
+									</h5>
+
+									<h5>
+										{{"HOME_TITLE_FILLING" | translate}}:
+										<span ng-if="prod.prodTypeJar!=null">{{curLang=="zh" ?prod.prodTypeJar.nameCn : prod.prodTypeJar.nameEn}}</span>
+										<span ng-if="prod.prodTypeJar==null">{{"UNKNOW" | translate}}</span>
+									</h5>
+
+									<h5>
+										{{"HOME_TITLE_CAPACITY" | translate}}:
+										<span ng-if="prod.prodTypeCon!=null">{{curLang=="zh" ?prod.prodTypeCon.nameCn : prod.prodTypeCon.nameEn}}</span>
+										<span ng-if="prod.prodTypeCon==null">{{"UNKNOW" | translate}}</span>
+									</h5>
+								</div>
+							</div>
+						</div>
+
+
+
+					</div>
+					<div style="clear: both;">
+						<!-- 清除浮动 -->
+					</div>
+				</div>
+
+
+				<div class="col-md-8 no-paddingLeft no-paddingRight col-center-block  text-center" style="min-height: 50px;">
+					<ul class="pagination" style="display: inline-block; float: none;">
+						<li ng-class="{true:'disabled'}[pCurrent==1]"><a class="pages-a" href="javascript:void(0);" ng-click="p_index()">{{"FIRST" | translate}}</a></li>
+						<li ng-repeat="page in pages" ng-class="{true:'active'}[pCurrent==page]"><a href="javascript:void(0);" class="pages-a" ng-click="loadPage(page)">{{ page }}</a></li>
+						<li ng-class="{true:'disabled'}[pCurrent==pAllPage]"><a class="pages-a" href="javascript:void(0);" ng-click="p_last()">{{"LAST" | translate}}</a></li>
+					</ul>
+					
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 商家表(SHOP) -->
+<mapper namespace="com.gzsoftware.pet.dao.ShopDao">
+ <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <!-- 结果映射 -->
+    <resultMap id="shopMap" type="com.gzsoftware.pet.entity.po.Shop">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+        <result column="NAME_CN" property="nameCn" jdbcType="VARCHAR" />
+        <result column="NAME_EN" property="nameEn" jdbcType="VARCHAR" />
+        <result column="LOGO_FILE_ID" property="logoFileId" jdbcType="INTEGER" />
+        <result column="LEVEL" property="level" jdbcType="INTEGER" />
+        <result column="STATUS" property="status" jdbcType="SMALLINT" />
+        <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+        <result column="OPER_MODE" property="operMode" jdbcType="VARCHAR" />
+        <result column="TEL" property="tel" jdbcType="VARCHAR" />
+        <result column="URL" property="url" jdbcType="VARCHAR" />
+        <result column="REG_FILE_ID" property="regFileId" jdbcType="INTEGER" />
+        <result column="REG_TIME" property="regTime" jdbcType="TIMESTAMP" />
+        <result column="INTRO_ENT" property="introEnt" jdbcType="VARCHAR" />
+        <result column="INTRO_LOG" property="introLog" jdbcType="VARCHAR" />
+        <result column="INTRO_SRV" property="introSrv" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+       <result column="REJECT_REASON" property="rejectReason" jdbcType="VARCHAR" />   
+       <result column="FAV_CNT" property="favCnt" jdbcType="INTEGER" />
+        <result column="VISIT_CNT" property="visitCnt" jdbcType="INTEGER" />
+       <association property="user" column="USER_ID" javaType="User" fetchType="eager" select="com.gzsoftware.pet.dao.UserDao.getUser" />
+       <association property="regFile" column="REG_FILE_ID" javaType="UploadFile" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.UploadFileDao.getUploadFile" />
+   	   <association property="logoFile" column="LOGO_FILE_ID" javaType="UploadFile" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.UploadFileDao.getUploadFile" />
+    </resultMap>
+    
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        ID, USER_ID, NAME_CN, NAME_EN, LOGO_FILE_ID, 
+        LEVEL, STATUS, LOCATION, OPER_MODE, TEL, URL,
+        REG_FILE_ID, REG_TIME, INTRO_ENT, INTRO_LOG, INTRO_SRV, FAV_CNT,VISIT_CNT,REJECT_REASON,
+        UPDATE_TIME
+    </sql>
+    
+    <!-- 查询列表 -->
+    <select id="getShopList"  parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultMap="shopMap">
+        SELECT  *    FROM SHOP where 1=1
+        <if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.nameEn!='' and condition.nameEn!=null">
+				and NAME_EN like CONCAT('%',#{condition.nameEn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.status!=null and condition.status!=''">
+				and STATUS = #{condition.status}
+			</if>
+			<if test="condition.id!='' and condition.id!=null">
+				and ID= #{condition.id}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+    </select>
+    
+    <!-- 获取个数 -->
+  <select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultType="Integer">
+		select count(*) from SHOP where 1=1
+		 <if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.nameEn!='' and condition.nameEn!=null">
+				and NAME_EN like CONCAT('%',#{condition.nameEn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.status!=null and condition.status!=''">
+				and STATUS = #{condition.status}
+			</if>
+			<if test="condition.id!='' and condition.id!=null">
+				and ID= #{condition.id}
+			</if>
+		</if>
+	</select>
+	  
+  <select id="getShop" parameterType="java.lang.Integer" resultMap="shopMap">
+    	select * from SHOP where ID = #{id,jdbcType=INTEGER}
+  </select>	
+	
+ <select id="getShopByUser" parameterType="java.lang.Integer" resultMap="shopMap">
+    	select * from SHOP where USER_ID = #{userId,jdbcType=INTEGER} limit 1
+  </select>	
+	<select id="getShopSelect"  resultMap="shopMap">
+		select * from SHOP where STATUS = 1 order by ID asc
+	</select>
+    <!-- 插入数据 -->
+    <insert id="addShop" parameterType="com.gzsoftware.pet.entity.po.Shop">
+        INSERT INTO SHOP (<include refid="allColumns" />)
+        VALUES (
+            #{id},
+            #{userId},
+            #{nameCn},
+            #{nameEn},
+            #{logoFileId},
+            #{level},
+            #{status},
+            #{location},
+            #{operMode},
+            #{tel},
+            #{url},
+            #{regFileId},
+            #{regTime},
+            #{introEnt},
+            #{introLog},
+            #{introSrv},
+            #{favCnt},
+            #{visitCnt},
+            #{rejectReason},
+            #{updateTime}
+        )
+    </insert>
+    
+    <!-- 修改数据 -->
+    <update id="updateShop" parameterType="map">
+        UPDATE SHOP SET
+            USER_ID = #{userId},
+            NAME_CN = #{nameCn},
+            NAME_EN = #{nameEn},
+            LOGO_FILE_ID = #{logoFileId},
+            LEVEL = #{level},
+            STATUS = #{status},
+            LOCATION = #{location},
+            OPER_MODE = #{operMode},
+            TEL = #{tel},
+            URL = #{url},
+            REG_FILE_ID = #{regFileId},
+            REG_TIME = #{regTime},
+            INTRO_ENT = #{introEnt},
+            INTRO_LOG = #{introLog},
+            INTRO_SRV = #{introSrv},
+            FAV_CNT=#{favCnt},
+            VISIT_CNT=#{visitCnt},
+            REJECT_REASON=#{rejectReason},
+            UPDATE_TIME = #{updateTime}
+        WHERE ID = #{id}
+    </update>
+    
+    <!-- 根据主键删除数据 -->
+    <delete id="deleteShop" parameterType="java.lang.Integer">
+        DELETE FROM SHOP WHERE ID = #{id,jdbcType=INTEGER}
+    </delete>
+    
+    <update id="addShopVisitCnt" parameterType="java.lang.Integer">
+     UPDATE SHOP
+      set
+      VISIT_CNT =VISIT_CNT+1 
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="addShopFavCnt" parameterType="java.lang.Integer">
+     UPDATE SHOP
+      set
+      FAV_CNT =FAV_CNT+1 
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="reduceShopFavCnt" parameterType="com.gzsoftware.pet.entity.po.Shop">
+     UPDATE SHOP
+      set
+      FAV_CNT = #{favCnt}
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getShopApplyList"  parameterType="java.lang.Integer" resultMap="shopMap">
+        SELECT  *    FROM SHOP where 	 STATUS = 0
+		order by REG_TIME desc
+		limit #{length}
+    </select>
+</mapper>

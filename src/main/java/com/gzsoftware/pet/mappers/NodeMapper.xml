@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.NodeDao">
+	<cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+	<resultMap type="com.gzsoftware.pet.entity.po.Node" id="NodeResultMap">
+	   <result column="PARENT_ID" jdbcType="INTEGER" property="parentId" />
+	   <association property="parent" column="PARENT_ID" javaType="Node"  
+   		fetchType="eager" select="com.gzsoftware.pet.dao.NodeDao.getNode" />
+   		
+	</resultMap>
+	
+	<select id="getNodeListByRoleId" parameterType="java.lang.Integer"  resultMap="NodeResultMap" >
+	select  node.* from role join role_node on role.ID = role_node.ROLE_ID 
+	 INNER JOIN node  ON node.id = role_node.NODE_ID where role.ID = #{id}
+	</select>
+	
+	
+	<select id="getNodeList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="com.gzsoftware.pet.entity.po.Node"  resultMap="NodeResultMap">
+		select * from Node where 1=1
+		<if test="condition!=null">
+			<if test="condition.isEnabled!=''and condition.isEnabled!=null">
+				and IS_ENABLED = #{condition.isEnabled}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+	
+    <select id="getChildrenNodeList" parameterType="java.lang.Integer" resultType="com.gzsoftware.pet.entity.po.Node"  resultMap="NodeResultMap">
+      select * from Node where 1=1 and PARENT_ID = #{id}
+	</select>
+	
+	  <select id="getParentList"  resultType="com.gzsoftware.pet.entity.po.Node"  resultMap="NodeResultMap">
+      select * from Node where 1=1 and PARENT_ID is null 
+	</select>
+	<select id="getAllList"  resultType="com.gzsoftware.pet.entity.po.Node"  resultMap="NodeResultMap">
+      select * from Node 
+	</select>
+	<select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="Integer">
+		select count(*) from Node where 1=1
+		<if test="condition!=null">
+			<if test="condition.isEnabled!=''and condition.isEnabled!=null">
+				and IS_ENABLED = #{condition.isEnabled}
+			</if>
+		</if>
+	</select>
+	
+	<select id="getNode" parameterType="java.lang.Integer" resultType="Node">
+		select * from Node where ID = #{id}
+	</select>
+   
+	<insert id="addNode" parameterType="Node">
+		insert into Node(PARENT_ID, NAME, ICON,URL,DESCRIPTION,PRIORITY,IS_MENU)
+		values(#{parentId}, #{name}, #{icon},#{url},#{description},#{priority},#{isMenu})
+	</insert>
+	
+	<update id="updateNode" parameterType="Node">
+		UPDATE NODE SET
+		PARENT_ID=#{parentId},
+		NAME=#{name},
+		ICON=#{icon}, 
+		URL = #{url},
+		DESCRIPTION =#{description},
+		PRIORITY = #{priority},
+		IS_MENU=#{isMenu}
+		WHERE ID = #{id}
+	</update>
+	
+	<delete id="deleteNode" parameterType="java.lang.Integer">
+		delete from Node where ID = #{id}
+	</delete>
+		
+	<select id="getNodeIsMenu" resultType="Node" resultMap="NodeResultMap">
+	
+		select * from Node where IS_MENU = "1" 
+		
+	</select>
+
+</mapper> 

@@ -1,0 +1,175 @@
+
+<!-- END SLIDER -->
+<!-- BEGIN PAGE CONTENT BODY -->
+<div class="page-content" style="padding-bottom: 50px;">
+	<div class="container">
+		<div class="row" ng-if="shopId==0">
+			<!-- BEGIN SLIDER -->
+			<div class="col-md-10 col-center-block">
+				<div class="page-slider margin-bottom-40 col-center-block" style="margin-top: 0;">
+					<div class="fullwidthbanner-container revolution-slider">
+						<div class="fullwidthbanner" >
+							<ul id="revolutionul">
+								<!-- THE NEW SLIDE -->
+								<li data-transition="fade" data-slotamount="5" data-masterspeed="500" data-delay="5400" ng-repeat="m in marqueeList">
+									<a href="{{m.url}}" ><img src="../upload/{{m.picFile.filePath}}" class="home-recommend-image" style="width:100%!important;height:100%!important;margin-top:0px;"/></a>
+								</li>
+				
+							</ul>
+							<div class="tp-bannertimer tp-bottom"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row" ng-if="shopId>0" style="margin-top:30px;margin-bottom:30px;">
+			<div class="col-md-10 col-center-block">
+				<div style="width:15%;min-width:150px; height:150px;float: left;border:1px solid #808080;padding-top: 15px;" align="center">
+					<img src="../upload/{{shop.logoFile.filePath}}"  style="width:120px;height:120px;">
+				</div>
+				<div style="width:85%;min-width:150px;height:150px;float: left;border:1px solid #808080;border-left:none;padding:10px 0 0 10px;">
+					<table class="wareShopTab">
+						<tr>
+							<td colspan="2" style="font-size: 20px;">
+								<b>{{curLang=="zh" ? shop.nameCn : shop.nameEn}}</b>
+								&nbsp;
+								<a class="wareCollect" ng-click="addShopFavCnt()" ng-if="curUser!=null&&shopFav==0" style="background-color: orange;color:#ffffff;border: none;">
+									{{"FAVSHOP" | translate}}
+								</a>
+								<a class="wareCollect" ng-click="removeShopFavCnt()" ng-if="curUser!=null&&shopFav==1">
+									{{"NOTFAVSHOP" | translate}}
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td style="width:100px">{{"BUSINESS" | translate}}&nbsp;:</td>
+							<td style="font-size: 16px;">{{shop.operMode}}</td>
+						</tr>
+						<tr>
+							<td style="width:100px">{{"PHONE" | translate}}&nbsp;:</td>
+							<td style="font-size: 16px;">{{shop.tel}}</td>
+						</tr>
+						<tr>
+							<td style="width:100px">{{"SHOPURL" | translate}}&nbsp;:</td>
+							<td style="font-size: 16px;"><a href="https://{{shop.url}}" style="color:#333333;" target="_blank">{{shop.url}}</a></td>
+						</tr>
+						<tr>
+							<td style="width:100px"> {{"ADDRESS" | translate}}&nbsp;:</td>
+							<td style="font-size: 16px;">{{shop.location}}</td>
+						</tr>
+					</table>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+			<div class="clear"></div>
+		</div>
+			
+		<div class="row">
+			<div class="col-md-10 col-center-block">
+				<table id="selectWareTab" width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td class="wareTabLeft wareSelect wareGray">
+							{{"RawMaterial" | translate}}&nbsp;:
+						</td>
+						<td class="wareTabRight">
+							<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+								<li class="menu-dropdown classic-menu-dropdown"><a name="src" id="src_0" class="color-black product-select-title selectActive" ng-click="setWareCon($event,'wareTypeSrcId','')">{{"All" | translate}}</a></li>
+								<li class="menu-dropdown classic-menu-dropdown" ng-repeat="wareType in wareTypeSrcList">
+									<a name="src" id="src_{{wareType.id}}" class="color-black product-select-title" ng-click="setWareCon($event,'wareTypeSrcId',wareType.id)">{{curLang=="zh" ? wareType.nameCn : wareType.nameEn}}</a>
+								</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td class="wareTabLeft wareSelect wareGray">
+							{{"Machine" | translate}}&nbsp;:
+						</td>
+						<td class="wareTabRight">
+							<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+								<li  class="menu-dropdown classic-menu-dropdown"><a name="mch" id="mch_0" class="color-black product-select-title selectActive" ng-click="setWareCon($event,'wareTypeMchId','')">{{"All" | translate}}</a></li>
+								<li class="menu-dropdown classic-menu-dropdown" ng-repeat="wareTypeMch in wareTypeMchList">
+									<a name="mch" id="mch_{{wareTypeMch.id}}" class="color-black product-select-title" ng-click="setWareCon($event,'wareTypeMchId',wareTypeMch.id)">{{curLang=="zh" ? wareTypeMch.nameCn :wareTypeMch.nameEn}}</a>
+								</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td class="wareTabLeft wareSelect wareGray">
+							{{"Mold" | translate}}&nbsp;:
+						</td>
+						<td class="wareTabRight" style="border-bottom:1px solid #333333;">
+							<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+								<li class="menu-dropdown classic-menu-dropdown"><a name="ste" id="ste_0" class="color-black product-select-title selectActive" ng-click="setWareCon($event,'wareTypeSteId','')">{{"All" | translate}}</a></li>
+								<li class="menu-dropdown classic-menu-dropdown" ng-repeat="wareTypeSte in wareTypeSteList">
+									<a name="ste" id="ste_{{wareTypeSte.id}}" class="color-black product-select-title" ng-click="setWareCon($event,'wareTypeSteId',wareTypeSte.id)">{{curLang=="zh" ? wareTypeSte.nameCn :wareTypeSte.nameEn}}</a>
+								</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td class="wareTabLeft wareSelect wareGray">
+							{{"Produce" | translate}}&nbsp;:
+						</td>
+						<td class="wareTabRight" style="border-bottom:1px solid #333333;">
+							<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+								<li class="menu-dropdown classic-menu-dropdown"><a name="wareTypeProd" id="wareTypeProd_0" class="color-black product-select-title selectActive" ng-click="setWareCon($event,'wareTypePrdId','')">{{"All" | translate}}</a></li>
+								<li class="menu-dropdown classic-menu-dropdown" ng-repeat="wareTypePrd in wareTypePrdList">
+									<a name="wareTypeProd" id="wareTypeProd_{{wareTypeSte.id}}" class="color-black product-select-title" ng-click="setWareCon($event,'wareTypePrdId',wareTypePrd.id)">{{curLang=="zh" ? wareTypePrd.nameCn :wareTypePrd.nameEn}}</a>
+								</li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		
+		
+		
+			
+		
+		<div class="row ">
+			<div class="col-md-10 col-center-block" >
+				<div class="col-md-6 wareList" ng-repeat="ware in wareList" ng-click="toWareDetail(ware.id)" style="cursor: pointer;">
+					<div class="col-md-12 no-paddingLeft no-paddingRight" style="padding:10px 0 0 0;">
+						<div class="col-md-4 no-paddingLeft" style="max-height:156px;">
+							<img src="../upload/{{ware.picFile.filePath}}"  style="width:156px;height:156px;">
+						</div>
+						<div class="col-md-5 ware" style="max-height:156px;margin-left: 10px;">
+							<div class="wareTitle">{{curLang=="zh" ? ware.nameCn : ware.nameEn}}</div>
+							<div class="wareInfo">{{"WARE_TITLE_LOCATION" | translate}}&nbsp;:&nbsp;{{curLang=="zh" ? ware.locationCn : ware.locationEn}}</div>
+							<div class="wareInfo">{{"WARE_TITLE_EXPRESS" | translate}}&nbsp;:&nbsp;{{curLang=="zh" ? ware.expressCn : ware.expressEn}}</div>
+							<div class="wareInfo">{{"WARE_TITLE_AFTERSERVICE" | translate}}&nbsp;:&nbsp;{{curLang=="zh" ? ware.afterServiceCn : ware.afterServiceEn}}</div>
+							<div class="wareInfo" style="margin-top:5px;">
+								<span class="glyphicon glyphicon-star-empty" style="font-size:14px;"  title="收藏"></span>&nbsp;:&nbsp;{{ware.favCnt}}
+								&nbsp;&nbsp;
+								<span class="glyphicon glyphicon-thumbs-up" style="font-size:14px;"  title="点赞"></span>&nbsp;:&nbsp;{{ware.upCnt}}
+								&nbsp;&nbsp;
+								<span class="glyphicon glyphicon-eye-open" title="浏览"></span>&nbsp;:&nbsp;{{ware.visitCnt}}
+							</div>
+							<div class="wareInfo" style="margin-top:5px;">{{"WARE_TITLE_PRICE" | translate}}&nbsp;:&nbsp;
+								<span class="warePrice">&nbsp;¥{{ware.price}}</span>&nbsp;&nbsp; 
+							</div>
+						</div>
+
+					</div>
+					
+					<div style="clear:both;"></div>
+				</div>
+			</div>
+		</div>
+			
+		<div class="row" style="min-height: 50px; background-color: #FFFFFF; margin: 30px 0;">
+			<div class="col-md-10 no-paddingLeft no-paddingRight col-center-block  text-center" style="min-height: 50px;">
+				<ul class="pagination" style="display: inline-block; float: none;">
+					<li ng-class="{true:'disabled'}[pCurrent==1]"><a class="pages-a" href="javascript:void(0);" ng-click="p_index()">{{"FIRST" | translate}}</a></li>
+					<li ng-repeat="page in pages" ng-class="{true:'active'}[pCurrent==page]"><a href="javascript:void(0);" class="pages-a" ng-click="loadPage(page)">{{ page }}</a></li>
+					<li ng-class="{true:'disabled'}[pCurrent==pAllPage]"><a class="pages-a" href="javascript:void(0);" ng-click="p_last()">{{"LAST" | translate}}</a></li>
+				</ul>
+				<span style="vertical-align: 12px;display: none;"> 共：{{count}} 条</span>
+			</div>
+		</div>
+	</div>
+</div>

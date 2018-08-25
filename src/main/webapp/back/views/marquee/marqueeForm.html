@@ -1,0 +1,91 @@
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="marqueeInfoForm" action="" enctype="multipart/form-data" method="post"
+			class="form-horizontal">
+			<div class="form-body">
+				<div hidden="hidden" class="form-group" style="height: 30px;">
+					ID:<input type="text" class="form-control" id="marqueeId" name="id" ng-model="marquee.id" />
+				</div>
+				<h3 class="form-section">广告信息</h3>
+				<div class="form-group">
+					<label class="control-label col-md-3">中文名称<span class="required"> * </span>
+					</label>
+					<div class="col-md-4">
+						<input type="text" data-required="1" aria-required="true" class="form-control" id="nameCn" name="nameCn" placeholder="中文名称" ng-model="marquee.nameCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">英文名称 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" id="nameEn" name="nameEn" placeholder="英文名称" ng-model="marquee.nameEn" />
+					</div>
+				</div>
+			<div class="form-group">
+					<label class="control-label col-md-3">广告图片<span class="required"> * </span></label>
+					<div class="col-md-4">
+						<element ng-if="picFileUploader">
+							<input type="file" data-required="1"  style="display:none" name ="picFileUploader" id="picFileUploader" uploader="picFileUploader"  nv-file-select accept="image/*"/>
+							<a type="button" class="btn btn-sm blue-hoki " onclick="$('#picFileUploader').click()"><i class="fa fa-cloud-upload"></i> 浏览.. </a>
+						</element>
+						<input type="hidden" ng-model="marquee.picFileId" id="picFileId" name="picFileId"/>
+						&nbsp;&nbsp;<a href="../upload/{{marquee.picFile.filePath}}" target="_blank" ng-show="marquee.picFile.filePath">{{marquee.picFile.fileName}}</a>
+						&nbsp;&nbsp; <a href="#" class="fa fa-remove" style="color:Red;" ng-click="marquee.picFile={};marquee.picFileId=''" ng-show="marquee.picFile.filePath"></a>
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="control-label col-md-3">广告URL地址<span class="required"> * </span>
+					</label>
+					<div class="col-md-4">
+						<input type="url"  class="form-control" id="url" name="url" placeholder="URL地址" ng-model="marquee.url" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">显示位置<span class="required"> * </span>
+					</label>
+					<div class="col-md-1">
+					<select class="form-control" id="code" ng-model="marquee.code" >
+                    <option value="home" ng-selected = "1">首页</option>
+                    <option value="ware">商城</option>
+                    </select>
+                    </div>
+				 </div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">是否启用</label>
+					<div class="col-md-4">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="isEnable" id="optionsRadios1" value="1" ng-model="marquee.isEnable" ng-checked="1" checked="checked">启用
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="isEnable" id="optionsRadios2" value="0" ng-model="marquee.isEnable" ng-checked="0">禁用
+							</label>
+						</div>
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="control-label col-md-3">排序号 <span class="required"> * </span>
+					</label>
+					<div class="col-md-1">
+					<input type="number" data-required="1" class="form-control" id="priority" name="priority" placeholder="排序号" ng-model="marquee.priority"  />
+					</div>
+				</div>
+			<div>
+				<div class="row">
+					<div class="col-md-offset-3 col-md-9">
+						<a href="#/marquee/list" class="btn default"> <i class="fa fa-reply"></i> 返回</a> 
+						<a href="#" class="btn  red" ng-click="toDeleteMarquee()" ng-show="showDelBtn"> 
+							<i class="fa fa-minus"></i> 
+							<span class="hidden-480">删除</span>
+						</a> 
+					    <a type="button" class="btn blue" ng-click="toSaveMarquee()"> <i class="fa fa-check"></i> 保存
+						</a>
+						
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>

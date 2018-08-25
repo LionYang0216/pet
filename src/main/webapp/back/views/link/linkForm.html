@@ -1,0 +1,52 @@
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="linkInfoForm" action="" enctype="multipart/form-data" method="post"
+			class="form-horizontal">
+			<div class="form-body">
+				<div hidden="hidden" class="form-group" style="height: 30px;">
+					ID:<input type="text" class="form-control" id="linkId" name="id" ng-model="link.id" />
+				</div>
+				<h3 class="form-section">友情链接</h3>
+				<div class="form-group">
+					<label class="control-label col-md-3">公司中文名<span class="required"> * </span>
+					</label>
+					<div class="col-md-4">
+						<input type="text" data-required="1" aria-required="true" class="form-control" id="nameCn" name="nameCn" placeholder="中文名称" ng-model="link.nameCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">公司英文名 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" id="nameEn" name="nameEn" placeholder="英文名称" ng-model="link.nameEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">公司网址<span class="required"> * </span>
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" id="url" name="url" placeholder="网址" ng-model="link.url" />
+					</div>
+				</div>
+			
+			
+				<div class="row">
+					<div class="col-md-offset-3 col-md-9">
+						<a href="#/link/list" class="btn default"> <i class="fa fa-reply"></i> 返回</a> 
+						<a href="#" class="btn  red" ng-click="toDeleteLink()" ng-show="showDelBtn"> 
+							<i class="fa fa-minus"></i> 
+							<span class="hidden-480">删除</span>
+						</a> 
+					    <a type="button" class="btn blue" ng-click="toSaveLink()"> <i class="fa fa-check"></i> 保存
+						</a>
+						
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>

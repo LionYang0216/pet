@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 用户店铺收藏关系表(USER_SHOP_FAV) -->
+<mapper namespace="com.gzsoftware.pet.dao.UserShopFavDao">
+ <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <!-- 结果映射 -->
+    <resultMap id="userShopFavMap" type="com.gzsoftware.pet.entity.po.UserShopFav">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+        <result column="SHOP_ID" property="shopId" jdbcType="INTEGER" />
+        <association property="user" column="USER_ID" javaType="User" fetchType="eager" select="com.gzsoftware.pet.dao.UserDao.getUser" />
+		<association property="shop" column="SHOP_ID" javaType="Shop" fetchType="eager" select="com.gzsoftware.pet.dao.ShopDao.getShop" />
+        
+    </resultMap>
+    
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        ID, USER_ID, SHOP_ID
+    </sql>
+    
+
+    
+    <!-- 插入数据 -->
+    <insert id="addShopFav" parameterType="UserShopFav">
+        INSERT INTO USER_SHOP_FAV (<include refid="allColumns" />)
+        VALUES (
+            #{id},
+            #{userId},
+            #{shopId}
+        )
+    </insert>
+   <select id="getShopFavList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultMap="userShopFavMap">
+		select * from USER_SHOP_FAV where 1=1
+		<if test="condition!=null">
+			<if test="condition.userId!='' and condition.userId!=null">
+				and USER_ID = #{condition.userId}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+
+	<select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="Integer">
+		select count(*) from USER_SHOP_FAV where 1=1
+		<if test="condition!=null">
+			<if test="condition.userId!='' and condition.userId!=null">
+				and USER_ID = #{condition.userId}
+			</if>
+		</if>
+
+	</select>
+	
+	
+	<select id="getUserShopFav" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"	resultMap="userShopFavMap">
+		select * from USER_SHOP_FAV where 1=1
+		<if test="condition!=null">
+			<if test="condition.userId!='' and condition.userId!=null">
+				and USER_ID = #{condition.userId}
+			</if>
+		</if>
+	    <if test="condition!=null">
+			<if test="condition.shopId!='' and condition.shopId!=null">
+				and SHOP_ID = #{condition.shopId}
+			</if>
+		</if>
+		limit 1
+	</select>
+	
+	<delete id="deleteShopFav" parameterType="java.lang.Integer">
+        DELETE FROM USER_SHOP_FAV WHERE ID = #{id}
+    </delete>
+    
+    <delete id="deleteShopFavByShopId" parameterType="java.lang.Integer">
+        DELETE FROM USER_SHOP_FAV WHERE SHOP_ID = #{shopId}
+    </delete>
+</mapper>

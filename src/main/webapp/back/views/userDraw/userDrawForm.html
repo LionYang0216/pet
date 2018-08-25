@@ -1,0 +1,67 @@
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="userInfoForm" action="" enctype="multipart/form-data" method="post"
+			class="form-horizontal">
+			<div class="form-body">
+				<div hidden="hidden" class="form-group" style="height: 30px;">
+					ID:<input type="text" class="form-control" id="id" name="id" ng-model="userDraw.id" />
+				</div>
+				<h3 class="form-section">会员信息</h3>
+				
+				<div class="form-group">
+					<label class="control-label col-md-3">会员名称：
+					</label>
+					<div class="col-md-2">
+						<input type="text" ng-disabled="disabledText" id="userName" name="userName" class="form-control" ng-model="userDraw.user.userName" />
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<label class="control-label col-md-3">提现金额
+					</label>
+					<div class="col-md-2">
+						<input type="text"  class="form-control" ng-disabled="disabledText"  id="drawAmount" name="drawAmount" ng-model="userDraw.drawAmount" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">提现说明
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" ng-disabled="disabledText" id="userRemark" name="userRemark"  ng-model="userDraw.userRemark" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">申请时间
+					</label>
+					<div class="col-md-2">
+						<input type="text"  class="form-control" ng-disabled="disabledText" id="userRequestTime" name="userRequestTime" ng-model="userDraw.userRequestTime" />
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<label class="control-label col-md-3">审批说明
+					</label>
+					<div class="col-md-5">
+						<input type="text"  class="form-control" id="adminRemark" name="adminRemark" placeholder="审批说明" ng-model="userDraw.adminRemark" />
+					</div>
+				</div>
+			<div>
+				<div class="row">
+					<div class="col-md-offset-3 col-md-9">
+						<a href="#/userDraw/list" class="btn default"> <i class="fa fa-reply"></i> 返回</a>  
+					    <a type="button" class="btn blue" ng-click="toSaveUserDraw()"> <i class="fa fa-check"></i> 审批通过
+						</a>
+						<a type="button" class="btn  red" ng-click="noPassUserDraw(2)" > 
+							<i class="fa fa-minus"></i> 
+							<span class="hidden-480">拒绝申请</span>
+						</a> 
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>

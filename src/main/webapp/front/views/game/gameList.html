@@ -1,0 +1,32 @@
+<div class="form-body">
+	<div class="page-header-menu">
+		<div class="container">
+			<div class="row"  style="min-height: 350px; background-color: #FFFFFF; margin-bottom: 30px;" ng-repeat="game in gameList">
+				<div class="col-md-10 col-center-block" style="margin-bottom: 30px;">
+					<div>
+						<img src="../upload/{{game.picFile.filePath}}" class="game-image">
+					</div>
+					
+					<div class="game gameTitle">
+						<a class="color-black" ng-click="goDetail(game.id)">
+						{{curLang=="zh" ? game.nameCn : game.nameEn}}
+						</a>
+					</div>
+					<div class="game gameTime">{{game.admin.adminName}}&nbsp;{{"PUBLISH" | translate}}&nbsp;:&nbsp;{{game.lastUpdateTimeLayout}}</div>
+					<div class="game gameContent textellipsis" style="max-height:100px;"><a class="color-black" ng-click="goDetail(game.id)">点击查看详情</a></div>
+				</div>
+				
+			</div>
+			<div class="row" style="min-height: 50px; background-color: #FFFFFF; margin-bottom: 30px;">
+				<div class="col-md-10 no-paddingLeft no-paddingRight col-center-block  text-center" style="min-height: 50px;">
+					<ul class="pagination" style="display: inline-block; float: none;">
+						<li ng-class="{true:'disabled'}[pCurrent==1]"><a class="pages-a" href="javascript:void(0);" ng-click="p_index()">{{"FIRST" | translate}}</a></li>
+						<li ng-repeat="page in pages" ng-class="{true:'active'}[pCurrent==page]"><a href="javascript:void(0);" class="pages-a" ng-click="loadPage(page)">{{ page }}</a></li>
+						<li ng-class="{true:'disabled'}[pCurrent==pAllPage]"><a class="pages-a" href="javascript:void(0);" ng-click="p_last()">{{"LAST" | translate}}</a></li>
+					</ul>
+					<span style="vertical-align: 12px;display: none;"> 共：{{count}} 条</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

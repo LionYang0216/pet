@@ -1,0 +1,138 @@
+
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="#/dashboard.html">首页</a>
+           >
+			瓶库管理
+        </li>
+       
+    </ul>
+</div>
+<h3 class="page-title"> 瓶库管理
+</h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-puzzle-piece"></i> 瓶库管理 </div>
+                <div class="actions">
+                	
+                			<input id="searchName" ng-model="prodCondition.nameCn" class="form-control input-sm input-small input-inline" placeholder="请输入瓶品名称" aria-controls="sample_1" type="search" style="width:120px!important;"/>
+                		
+							<select id="searchProdTypePhy" ng-model="prodCondition.prodTypePhyId" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">物理</option>
+								<option data-ng-repeat="ptp in prodTypePhyList" value="{{ptp.id}}">{{ptp.nameCn}}</option>  
+							</select>
+							<select id="searchProdTypeAre" ng-model="prodCondition.prodTypeAreId" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">地区</option>
+								<option data-ng-repeat="ptp in prodTypeAreList" value="{{ptp.id}}">{{ptp.nameCn}}</option>  
+							</select>
+	
+							<select id="searchProdTypePic" ng-model="prodCondition.prodTypePicId" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">图样</option>
+								<option data-ng-repeat="ptp in prodTypePicList" value="{{ptp.id}}">{{ptp.nameCn}}</option>  
+							</select>
+							<select id="searchProdTypeBiz" ng-model="prodCondition.prodTypeBizId" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">业务</option>
+								<option data-ng-repeat="ptp in prodTypeBizList" value="{{ptp.id}}">{{ptp.nameCn}}</option>  
+							</select>
+							<select id="searchProdTypeJar" ng-model="prodCondition.prodTypeJarId" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">灌装</option>
+								<option data-ng-repeat="ptp in prodTypeJarList" value="{{ptp.id}}">{{ptp.nameCn}}</option>  
+							</select>
+							<select id="searchProdTypeNek" ng-model="prodCondition.prodTypeNekId" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">瓶口</option>
+								<option data-ng-repeat="ptp in prodTypeNekList" value="{{ptp.id}}">{{ptp.nameCn}}</option>  
+							</select>
+							<select id="searchProdTypeCon" ng-model="prodCondition.prodTypeConId" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">容量</option>
+								<option data-ng-repeat="ptp in prodTypeConList" value="{{ptp.id}}">{{ptp.nameCn}}</option>  
+							</select>
+							<select id="searchProdTypeHig" ng-model="prodCondition.prodTypeHigId" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">高度</option>
+								<option data-ng-repeat="ptp in prodTypeHigList" value="{{ptp.id}}">{{ptp.nameCn}}</option>  
+							</select>
+							
+							<select id="searchProdTypeWid" ng-model="prodCondition.prodTypeWidId" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">宽度</option>
+								<option data-ng-repeat="ptp in prodTypeWidList" value="{{ptp.id}}">{{ptp.nameCn}}</option>  
+							</select>						
+							
+							<select id="searchProdTypeSou" ng-model="prodCondition.prodTypeSouId" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">来源</option>
+								<option data-ng-repeat="ptp in prodTypeSouList" value="{{ptp.id}}">{{ptp.nameCn}}</option>  
+							</select>
+							<select id="searchProdCost" ng-model="prodCondition.prodCostId" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">费用</option>
+								<option data-ng-repeat="ptp in prodCostList" value="{{ptp.id}}">{{ptp.name}}</option>  
+							</select>
+					
+							
+							<select id="searchIsNew" ng-model="prodCondition.isNew" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">置顶首页</option>
+								<option value="1">是</option>
+								<option value="0">否</option>
+							</select>
+							<select id="searchIsEnable" ng-model="prodCondition.isEnable" class="table-group-action-input form-control input-inline input-small input-sm" style="width:68px!important;">
+								<option value="">状态</option>
+								<option value="1">上架</option>
+								<option value="0">下架</option>
+								<option value="2">待确认</option>
+							</select>
+							<button class="btn btn-sm green table-group-action-submit" ng-click="reloadTable()">
+								    <i class="fa fa-check"></i> 搜索
+							</button>
+		                    <a href="#/prod/form/" class="btn btn-outline green">
+		                        <i class="fa fa-plus"></i>
+		                        <span class="hidden-480"> 新增</span>
+		                    </a>     
+                    	
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-container" >
+					<table class="table table-striped table-bordered table-hover table-checkable " style="width:2200px;" id="prodListDataTable" >
+                        <thead>
+                            <tr role="row" class="heading">
+                                <th width="15px">
+                            	   ID
+                            	</th>
+                            	<th width="70px">图片</th>
+                            	<th width="90px">二维码</th>
+                                <th width="370px">名称</th>
+                                <th width="200px">置顶首页</th>
+                                <th width="120px">类型</th>
+                                <th width="120px">地区</th>
+                                <th width="150px">图样</th>
+                                <th width="150px">业务</th>
+                                <th width="150px">灌装</th>
+                                <th width="150px">瓶口</th>
+                                <th width="150px">容量</th>
+                                <th width="150px">高度</th>
+                                <th width="150px">宽度</th>
+                                <th width="150px">来源</th>
+                                <th width="250px">查看费用</th>
+                                <th width="100px">浏览</th>
+                                <th width="180px">管理员</th>
+                                <th width="150px">用户</th>
+                                <th width="300px">更新时间</th>
+                                <th width="110px">状态</th>
+                                <th width="90px">请选择</th>
+                            </tr>                         
+                        </thead>
+                        <tbody> </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+    
+</div>
+<!-- END MAIN CONTENT -->

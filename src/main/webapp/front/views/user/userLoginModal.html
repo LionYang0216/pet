@@ -1,0 +1,42 @@
+<div class="modal fade" id="userLoginModal" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog" style="margin-top:100px;">
+		<div class="modal-content">
+			<div class="modal-header" style="border:0;">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+			</div>
+			<div class="modal-body " align="center" method="post">
+		       <div class="input-group" style="width:70%">
+		           <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+		           <input type="text" class="form-control" placeholder="请输入帐号" id="userLoginAccount"  ng-model="user.account">
+		       </div>
+				
+		       <div class="input-group" style="width:70%;margin-top:30px;" id="userLoginDiv">
+		           <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+		           <input type="password" class="form-control" placeholder="请输入密码" id="userLoginPwd"  ng-model="user.password">
+		       </div>
+				<br/>
+				<div class="input-group" style="width:70%;display: none;color:red;font-size:14px;" id="loginMsg">
+		           
+		       </div>
+				<br/>
+		        <div class="input-group" style="width:70%">
+		        	<button type="button" id="loginBtn"  class="btn blue-steel  form-control"  ng-click="login()" style="display: none;">{{"LOGIN" | translate}}</button>
+		        	<button type="button" id="forgetBtn" class="btn blue-steel  form-control"  ng-click="forgetPwd()" style="display: none;">{{"FORGET" | translate}}</button>
+		        	<button type="button" id="backBtn" class="btn form-control"  ng-click="back()" style="display: none;border:1px solid #333333;margin-top:10px;">{{"BACK" | translate}}</button>
+		      	</div>
+		       <div>
+		       		&nbsp;
+		       </div>
+		        <div class="input-group" style="width:70%">
+		         	<div class="col-md-6 no-paddingLeft" style="text-align:left;"><a class="color-black" ng-click="toReg()">{{"REGISTER" | translate}}</a></div>
+		         	<div class="col-md-6 no-paddingRight" style="text-align:right;"><a id="forgetA" ng-click="toForget()" class="color-black">{{"FORGET" | translate}}</a></div>
+		       </div>	
+		
+			</div>
+			<div class="modal-footer " style="border:0;text-align: center;">	
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.NewsDao">
+	<cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <resultMap id="NewsResultMap" type="com.gzsoftware.pet.entity.po.News">
+        <result column="PIC_FILE_ID" jdbcType="INTEGER" property="picFileId" />
+        <result column="NEWS_TYPE_ID" jdbcType="INTEGER" property="newsTypeId" />
+   		<association property="picFile" column="PIC_FILE_ID" javaType="UploadFile" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.UploadFileDao.getUploadFile" />
+   		<association property="admin" column="LAST_UPDATE_ADMIN_ID" javaType="Admin" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.AdminDao.getSmAdmin" />
+   		<association property="newsType" column="NEWS_TYPE_ID" javaType="NewsType" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.NewsTypeDao.getNewsType" />
+    </resultMap>
+    
+  	<select id="getNews" parameterType="java.lang.Integer" resultMap="NewsResultMap">
+		select * from News where ID = #{id}
+	</select>
+	
+	<select id="getNewsList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="com.gzsoftware.pet.entity.po.News" resultMap="NewsResultMap">
+		select * from News  where 1=1
+		<if test="condition!=null">
+			<if test="condition.titleCn!='' and condition.titleCn!=null">
+				and TITLE_CN like CONCAT('%',#{condition.titleCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.newsTypeId!='' and condition.newsTypeId!=null">
+				and NEWS_TYPE_ID = #{condition.newsTypeId}
+			</if>
+			<if test="condition.isEnabled!=''and condition.isEnabled!=null">
+				and IS_ENABLE = #{condition.isEnabled}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+  
+  <select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="Integer">
+		select count(*) from News where 1=1
+		<if test="condition!=null">
+			<if test="condition.titleCn!='' and condition.titleCn!=null">
+				and TITLE_CN like CONCAT('%',#{condition.titleCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isEnabled!=''and condition.isEnabled!=null">
+				and IS_ENABLE = #{condition.isEnabled}
+			</if>
+		</if>
+
+	</select>
+	
+     <insert id="addNews" parameterType="com.gzsoftware.pet.entity.po.News">
+     INSERT into News (ID, PIC_FILE_ID,NEWS_TYPE_ID, TITLE_CN, TITLE_EN, DESCRIPTION_CN, DESCRIPTION_EN, 
+      LAST_UPDATE_ADMIN_ID, LAST_UPDATE_TIME, PRIORITY, IS_ENABLE, VISIT_CNT, UP_CNT )
+    values (#{id,jdbcType=INTEGER}, #{picFileId,jdbcType=INTEGER},  #{newsTypeId,jdbcType=INTEGER},#{titleCn,jdbcType=VARCHAR}, 
+      #{titleEn,jdbcType=VARCHAR}, #{descriptionCn,jdbcType=VARCHAR}, #{descriptionEn,jdbcType=VARCHAR}, 
+      #{lastUpdateAdminId,jdbcType=INTEGER}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{priority,jdbcType=INTEGER}, 
+      1, 0, 0)
+	</insert>
+
+
+	<update id="updateNews" parameterType="com.gzsoftware.pet.entity.po.News">
+     UPDATE News
+      set PIC_FILE_ID = #{picFileId,jdbcType=INTEGER},
+      NEWS_TYPE_ID = #{newsTypeId,jdbcType=INTEGER},
+      TITLE_CN = #{titleCn,jdbcType=VARCHAR},
+      TITLE_EN = #{titleEn,jdbcType=VARCHAR},
+      DESCRIPTION_CN = #{descriptionCn,jdbcType=VARCHAR},
+      DESCRIPTION_EN = #{descriptionEn,jdbcType=VARCHAR},
+      LAST_UPDATE_ADMIN_ID = #{lastUpdateAdminId,jdbcType=INTEGER},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      PRIORITY = #{priority,jdbcType=INTEGER},
+      IS_ENABLE = #{isEnable,jdbcType=SMALLINT},
+      VISIT_CNT = #{visitCnt,jdbcType=INTEGER},
+      UP_CNT = #{upCnt,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<delete id="deleteNews" parameterType="java.lang.Integer">
+		delete from News where
+		ID = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	
+	<update id="addNewsVisitCnt" parameterType="java.lang.Integer">
+     UPDATE News set
+      VISIT_CNT =VISIT_CNT+1 
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="addNewsUpCnt" parameterType="java.lang.Integer">
+     UPDATE News set
+      UP_CNT = UP_CNT+1 
+    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+</mapper>

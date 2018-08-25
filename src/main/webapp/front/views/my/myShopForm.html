@@ -1,0 +1,167 @@
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+<div class="portlet-body form" >
+
+	<div class="col-md-12"  id="shopIsNoneDiv" style="display: none;text-align:center;font-size:22px;margin:20px 0;">
+		{{"NoShop" | translate}}
+	</div>
+
+	<div class="col-md-12"  id="shopIsRequestDiv" style="display: none;text-align:center;font-size:22px;margin:20px 0;">
+		{{"ShopApply" | translate}}
+	</div>
+	
+	<div class="col-md-12"  id="shopIsRejectDiv" style="display: none;text-align:center;font-size:22px;margin:20px 0;">
+		<span style="color:red">
+			{{"ShopReject" | translate}}&nbsp;：<br/>{{shop.rejectReason?shop.rejectReason:'请咨询管理员'}}
+		</span>
+	</div>
+
+
+	<!-- BEGIN FORM-->
+	<form id="shopInfoForm" action="" enctype="multipart/form-data" method="post" class="form-horizontal" style="display: none;">
+		<div class="form-body">
+			<div hidden="hidden" class="form-group" style="height: 30px;">
+				ID:<input type="text" class="form-control" id="shopId" name="id" ng-model="shop.id" />
+			</div>
+		   
+			<div class="form-group">
+				<label class="control-label col-md-4">{{"Shop_CNName" | translate}}
+				</label>
+				<div class="col-md-5"">
+					<input type="text" data-required="1" aria-required="true" class="form-control" id="shopNameCn" name="shopNameCn" placeholder="中文名称 (必填)" ng-model="shop.nameCn" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-4">{{"Shop_ENName" | translate}}
+				</label>
+				<div class="col-md-5"">
+					<input type="text"  class="form-control" id="nameEn" name="nameEn" placeholder="英文名称 (选填)" ng-model="shop.nameEn" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-4">{{"Shop_ManagementModel" | translate}}
+				</label>
+				<div class="col-md-5"">
+					<input type="text"  class="form-control" id="operMode" name="operMode" placeholder="经营模式 " ng-model="shop.operMode" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-4">{{"Shop_TEL" | translate}}
+				</label>
+				<div class="col-md-5"">
+					<input type="text"  class="form-control" id="tel" name="tel" placeholder="联系电话" ng-model="shop.tel" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-4">{{"Shop_Location" | translate}}
+				</label>
+				<div class="col-md-5"">
+					<input type="text"  class="form-control" id="location" name="location" placeholder="中英文地址" ng-model="shop.location" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-4">{{"Shop_URL" | translate}}
+				</label>
+				<div class="col-md-5"">
+					<input type="text"  class="form-control" id="url" name="url" placeholder="中英文地址" ng-model="shop.url" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-4">{{"Shop_LOGO" | translate}}</label>
+				<div class="col-md-5"">
+					<element ng-if="logoFileUploader">
+						<input type="file" data-required="1"  style="display:none" name ="logoFileUploader" id="logoFileUploader" uploader="logoFileUploader"  nv-file-select accept="image/*"/>
+						<a type="button" class="btn btn-sm blue-hoki " onclick="$('#logoFileUploader').click()"><i class="fa fa-cloud-upload"></i> 浏览.. </a>
+					</element>
+					<input type="hidden" ng-model="shop.logoFileId" id="logoFileId" name="logoFileId"/>
+					&nbsp;&nbsp;<a href="../upload/{{shop.logoFile.filePath}}" target="_blank" ng-show="shop.logoFile.filePath" style="color: #337ab7;">{{shop.logoFile.fileName}}</a>
+					&nbsp;&nbsp; <a href="#" class="fa fa-remove" style="color:Red;" ng-click="shop.logoFile={};shop.logoFileId=''" ng-show="shop.logoFile.filePath"></a>
+					&nbsp;&nbsp;<span style="font-size:14px;color:blue-hoki;"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-md-4">{{"Shop_MBLS" | translate}}</label>
+				<div class="col-md-5"">
+					<element ng-if="regFileUploader">
+						<input type="file" data-required="1"  style="display:none" name ="regFileUploader" id="regFileUploader" uploader="regFileUploader"  nv-file-select accept="image/*"/>
+						<a type="button" class="btn btn-sm blue-hoki " onclick="$('#regFileUploader').click()"><i class="fa fa-cloud-upload"></i> 浏览.. </a>
+					</element>
+					<input type="hidden" ng-model="shop.regFileId" id="regFileId" name="picFileId"/>
+					&nbsp;&nbsp;<a href="../upload/{{shop.regFile.filePath}}" target="_blank" ng-show="shop.regFile.filePath" style="color: #337ab7;">{{shop.regFile.fileName}}</a>
+					&nbsp;&nbsp; <a href="#" class="fa fa-remove" style="color:Red;" ng-click="shop.regFile={};shop.regFileId=''" ng-show="shop.regFile.filePath"></a>
+					&nbsp;&nbsp;<span style="font-size:14px;color:blue-hoki;"></span>
+				</div>
+			</div>
+			<div class="form-group" style="display: none;">
+				<label class="col-md-4 control-label">{{"Status" | translate}}</label>
+				<div class="col-md-5"">
+					<div class="radio-list" style="margin-left: 15px;">
+						<label class="radio-inline"> <input type="radio" name="status" id="optionsRadios1"  ng-model="shop.status" ng-value="0">未审批
+						</label> 
+						<label class="radio-inline"> <input type="radio" name="status" id="optionsRadios2"  ng-model="shop.status" ng-value="1">已审批
+						</label>
+						<label class="radio-inline"> <input type="radio" name="status" id="optionsRadios3"  ng-model="shop.status" ng-value="2">下架
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" style="display: none;">
+				<label class="control-label col-md-4">level<span class="required"> * </span>
+				</label>
+				<div class="col-md-1">
+					<select id="level" ng-model="shop.level" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="level.id as level.name for level in levels">
+					</select>
+				</div>
+			</div>
+			<div class="form-group last">
+			<label class="control-label col-md-4">{{"SHOP_ABOUT" | translate}}</label>
+			<div class="col-md-6">
+				<div class="portlet light bordered" style="width:100%!important;" >
+	                  <div class="portlet-title tabbable-line">
+		                  <div class="caption">
+                              
+                           </div>
+	                      <ul class="nav nav-tabs">
+	                        <li class="active">
+	                              <a href="./#introDp" data-toggle="tab" aria-expanded="true"> {{"ShopIntroduction" | translate}}</a>
+	                          </li>
+	                          <li class="">
+	                              <a href="./#introWl" data-toggle="tab" aria-expanded="false"> {{"LogisticsIntroduction" | translate}}</a>
+	                          </li>
+	                          <li class="">
+	                              <a href="./#introFw" data-toggle="tab" aria-expanded="false"> {{"ServiceIntroduction" | translate}}</a>
+	                          </li>
+	                      </ul>
+	                  </div>
+	                  <div class="portlet-body">
+	                      <div class="tab-content">
+	                          <div class="tab-pane active" id="introDp">
+	                           		<textarea class="form-control" name="introEnt" rows="8" id="introEnt" ng-model="shop.introEnt"></textarea>
+	                          </div>
+	                          <div class="tab-pane" id="introWl">
+	                           		<textarea class="form-control" name="introLog" rows="8" id="introLog" ng-model="shop.introLog"></textarea>
+	                          </div>
+	                          <div class="tab-pane" id="introFw">
+	                           		<textarea class="form-control" name="introSrv" rows="8" id="introSrv" ng-model="shop.introSrv"></textarea>
+	                          </div>
+	                      </div>
+	                  </div>
+	            </div>
+			</div>
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<a ng-click="toMyWareList()" class="btn btn-lg btn-default" id="backShopBtn"> <i class="fa fa-reply"></i> {{"BACK" | translate}}</a>  
+
+			&nbsp;
+			<a class="btn btn-lg btn-default blue" ng-click="toSaveShop()">
+				<i class="glyphicon glyphicon-ok"></i> {{"CONFIRM" | translate}}
+			</a>
+		</div>
+	</form>
+	<!-- END FORM-->
+	<br><br><br><br><br>
+</div>
+
+
+
+<div class="clear"></div>

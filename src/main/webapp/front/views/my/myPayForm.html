@@ -1,0 +1,99 @@
+<div class="form-body" style="margin-bottom: 20px;margin-top:50px;">
+	<div class="row col-center-block" style="width: 600px;!important" align="center"  id="payForm">
+	
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="form-group">
+				<div class="col-md-12" style="font-size:20px;font-weight: bold;">
+						您目前钱包余额是<span style="color:red;">￥&nbsp;{{user.balanceTotal}}&nbsp;</span>元
+				</div>
+				<div class="col-md-12" style="padding-top:20px;">
+					<table align="center" style="width:100%">
+							<tr>
+								<td  align="center" style="width:50%">
+									<img src="../assets/project/img/front/my/wechatPay.png" style="height:140px;"/>
+									<br>
+								</td>
+								<td  align="center" style="width:50%">
+									<img src="../assets/project/img/front/my/alipay.png" style="height:140px;"/>
+									<br>
+								</td>
+							</tr>
+							<tr>
+								<td align="center">
+									<br/>
+									<input type="radio" name="changeType" id="pay1" value="6"  checked="checked" ng-model="userBalanceLog.changeType"/>
+									&nbsp;{{"Wechat" | translate}}
+								</td>
+								<td align="center">
+									<br/>
+									<input type="radio" name="changeType" id="pay2" value="7" ng-model="userBalanceLog.changeType" />
+									&nbsp;{{"Alipay" | translate}}
+								</td>
+							</tr>
+					</table>
+				
+				
+				</div>
+			</div>
+		</div>
+	
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+				<span class="input-group-addon"><span class="glyphicon glyphicon-registration-mark "></span></span>
+				<input type="text" class="form-control" placeholder="请输入充值金额 (必填)" id="changeAmount" ng-model="userBalanceLog.changeAmount">
+			</div>
+		</div>
+		
+		
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			
+		</div>
+		
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<button class="btn btn-lg btn-default" ng-click="toMybalance()">
+				<i class="fa fa-reply"></i> {{"BACK" | translate}}
+			</button>
+			&nbsp;
+			<button class="btn btn-lg btn-default blue" ng-click="next();">
+				<i class="glyphicon glyphicon-ok"></i> {{"ScanPay" | translate}}
+			</button>
+		</div>
+
+	</div>
+	
+	<div class="row col-center-block" style="width: 600px!important;display: none;" align="center"  id="wechatPayForm">
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div style="letter-spacing: 2px;color: #333;font-size:20px;">{{"ScanQR" | translate}}</div>
+			<img src="{{QRcode}}"  style="width:300px;height:300px" border=1 />
+			<br/><br/>
+			<button class="btn btn-lg btn-default" ng-click="back()">
+				<i class="fa fa-reply"></i> {{"BACK" | translate}}
+			</button>
+			<button class="btn btn-lg btn-default" ng-click="paid();" style="background-color:orange;color:#fff;">
+				<i class="glyphicon glyphicon-ok"></i> {{"Paid" | translate}}
+			</button>
+			
+				
+		</div>
+	</div>
+	
+	<div class="row col-center-block" style="width: 600px!important;display: none;" align="center"  id="aliPayForm">
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div style="letter-spacing: 2px;color: #333;font-size:20px;">{{"ScanQR" | translate}}</div>
+			<div style="padding-top: 20px;">
+				<iframe id="aliCode" src="" style="width:225px;height:225px;text-align: center;border:none;"></iframe>
+			</div>
+			<br/><br/>
+			<button class="btn btn-lg btn-default" ng-click="back()">
+				<i class="fa fa-reply"></i> {{"BACK" | translate}}
+			</button>
+			<button class="btn btn-lg btn-default" ng-click="paid();" style="background-color:orange;color:#fff;">
+				<i class="glyphicon glyphicon-ok"></i> {{"Paid" | translate}}
+			</button>
+			
+				
+		</div>
+	</div>
+	
+	<br><br><br><br><br><br>
+</div>

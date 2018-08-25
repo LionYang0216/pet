@@ -1,0 +1,37 @@
+<div class="form-body" style="margin-bottom: 20px;">
+	<div class="row col-center-block" style="width: 600px;!important" align="center">
+		<div class="col-md-12" style="font-size:20px;font-weight: bold;margin-top:80px;">
+				您目前钱包余额是<span style="color:red;">￥&nbsp;{{user.balanceTotal}}&nbsp;</span>元
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:20px;">
+			<div class="input-group" style="width: 70%">
+			<span class="input-group-addon"><span class="glyphicon glyphicon glyphicon-list-alt"></span></span>
+				<input type="text" class="form-control" placeholder="请输入您的提现金额(必填)" id="drawAmount" ng-model="userDraw.drawAmount">
+			</div>
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+			<span class="input-group-addon"><span class="glyphicon glyphicon glyphicon-list-alt"></span></span>
+				<textarea class="form-control" placeholder="请输入备注(请输入您的 姓名，支付宝账号，电话号码  (必填) )" id="userRemark" ng-model="userDraw.userRemark" rows="4">
+				</textarea>
+			</div>
+		</div>
+		
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			
+		</div>
+		
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<button class="btn btn-lg btn-default" ng-click="toMybalance()">
+				<i class="fa fa-reply"></i> {{"BACK" | translate}}
+			</button>
+			&nbsp;
+			<button class="btn btn-lg btn-default blue" ng-click="addUserDraw();">
+				<i class="glyphicon glyphicon-ok"></i> {{"APPLY" | translate}}
+			</button>
+		
+		</div>
+
+	</div>
+	<br><br><br><br><br><br>
+</div>

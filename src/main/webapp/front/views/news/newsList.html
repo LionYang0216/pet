@@ -1,0 +1,48 @@
+<div class="form-body">
+	<div class="page-header-menu">
+		<div class="container">
+			<div class="row"  style="min-height: 350px; background-color: #FFFFFF; margin-bottom: 30px;" >
+				<div class="col-md-10 col-center-block" style="margin-top: 30px;margin-bottom:30px;">
+					<a name="newsType" id="newsType_0" class="btn btn-outline selectActive" 
+						style="border-radius:4px!important;margin:0 5px 0 5px;color:#333333;border:1px solid #333333;" ng-click="setNewsCon($event,'newsTypeId','')">
+						{{"All" | translate}}
+					</a> 
+					<a name="newsType" ng-repeat="newsType in newsTypeList"  class="btn btn-outline"  id="newsType_{{newsType.id}}"
+						style="border-radius:4px!important;margin:0 5px 0 5px;color:#333333;border:1px solid #333333;" ng-click="setNewsCon($event,'newsTypeId',newsType.id)">
+						{{curLang=="zh" ? newsType.nameCn : newsType.nameEn}}
+					</a> 
+				</div>
+				<div class="clear"></div>
+				<div class="col-md-10 col-center-block" style="padding-bottom:15px;border-bottom:1px solid #333333;margin-bottom:30px;" ng-repeat="news in newsList" >
+					<div class="col-md-3">
+						<img src="../upload/{{news.picFile.filePath}}" class="news-image">
+					</div>
+					
+					<div class="col-md-9 game " ng-click="goNewsDetail(news.id);"  style="cursor: pointer;">
+						<div class="gameTitle" >{{curLang=="zh" ? news.titleCn : news.titleEn}}</div>
+						
+						<div class="game gameTime">{{"PUBLISH" | translate}}:&nbsp;{{news.lastUpdateTimeLayout}}</div>
+						<div ng-bind-html="curLang=='zh' ? news.descriptionCn : news.descriptionEn" class="newsContent textellipsis" style="max-height:100px;"></div>
+						<div class="game gameTime" align="right">
+							<span class="glyphicon glyphicon-eye-open" title="阅读"></span>&nbsp;:&nbsp;{{news.visitCnt}}
+								&nbsp;&nbsp;
+							<span class="glyphicon glyphicon-thumbs-up" style="font-size:14px;"  title="点赞"></span>&nbsp;:&nbsp;{{news.upCnt}}
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+			</div>
+			<div class="row" style="min-height: 50px; background-color: #FFFFFF; margin-bottom: 30px;">
+				<div class="col-md-10 no-paddingLeft no-paddingRight col-center-block  text-center" style="min-height: 50px;">
+					<ul class="pagination" style="display: inline-block; float: none;">
+						<li ng-class="{true:'disabled'}[pCurrent==1]"><a class="pages-a" href="javascript:void(0);" ng-click="p_index()">{{"FIRST" | translate}}</a></li>
+						<li ng-repeat="page in pages" ng-class="{true:'active'}[pCurrent==page]"><a href="javascript:void(0);" class="pages-a" ng-click="loadPage(page)">{{ page }}</a></li>
+						<li ng-class="{true:'disabled'}[pCurrent==pAllPage]"><a class="pages-a" href="javascript:void(0);" ng-click="p_last()">{{"LAST" | translate}}</a></li>
+					</ul>
+					<span style="vertical-align: 12px;display: none;"> 共：{{count}} 条</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

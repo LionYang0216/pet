@@ -1,0 +1,42 @@
+
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="prodCostInfoForm" action="" enctype="multipart/form-data" class="form-horizontal">
+			<div class="form-body">
+				<div hidden="hidden" class="form-group" style="height: 30px;">
+					ID:<input type="text" class="form-control" id="prodCostId" name="id" ng-model="prodCost.id" />
+				</div>
+				<h3 class="form-section">瓶库计费模式</h3>
+				<div class="form-group">
+					<label class="control-label col-md-3">费用 <span class="required"> * </span>
+					</label>
+					<div class="col-md-4">
+						<input type="number" style="width: 100px" data-required="1" class="form-control" id="cost" name="cost" placeholder="费用" ng-model="prodCost.cost" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">费用描述 
+					</label>
+					<div class="col-md-4">
+						<input type="text" data-required="1" class="form-control" id="nameEn" name="nameEn" placeholder="费用描述" ng-model="prodCost.name" />
+					</div>
+				</div>
+			</div>
+			<div>
+                 <div class="row">
+                     <div class="col-md-offset-3 col-md-9">
+                     	<a href="#/prodCost/list" class="btn default"> <i class="fa fa-reply"></i> 返回</a> 
+						<a href="#" class="btn  red" ng-click="toDeleteProdCost()" ng-show="showDelBtn"> 
+							<i class="fa fa-minus"></i> 
+							<span class="hidden-480">删除</span>
+						</a> 
+						<a type="button" class="btn blue" ng-click="toSaveProdCost()"> <i class="fa fa-check"></i> 保存</a>
+                     </div>
+                 </div>
+             </div>
+
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>

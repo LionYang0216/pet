@@ -1,0 +1,137 @@
+<!--侧滑菜单部分-->
+<aside id="offCanvasSide" class="mui-off-canvas-left">
+	<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<div class="content" style="display: none">
+				<p style="margin: 10px 15px;">
+					<button id="offCanvasHide" type="button" class="mui-btn mui-btn-danger mui-btn-block" style="padding: 5px 20px;">关闭侧滑菜单</button>
+				</p>
+			</div>
+			<div class="offCanvasContainer">
+				<div class="offCanvasHeader" style="font-size:36px;">&nbsp;<i class="fa fa-bars"></i> &nbsp; 筛选</div>
+				<br>
+				<div class="offCanvasBody">
+				
+					<div class="form-group">
+						<ul class="menuUl">
+							 <li class="repeatSelect menuBtnLi">
+							 	<button type="button" class="btn-lg btn-default btn-circle menuBtn btn-primary " name="all"  ng-click="setProdCon($event,'prodTypePhyId','')">类型</button>
+							 </li>
+							 <li class="repeatSelect menuBtnLi" ng-repeat="phy in prodTypePhyList" >
+								<button type="button" class="btn-lg btn-default btn-circle menuBtn" ng-click="setProdCon($event,'prodTypePhyId', phy.id)" >{{phy.nameCn}}</button>
+							</li>
+						</ul>
+					</div>
+
+					<div class="form-group">
+						<ul class="menuUl">
+							  <li class="repeatSelect menuBtnLi">
+							 	<button type="button" class="btn-lg btn-default btn-circle menuBtn btn-primary " name="all"  ng-click="setProdCon($event,'prodTypeAreId','')">地区</button>
+							 </li>
+							 <li class="repeatSelect menuBtnLi" ng-repeat="are in prodTypeAreList" >
+								<button type="button" class="btn-lg btn-default btn-circle menuBtn" ng-click="setProdCon($event,'prodTypeAreId', are.id)" >{{are.nameCn}}</button>
+							</li> 
+						</ul>
+					</div>
+					
+					<div class="form-group">
+						<ul class="menuUl">
+							 <li class="repeatSelect menuBtnLi">
+							 	<button type="button" class="btn-lg btn-default btn-circle menuBtn btn-primary " name="all" ng-click="setProdCon($event,'prodTypePicId','')">图样</button>
+							 </li>
+							 <li class="repeatSelect menuBtnLi" ng-repeat="pic in prodTypePicList" >
+								<button type="button" class="btn-lg btn-default btn-circle menuBtn" ng-click="setProdCon($event,'prodTypePicId', pic.id)" >{{pic.nameCn}}</button>
+							</li>
+						</ul>
+					</div>
+
+					<div class="form-group">
+						<ul class="menuUl">
+							 <li class="repeatSelect menuBtnLi">
+							 	<button type="button" class="btn-lg btn-default btn-circle menuBtn btn-primary " name="all"  ng-click="setProdCon($event,'prodTypeBizId','')">业务</button>
+							 </li>
+							 <li class="repeatSelect menuBtnLi" ng-repeat="biz in prodTypeBizList" >
+								<button type="button" class="btn-lg btn-default btn-circle menuBtn" ng-click="setProdCon($event,'prodTypeBizId', biz.id)" >{{biz.nameCn}}</button>
+							</li>
+						</ul>
+					</div>
+
+					<div class="form-group">
+						<ul class="menuUl">
+							 <li class="repeatSelect menuBtnLi">
+							 	<button type="button" class="btn-lg btn-default btn-circle menuBtn btn-primary " name="all" ng-click="setProdCon($event,'prodTypeConId','')">容量</button>
+							 </li>
+							 <li class="repeatSelect menuBtnLi" ng-repeat="con in prodTypeConList" >
+								<button type="button" class="btn-lg btn-default btn-circle menuBtn" ng-click="setProdCon($event,'prodTypeConId', con.id)" >{{con.nameCn}}</button>
+							</li>
+						</ul>
+					</div>
+
+					<div class="form-group">
+						<ul class="menuUl">
+							 <li class="repeatSelect menuBtnLi">
+							 	<button type="button" class="btn-lg btn-default btn-circle menuBtn btn-primary " name="all" ng-click="setProdCon($event,'prodTypeHigId','')">高度</button>
+							 </li>
+							 <li class="repeatSelect menuBtnLi" ng-repeat="hig in prodTypeHigList" >
+								<button type="button" class="btn-lg btn-default btn-circle menuBtn" ng-click="setProdCon($event,'prodTypeHigId', hig.id)" >{{hig.nameCn}}</button>
+							</li>
+						</ul>
+					</div>
+
+					<div class="form-group">
+						<ul class="menuUl">
+							 <li class="repeatSelect menuBtnLi">
+							 	<button type="button" class="btn-lg btn-default btn-circle menuBtn btn-primary " name="all" ng-click="setProdCon($event,'prodTypeJarId','')">灌装</button>
+							 </li>
+							 <li class="repeatSelect menuBtnLi" ng-repeat="jar in prodTypeJarList" >
+								<button type="button" class="btn-lg btn-default btn-circle menuBtn" ng-click="setProdCon($event,'prodTypeJarId', jar.id)" >{{jar.nameCn}}</button>
+							</li>
+						</ul>
+					</div>
+
+					<div class="form-group">
+						<ul class="menuUl">
+							 <li class="repeatSelect menuBtnLi">
+							 	<button type="button" class="btn-lg btn-default btn-circle menuBtn btn-primary " name="all" ng-click="setProdCon($event,'prodTypeNekId','')">瓶口</button>
+							 </li>
+							 <li class="repeatSelect menuBtnLi" ng-repeat="nek in prodTypeNekList" >
+								<button type="button" class="btn-lg btn-default btn-circle menuBtn" ng-click="setProdCon($event,'prodTypeNekId', nek.id)" >{{nek.nameCn}}</button>
+							</li>
+						</ul>
+					</div>
+
+					
+
+					<div class="form-group">
+						<ul class="menuUl">
+							 <li class="repeatSelect menuBtnLi">
+							 	<button type="button" class="btn-lg btn-default btn-circle menuBtn btn-primary " name="all" ng-click="setProdCon($event,'prodTypeSouId','')">来源</button>
+							 </li>
+							 <li class="repeatSelect menuBtnLi" ng-repeat="sou in prodTypeSouList" >
+								<button type="button" class="btn-lg btn-default btn-circle menuBtn" ng-click="setProdCon($event,'prodTypeSouId', sou.id)" >{{sou.nameCn}}</button>
+							</li>
+						</ul>
+					</div>
+
+
+					<div class="form-group">
+						<ul class="menuUl">
+							 <li class="repeatSelect menuBtnLi">
+							 	<button type="button" class="btn-lg btn-default btn-circle menuBtn btn-primary " name="all" ng-click="setProdCon($event,'prodTypeWidId','')">宽度</button>
+							 </li>
+							 <li class="repeatSelect menuBtnLi" ng-repeat="wid in prodTypeWidList" >
+								<button type="button" class="btn-lg btn-default btn-circle menuBtn" ng-click="setProdCon($event,'prodTypeWidId', wid.id)" >{{wid.nameCn}}</button>
+							</li>
+						</ul>
+					</div>
+
+
+				</div>
+				<div class="offCanvasFooter" align="center">
+					<button class="btn btn-circle white btn-outline sbold uppercase menuBigBtn" ng-click="reset()">重置</button> &nbsp;&nbsp;&nbsp;
+					<button class="btn btn-circle white btn-outline sbold uppercase menuBigBtn" ng-click="search();closeMenu();">查询</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</aside>

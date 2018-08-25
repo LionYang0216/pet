@@ -1,0 +1,157 @@
+<div class="page-content" style="margin-bottom: 50px;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2 no-paddingLeft no-paddingRight" style="width:12.667%;"></div>
+			<div class="col-md-7 no-paddingLeft no-paddingRight">
+				<div class="myWareCntBlock no-paddingLeft no-paddingRight ">
+					<div class="div-border-bottom-helf myWareCntBlockTitle">
+						<span class="glyphicon glyphicon-play" style="color: #12B5B0;"></span>&nbsp;<b>{{"Visits" | translate}}</b>
+					</div>
+
+					<div class="col-center-block" style="width: 80%; background-color: #12B5B0; height: 85px; margin-top: 10px; padding-top: 10px;">
+						<div class="myWareCntBlockDetail" style="border-right: 1px solid #FFFFFF;">
+							<span style="font-size: 20px;"><b>{{shop.visitCnt}}</b></span><br /> <span style="font-size: 14px;"><b>{{"SHOPVISITCNT" | translate}}</b></span>
+						</div>
+						<div class="myWareCntBlockLine"></div>
+						<div class="myWareCntBlockDetail">
+							<span style="font-size: 20px;"><b>{{wareVisitTotal}}</b></span><br /> <span style="font-size: 14px;"><b>{{"WAREVISITCNT" | translate}}</b></span>
+						</div>
+					</div>
+				</div>
+				<div class="myWareCntBlock no-paddingLeft no-paddingRight ">
+					<div class="div-border-bottom-helf myWareCntBlockTitle">
+						<span class="glyphicon glyphicon-play" style="color: #EB6876;"></span>&nbsp;<b>{{"Collections" | translate}}</b>
+					</div>
+
+					<div class="col-center-block" style="width: 80%; background-color: #EB6876; height: 85px; margin-top: 10px; padding-top: 10px;">
+						<div class="myWareCntBlockDetail" style="border-right: 1px solid #FFFFFF;">
+							<span style="font-size: 20px;"><b>{{shop.favCnt}}</b></span><br /> <span style="font-size: 14px;"><b>{{"ShopCollection" | translate}}</b></span>
+						</div>
+						<div class="myWareCntBlockLine"></div>
+						<div class="myWareCntBlockDetail">
+							<span style="font-size: 20px;"><b>{{wareFavTotal}}</b></span><br /> <span style="font-size: 14px;"><b>{{"WareCollection" | translate}}</b></span>
+						</div>
+					</div>
+
+				</div>
+				<div class="clear"></div>
+				<div style="height: 70px; background-color: #FFFFFF; border: 1px solid #D1D1D1; box-shadow: 2px 10px 5px #F0F0F0; padding-top: 10px; margin-left: 10px; width: 97%;">
+					<div class="collapse navbar-collapse text-center">
+						<ul class="nav navbar-nav" style="display: inline-block; float: none;">
+							<li class="menu-dropdown classic-menu-dropdown active product-ul-li-margin">
+								<a class="color-black selectActive" ng-click="setProdCon($event,'isEnable','1');">
+									<b>{{"OnSale" | translate}}</b> 
+								</a>
+							</li>
+							<li class="menu-dropdown classic-menu-dropdown product-ul-li-margin">
+								<a class="color-black" ng-click="setProdCon($event,'isEnable','0');">
+									<b>{{"FromSale" | translate}} </b>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div align="center" style="margin-top: 10px; padding-left: 150px;">
+					<div style="width:145px;float:left;color:#333333;">{{"NAME" | translate}}</div>
+					<div style="width:130px;float:left;color:#333333;">{{"WARE_TITLE_PRICE" | translate}}</div>
+					<div style="width:80px;float:left;color:#333333;">{{"Visits" | translate}}</div>
+					<div style="width:80px;float:left;color:#333333;padding-left:10px;">{{"Collections" | translate}}</div>
+				</div>
+
+				<div align="center" style="margin-top: 10px;">
+					<table class="myListTab">
+						<tr ng-repeat="ware in wareList">
+							<td class="mwListTd1"><img src="../upload/{{ware.picFile.filePath}}" class="myWareImg"></td>
+							<td class="mwListTd2">{{curLang=="zh" ? ware.nameCn : ware.nameEn}}</td>
+							<td class="mwListTd3">￥{{ware.price}}</td>
+							<td class="mwListTd4">{{ware.visitCnt}}</td>
+							<td class="mwListTd4">{{ware.favCnt}}</td>
+							<td class="mwListTd5">
+								<a ng-click="updateWare(ware.id)" class="btn btn-outline " style="border-radius:4px!important;background-color: #12B5B0;color:#ffffff;margin-top:5px;">{{"Edit" | translate}}</a> 
+								<a ng-click="updateWareDisEnable(ware)" ng-if="ware.isEnable==1" class="btn btn-outline " style="border-radius:4px!important;background-color:orange;color:#ffffff;margin-top:5px;">{{"From_Sale" | translate}}</a>
+								<a ng-click="updateWareEnable(ware)" ng-if="ware.isEnable==0" class="btn btn-outline " style="border-radius:4px!important;background-color: #33B26D;color:#ffffff;margin-top:5px;">{{"On_Sale" | translate}}</a>  
+								<a ng-click="toDeleteWare(ware.id)" class="btn btn-outline " style="border-radius:4px!important;background-color: #EB6876;color:#ffffff;margin-top:5px;">{{"Delete" | translate}}</a>
+							</td>
+						</tr>
+						<tr ng-if="ware!=null">
+							<td>暂无商品 No any wares</td>
+						</tr>
+					</table>
+				</div>
+
+
+				<div class="row" style="min-height: 50px; background-color: #FFFFFF; margin: 30px 0;">
+					<div class="col-md-10 no-paddingLeft no-paddingRight col-center-block  text-center" style="min-height: 50px;">
+						<ul class="pagination" style="display: inline-block; float: none;">
+							<li ng-class="{true:'disabled'}[pCurrent==1]"><a class="pages-a" href="javascript:void(0);" ng-click="p_index()">{{"FIRST" | translate}}</a></li>
+							<li ng-repeat="page in pages" ng-class="{true:'active'}[pCurrent==page]"><a href="javascript:void(0);" class="pages-a" ng-click="loadPage(page)">{{ page }}</a></li>
+							<li ng-class="{true:'disabled'}[pCurrent==pAllPage]"><a class="pages-a" href="javascript:void(0);" ng-click="p_last()">{{"LAST" | translate}}</a></li>
+						</ul>
+						<span style="vertical-align: 12px; display: none;"> 共：{{count}} 条</span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-md-3 no-paddingLeft no-paddingRight" style="width:27%;">
+				<div class="col-md-12 myWareCntBlock no-paddingLeft no-paddingRight" style="width: 75%; padding-top: 10px;" align="center">
+					<a>
+						<div class="myWareIssue" style="border-radius: 50% !important;cursor:hand;" ng-click="addWare();" >
+							<span class="glyphicon glyphicon-heart-empty" style="font-size: 36px;"></span><br />
+							<br /> {{"Release" | translate}}
+						</div>
+					</a>
+					<div style="background-color: #434343; margin-top: 20px; height: 40px; padding-top: 5px">
+						<a ng-click="goShop();" style="color: #FFFFFF; font-size: 20px;" target="_blank">{{"HomePage" | translate}}</a>
+					</div>
+
+					<div style="margin-top: 20px; padding-top: 5px; border: 1px solid #DCDCDC;">
+						<div style="padding-top: 5px; border-bottom: 1px solid #DCDCDC; text-align: left; padding-left: 25px;">
+							<a ng-click="updateShop()" style="color:#434343;text-decoration: none;">
+								<div style="float:left;width:65%"><span class="glyphicon glyphicon-play" style="color: #434343; height: 30px;"></span>&nbsp;{{"ShopInfo" | translate}}</div>
+								<div style="float:left;width:35%"><span class="glyphicon glyphicon-edit" style="color: #434343; height: 30px;"></span>&nbsp;{{"Edit" | translate}}</div>
+							</a>
+							<div class="clear"></div>
+						</div>
+						<div style="padding-top: 10px;text-align: left;">
+							<div style="margin-left:25px;color: #434343; font-weight: bold; font-size: 18px;height:25px;">
+								{{curLang=="zh" ? shop.nameCn : shop.nameEn}}<br/>
+							</div>
+							<br>
+							<div>
+								<table class="myShopInfoTab">
+									<tr>
+										<td class="myShopInfoTabLeft">{{"BUSINESS" | translate}}&nbsp;:</td>
+										<td class="myShopInfoTabRight">{{shop.operMode}}</td>
+									</tr>
+									<tr>
+										<td class="myShopInfoTabLeft">{{"CONTACTS" | translate}}&nbsp;:</td>
+										<td class="myShopInfoTabRight">{{shop.user.userName}}</td>
+									</tr>
+									<tr>
+										<td class="myShopInfoTabLeft">{{"PHONE" | translate}}&nbsp;:</td>
+										<td class="myShopInfoTabRight">{{shop.tel}}</td>
+									</tr>
+									<tr>
+										<td class="myShopInfoTabLeft">{{"ADDRESS" | translate}}&nbsp;:</td>
+										<td class="myShopInfoTabRight">{{shop.location}}</td>
+									</tr>
+									<tr>
+										<td class="myShopInfoTabLeft">公司网址&nbsp;:</td>
+										<td class="myShopInfoTabRight">
+											<a href="https://{{shop.url}}" style="color:#333333;" target="_blank">{{shop.url}}</a>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

@@ -1,0 +1,75 @@
+<div class="page-content" style="margin-bottom: 50px;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-center-block no-paddingLeft no-paddingRight" style="background: linear-gradient(#FF8C11, #FFAE22, #FF8C11); height: 100px;">
+				<div class="col-md-8 no-paddingLeft no-paddingRight">
+					<div style="color: #FFFFFF; margin-top: 40px;padding-left:10px;">
+						<span style="font-size: 18px;font-weight:bold;">{{"ACCOUNTBALANCE" | translate}} &nbsp;:&nbsp;</span> <span style="font-size:18px;">
+							￥&nbsp;{{user.balanceTotal}}
+						</span>
+					</div>
+				</div>
+				<div class="col-md-4 no-paddingLeft no-paddingRight" align="right">
+					<div style="color: #FFFFFF; margin-top: 40px;margin-right:40px;">
+						<a ng-click="switchTab('myPayForm');" class="btn btn-outline " style="width: 90px; border-radius: 4px !important; background-color: #FEF6EA; color: #333333;">{{"Recharge" | translate}}</a>
+						&nbsp;&nbsp; 
+						<a ng-click="switchTab('myDrawForm');" class="btn btn-outline " style="width: 90px; border-radius: 4px !important; background-color: #FEF6EA; color: #333333;">{{"Withdrawals" |translate}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-center-block no-paddingLeft no-paddingRight" style="margin-top:20px;font-size:22px;">
+				{{"Trans" | translate}}
+			</div>
+			<div class="col-md-10 col-center-block no-paddingLeft no-paddingRight" style="margin-top:20px;display: none" hidden="hidden">
+				<a ng-click="" class="btn btn-outline btnBorder" style="width: 90px; border-radius: 4px !important;color: #333333;">{{"Recharge" | translate}}</a>
+				&nbsp;&nbsp; 
+				<a ng-click="" class="btn btn-outline btnBorder" style="width: 90px; border-radius: 4px !important; color: #333333;">{{"Withdrawals" |translate}}</a>
+			</div>
+			<div class="col-md-10 col-center-block no-paddingLeft no-paddingRight" style="margin-top:50px;border-bottom: 1px solid #333333;">
+				<div class="col-md-3 myBaTitle">
+					{{"ChangeType" | translate}}
+				</div>
+				<div class="col-md-3 myBaTitle">
+					{{"Matters" | translate}}
+				</div>
+				<div class="col-md-3 myBaTitle">
+					{{"Amount" | translate}}
+				</div>
+				<div class="col-md-3 myBaTitle">
+					{{"DATE" | translate}}
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="col-md-10 col-center-block no-paddingLeft no-paddingRight" style="margin-top:10px;border-bottom: 1px solid #808080;" ng-repeat="balanceLog in balanceLogList">
+				<div class="col-md-3 myBaDetail tetx-center">
+					{{balanceLog.changeTypeLayout}}
+				</div>
+				<div class="col-md-3 myBaDetail tetx-center">
+					{{balanceLog.description}}
+				</div>
+				<div class="col-md-3 myBaDetail tetx-center">
+					￥&nbsp;<span style="color:#3c3;font-size:20px;" ng-if="balanceLog.changeType<5">{{balanceLog.changeAmount}}</span>
+					<span style="color:red;font-size:20px;" ng-if="balanceLog.changeType>5">{{balanceLog.changeAmount}}</span>
+				</div>
+				<div class="col-md-3 myBaDetail tetx-center">
+					{{balanceLog.changeTimeLayout}}
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="row" style="min-height: 50px; background-color: #FFFFFF; margin: 30px 0;">
+				<div class="col-md-10 no-paddingLeft no-paddingRight col-center-block  text-center" style="min-height: 50px;">
+					<ul class="pagination" style="display: inline-block; float: none;">
+						<li ng-class="{true:'disabled'}[pCurrent==1]"><a class="pages-a" href="javascript:void(0);" ng-click="p_index()">{{"FIRST" | translate}}</a></li>
+						<li ng-repeat="page in pages" ng-class="{true:'active'}[pCurrent==page]"><a href="javascript:void(0);" class="pages-a" ng-click="loadPage(page)">{{ page }}</a></li>
+						<li ng-class="{true:'disabled'}[pCurrent==pAllPage]"><a class="pages-a" href="javascript:void(0);" ng-click="p_last()">{{"LAST" | translate}}</a></li>
+					</ul>
+					<span style="vertical-align: 12px; display: none;"> 共：{{count}} 条</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

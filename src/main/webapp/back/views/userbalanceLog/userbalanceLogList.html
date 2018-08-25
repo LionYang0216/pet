@@ -1,0 +1,86 @@
+
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="#/dashboard.html">首页</a>
+           >会员消费记录管理
+        </li>
+       
+    </ul>
+  
+</div>
+<h3 class="page-title"> 会员消费记录管理
+</h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-user"></i> 会员消费记录管理列表 </div>
+                    <div class="actions">
+                    
+                    	<span class="input-sm">从</span>
+					     <input type="search" ng-model="userBalanceLogCondition.inputStartTime"  placeholder="开始时间" 
+						class="form-control input-sm  input-small date-picker input-inline" data-date-format="yyyy-mm-dd" id="inputStartTime" >
+						<span class="input-sm">到</span>
+						<input type="search" ng-model="userBalanceLogCondition.inputEndTime" placeholder="结束时间" 
+						class="form-control input-sm input-small date-picker input-inline" data-date-format="yyyy-mm-dd" id="inputEndTime" >
+						<input id="searchName" ng-model="userBalanceLogCondition.userName" 
+						class="form-control input-sm input-small input-inline" placeholder="请输入会员名称" 
+						aria-controls="sample_1" type="search">
+						<input id="searchName" ng-model="userBalanceLogCondition.chargeOrderNumber" 
+						class="form-control input-sm input-small input-inline" placeholder="请输入业务编号" 
+						aria-controls="sample_1" type="search">
+						<select id="searchChangeType" ng-model="userBalanceLogCondition.changeType" 
+						class="table-group-action-input form-control input-inline input-small input-sm">
+							<option value="">全部类型</option>
+							<option value="1">查看瓶库消费</option>
+							<option value="2">线下提现</option>
+							<option value="6">微信充值</option>
+							<option value="7">支付宝充值</option>
+							<option value="8">线下充值</option>
+						</select>
+						
+						<button class="btn btn-sm green table-group-action-submit" ng-click="reloadTable()">
+							<i class="fa fa-check"></i> 搜索
+						</button>
+                        <a href="#/userBalanceLog/form/" class="btn btn-outline green">
+                        <i class="fa fa-plus"></i>
+                        <span class="hidden-480"> 新增</span>
+                    </a>     
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-container" >
+					<table class="table table-striped table-bordered table-hover table-checkable" id="userBalanceLogDataTable">
+                        <thead>
+                            <tr role="row" class="heading">
+                                <th width="2%">
+                            	   No.
+                            	</th>
+                                <th width="10%">用户名</th>
+                                <th width="10%">影响金额</th>
+                                <th width="10%">影响类型</th>
+                                <th width="10%">内容</th>
+                                <th width="10%">消费单号</th>
+                                <th width="15%">备注</th>
+                                <th width="15%">发生时间</th>
+                                <th width="8%">
+                                   	 请选择
+                                </th>
+                            </tr>                         
+                        </thead>
+                        <tbody> </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+    
+</div>
+<!-- END MAIN CONTENT -->

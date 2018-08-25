@@ -1,0 +1,105 @@
+<div class="form-body" style="margin-bottom: 20px;">
+	<div class="row col-center-block" style="width: 600px;!important" align="center">
+	
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="form-group">
+				<div class="col-md-12">
+					<div class="radio-list" >
+						<label class="radio-inline"> <input type="radio" name="sex" id="sex1" value="1"  checked="checked"
+						ng-model="user.sex" ng-checked="1" >{{"MALE" | translate}}</label> 
+						<label class="radio-inline"> <input type="radio" name="sex" id="sex2" value="0" ng-model="user.sex" ng-checked="0">{{"FEMALE" | translate}}
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+				<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+				<input type="text" class="form-control" placeholder="请输入帐号 (必填)" id="userAccount" ng-model="user.account" disabled="disabled">
+			</div>
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+				<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+				<input type="password" class="form-control" placeholder="请输入密码（必填）" id="userPwd" ng-model="user.password">
+			</div>
+			
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+				<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+				<input type="password" class="form-control" placeholder="请再次输入密码（必填）" id="userRePwd">
+			</div>
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+				<span class="input-group-addon"><span class="glyphicon glyphicon-tower"></span></span>
+				<input type="text" class="form-control" placeholder="请输入用户名（必填）" id="userName" ng-model="user.userName">
+			</div>
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+				<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+				<input type="text" class="form-control" placeholder="请输入电子邮箱（必填）" id="userEmail" ng-model="user.email">
+			</div>
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+				<span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+				<input type="text" class="form-control" placeholder="请输入电话/手机号码（必填）" id="telephone" ng-model="user.tel">
+			</div>
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+				<span class="input-group-addon"><span class="glyphicon glyphicon glyphicon-list-alt"></span></span>
+				<input type="text" class="form-control" placeholder="请输入QQ （选填）" id="userQQ" ng-model="user.qq">
+			</div>
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+			<span class="input-group-addon"><span class="glyphicon glyphicon glyphicon-list-alt"></span></span>
+				<input type="text" class="form-control" placeholder="请输入微信 （选填）" id="userWechat" ng-model="user.wechat">
+			</div>
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+			<span class="input-group-addon"><span class="glyphicon glyphicon glyphicon-list-alt"></span></span>
+				<input type="text" class="form-control" placeholder="请输入职位 （选填）" id="userPos" ng-model="user.pos">
+			</div>
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+			<span class="input-group-addon"><span class="glyphicon glyphicon glyphicon-list-alt"></span></span>
+				<input type="text" class="form-control" placeholder="请输入所在地 （选填）" id="userLocation" ng-model="user.location">
+			</div>
+		</div>
+		
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+			<span class="input-group-addon"><span class="glyphicon glyphicon glyphicon-list-alt"></span></span>
+				<input type="text" class="form-control" placeholder="请输入签名（选填）" id="userSign" ng-model="user.sign">
+			</div>
+		</div>
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<div class="input-group" style="width: 70%">
+			<span class="input-group-addon"><span class="glyphicon glyphicon glyphicon-list-alt"></span></span>
+				<input type="text" class="form-control" placeholder="请输入个人标签 （选填）" id="userLabels" ng-model="user.labels">
+			</div>
+		</div>
+		
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			
+		</div>
+		
+		<div class="col-md-12" align="center" style="margin-top:15px;">
+			<button class="btn btn-lg btn-default blue" ng-click="updateUser();">
+				<i class="glyphicon glyphicon-ok"></i> {{"SAVE" | translate}}
+			</button>
+		
+		</div>
+
+	</div>
+	<br><br><br><br><br><br>
+</div>

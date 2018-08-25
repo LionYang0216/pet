@@ -1,0 +1,83 @@
+<div class="page-content" style="padding-bottom: 50px;">
+	<div class="container">
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-10 col-center-block no-paddingLeft no-paddingRight">
+				<div class="myFavUl" >
+					<div><a class="color-black myFavActive" ng-click="selectFav($event,'1');">{{"CollectionProd" | translate}}</a></div>
+					<div style="width:20px;">|</div>
+					<div><a class="color-black " ng-click="selectFav($event,'2');">{{"CollectionWare" | translate}}</a></div>
+					<div style="width:20px;">|</div>
+					<div><a class="color-black " ng-click="selectFav($event,'3');">{{"CollectionShop" | translate}}</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row" style="margin-top: 20px;">
+				<div class="col-md-10 no-paddingLeft no-paddingRight col-center-block  text-center" style="min-height: 50px;height:auto;margin-top: 30px;">
+				<div class="col-md-2 myWorkListDiv  no-paddingRight"  ng-repeat="fav in favList">
+					<a  href="#/prod/prodDetail/{{fav.prod.id}}"  style="color:#333333;" ng-if="showType==1">
+						<img ng-if="showType==1" alt="" src="../upload/{{fav.prod.majorPic.picFile.filePath}}"  style="width: 210px; min-height: 240px; max-width: 210px; max-height: 240px;cursor: pointer;" ng-click="">
+					</a>
+					<a  href="#/ware/wareDetail/{{fav.ware.id}}" style="color:#333333;" ng-if="showType==2">
+						<img ng-if="showType==2" alt="" src="../upload/{{fav.ware.picFile.filePath}}"  style="width: 210px; min-height: 240px; max-width: 210px; max-height: 240px;cursor: pointer;" ng-click="">
+					</a>
+					<a  href="#/ware/wareList/{{fav.shop.id}}"  style="color:#333333;" ng-if="showType==3">
+						<img ng-if="showType==3" alt="" src="../upload/{{fav.shop.logoFile.filePath}}"  style="width: 210px; min-height: 240px; max-width: 210px; max-height: 240px;cursor: pointer;" />
+					</a>
+					<table style="width:100%;margin-top:10px;" border="0" class="myWorkTab">
+						<tr ng-if="showType==1">
+							<td colspan="2">{{curLang=="zh" ?fav.prod.nameCn : fav.prod.nameEn}}</td>
+						</tr>
+						<tr ng-if="showType==1">
+							<td class="myWorkTabTd">
+								<span class="glyphicon glyphicon-star-empty" style="cursor: pointer;"  title="已收藏"></span>&nbsp;{{fav.prod.favCnt}}
+								&nbsp;&nbsp;
+								<span class="glyphicon glyphicon-thumbs-up" style="cursor: pointer;"  title="被赞"></span>&nbsp;{{fav.prod.upCnt}}
+							</td>
+							<td class="myWorkTabTd" align="right">
+								<span class="glyphicon glyphicon-trash" style="cursor: pointer;" ng-click="removeProdFavCnt(fav.prod.id)" title="删除"></span>&nbsp;
+							</td>
+						</tr>
+						<tr ng-if="showType==2">
+							<td colspan="2">{{curLang=="zh" ?fav.ware.nameCn : fav.ware.nameEn}}</td>
+						</tr>
+						<tr ng-if="showType==2">
+							<td class="myWorkTabTd" style="color:red;font-size:16px;">
+								<span class="glyphicon glyphicon-star-empty" style="cursor: pointer;"  title="已收藏"></span>&nbsp;￥&nbsp;{{fav.ware.price}}
+							</td>
+							<td class="myWorkTabTd" align="right">
+								<span class="glyphicon glyphicon-trash" style="cursor: pointer;" ng-click="removeWareFavCnt(fav.ware.id)" title="删除"></span>&nbsp;
+							</td>
+						</tr>
+						<tr ng-if="showType==3">
+							<td colspan="2" title="{{fav.shop.nameCn}}">
+								<div style="width:170px;height:25px;line-height:25px; overflow:hidden;text-overflow:ellipsis;cursor: pointer;">
+									<a  href="#/ware/wareList/{{fav.shop.id}}"  style="color:#333333;" >
+										<nobr>{{curLang=="zh" ?fav.shop.nameCn : fav.shop.nameEn}}</nobr>
+									</a>	
+								</div>
+							</td>
+							<td class="myWorkTabTd" align="right">
+								<span class="glyphicon glyphicon-trash" style="cursor: pointer;" ng-click="removeShopFavCnt(fav.shopId)" title="删除"></span>&nbsp;
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div style="clear: both;">
+					<!-- 清除浮动 -->
+				</div>
+			</div>
+
+			<div class="col-md-10 no-paddingLeft no-paddingRight col-center-block  text-center" style="min-height: 50px;margin-top: 30px;" >
+				<ul class="pagination" style="display: inline-block; float: none;">
+					<li ng-class="{true:'disabled'}[pCurrent==1]"><a class="pages-a" href="javascript:void(0);" ng-click="p_index()">首页</a></li>
+					<li ng-repeat="page in pages" ng-class="{true:'active'}[pCurrent==page]"><a href="javascript:void(0);" class="pages-a" ng-click="loadPage(page)">{{ page }}</a></li>
+					<li ng-class="{true:'disabled'}[pCurrent==pAllPage]"><a class="pages-a" href="javascript:void(0);" ng-click="p_last()">尾页</a></li>
+				</ul>
+				<span style="vertical-align: 12px; display: none;"> 共：{{count}} 条</span>
+			</div>
+		</div>
+	</div>
+</div>

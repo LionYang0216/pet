@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 制品：(WARE_TYPE_PRD) -->
+<mapper namespace="com.gzsoftware.pet.dao.WareTypePrdDao">
+ <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <!-- 结果映射 -->
+    <resultMap id="wareTypePrdMap" type="com.gzsoftware.pet.entity.po.WareTypePrd">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="NAME_CN" property="nameCn" jdbcType="VARCHAR" />
+        <result column="NAME_EN" property="nameEn" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_ADMIN_ID" property="lastUpdateAdminId" jdbcType="INTEGER" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="PRIORITY" property="priority" jdbcType="INTEGER" />
+        <result column="IS_ENABLE" property="isEnable" jdbcType="SMALLINT" />
+    <association property="lastUpdateAdmin" column="LAST_UPDATE_ADMIN_ID" javaType="Admin" fetchType="eager" select="com.gzsoftware.pet.dao.AdminDao.getSmAdmin" />
+    </resultMap>
+    
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        ID, NAME_CN, NAME_EN, LAST_UPDATE_ADMIN_ID, LAST_UPDATE_TIME, 
+        PRIORITY, IS_ENABLE
+    </sql>
+    
+    <!-- 获取制品个数 -->
+  <select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultType="Integer">
+		select count(*) from WARE_TYPE_PRD where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.nameEn!='' and condition.nameEn!=null">
+				and NAME_EN like CONCAT('%',#{condition.nameEn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isEnable!=''and condition.isEnable!=null">
+				and IS_ENABLE = #{condition.isEnable}
+			</if>
+		</if>
+	</select>
+	
+	<select id="getWareTypePrdList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultMap="wareTypePrdMap">
+		select * from WARE_TYPE_PRD where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.nameEn!='' and condition.nameEn!=null">
+				and NAME_EN like CONCAT('%',#{condition.nameEn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isEnable!=''and condition.isEnable!=null">
+				and IS_ENABLE = #{condition.isEnable}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+	
+	<select id="getWareTypePrdSelect"  resultMap="wareTypePrdMap">
+		select * from WARE_TYPE_PRD where IS_ENABLE = 1 	order by PRIORITY asc
+	</select>	
+    
+   <select id="getWareTypePrd" parameterType="java.lang.Integer" resultMap="wareTypePrdMap">
+    	select * from WARE_TYPE_PRD where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+    <!-- 插入数据 -->
+    <insert id="addWareTypePrd" parameterType="com.gzsoftware.pet.entity.po.WareTypePrd">
+        INSERT INTO WARE_TYPE_PRD (<include refid="allColumns" />)
+        VALUES (
+            #{id},
+            #{nameCn},
+            #{nameEn},
+            #{lastUpdateAdminId},
+            #{lastUpdateTime},
+            #{priority},
+            #{isEnable}
+        )
+    </insert>
+    
+    <!-- 修改数据 -->
+    <update id="updateWareTypePrd" parameterType="com.gzsoftware.pet.entity.po.WareTypePrd">
+        UPDATE WARE_TYPE_PRD SET
+            NAME_CN = #{nameCn},
+            NAME_EN = #{nameEn},
+            LAST_UPDATE_ADMIN_ID = #{lastUpdateAdminId},
+            LAST_UPDATE_TIME = #{lastUpdateTime},
+            PRIORITY = #{priority},
+            IS_ENABLE = #{isEnable}
+        WHERE ID = #{id}
+    </update>
+    
+    <!-- 根据主键删除数据 -->
+    <delete id="deleteWareTypePrd" parameterType="java.lang.Integer">
+        DELETE FROM WARE_TYPE_PRD WHERE ID = #{id}
+    </delete>
+    
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.ContentDao">
+	<cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <resultMap id="ContentResultMap" type="com.gzsoftware.pet.entity.po.Content">
+   		<association property="admin" column="LAST_UPDATE_ADMIN_ID" javaType="Admin" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.AdminDao.getSmAdmin" />
+    </resultMap>
+    
+  	<select id="getContent" parameterType="java.lang.Integer" resultMap="ContentResultMap">
+		select * from Content where ID = #{id}
+	</select>
+	
+	 	<select id="getContentByCode" parameterType="java.lang.String" resultMap="ContentResultMap">
+		select * from Content where Code = #{code}
+	</select>
+	
+	<select id="getContentList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="com.gzsoftware.pet.entity.po.Content" resultMap="ContentResultMap">
+		select * from Content  where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+  
+  <select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="Integer">
+		select count(*) from Content where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isEnabled!=''and condition.isEnabled!=null">
+				and IS_ENABLE = #{condition.isEnabled}
+			</if>
+		</if>
+	</select>
+
+	<update id="updateContent" parameterType="com.gzsoftware.pet.entity.po.Content">
+     UPDATE Content
+      set 
+      CONTENT_URL = #{contentUrl,jdbcType=VARCHAR},
+      NAME_CN = #{nameCn,jdbcType=VARCHAR},
+      NAME_EN = #{nameEn,jdbcType=VARCHAR},
+      DESCRIPTION_CN = #{descriptionCn,jdbcType=VARCHAR},
+      DESCRIPTION_EN = #{descriptionEn,jdbcType=VARCHAR},
+      LAST_UPDATE_ADMIN_ID = #{lastUpdateAdminId,jdbcType=INTEGER},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+      where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	
+</mapper>

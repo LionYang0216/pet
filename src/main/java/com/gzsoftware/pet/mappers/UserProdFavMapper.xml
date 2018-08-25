@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 用户产品收藏关系表(USER_PROD_FAV) -->
+<mapper namespace="com.gzsoftware.pet.dao.UserProdFavDao">
+ <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <!-- 结果映射 -->
+    <resultMap id="userProdFavMap" type="com.gzsoftware.pet.entity.po.UserProdFav">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+        <result column="PROD_ID" property="prodId" jdbcType="INTEGER" />
+        <association property="user" column="USER_ID" javaType="User" fetchType="eager" select="com.gzsoftware.pet.dao.UserDao.getUser" />
+		<association property="prod" column="PROD_ID" javaType="Prod" fetchType="eager" select="com.gzsoftware.pet.dao.ProdDao.getProd" />
+    </resultMap>
+    
+    <!-- 表所有字段 -->
+    <sql id="allColumns">
+        ID, USER_ID, PROD_ID
+    </sql>
+
+    
+    <!-- 插入数据 -->
+    <insert id="addProdFav" parameterType="UserProdFav">
+        INSERT INTO USER_PROD_FAV (<include refid="allColumns" />)
+        VALUES (
+            #{id},
+            #{userId},
+            #{prodId}
+        )
+    </insert>
+    
+    <select id="getUserProdFav" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"	resultMap="userProdFavMap">
+		select * from USER_PROD_FAV where 1=1
+		<if test="condition!=null">
+			<if test="condition.userId!='' and condition.userId!=null">
+				and USER_ID = #{condition.userId}
+			</if>
+		</if>
+	    <if test="condition!=null">
+			<if test="condition.prodId!='' and condition.prodId!=null">
+				and PROD_ID = #{condition.prodId}
+			</if>
+		</if>
+		limit 1
+	</select>
+	
+	<delete id="deleteProdFav" parameterType="java.lang.Integer">
+        DELETE FROM USER_PROD_FAV WHERE ID = #{id}
+    </delete>
+	
+   <select id="getProdFavList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultMap="userProdFavMap">
+		select * from USER_PROD_FAV where 1=1
+		<if test="condition!=null">
+			<if test="condition.userId!='' and condition.userId!=null">
+				and USER_ID = #{condition.userId}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+
+	<select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="Integer">
+		select count(*) from USER_PROD_FAV where 1=1
+		<if test="condition!=null">
+			<if test="condition.userId!='' and condition.userId!=null">
+				and USER_ID = #{condition.userId}
+			</if>
+		</if>
+
+	</select>
+	
+	<delete id="deleteProdFavByProdId" parameterType="java.lang.Integer">
+        DELETE FROM USER_PROD_FAV WHERE PROD_ID = #{prodId}
+    </delete>
+    
+</mapper>

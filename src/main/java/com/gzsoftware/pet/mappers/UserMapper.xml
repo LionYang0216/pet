@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.UserDao">
+ <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+	<resultMap type="com.gzsoftware.pet.entity.po.User" id="UserResultMap">
+	   <result column="HEAD_FILE_ID" jdbcType="INTEGER" property="headFileId" />
+	   <association property="headFile" column="HEAD_FILE_ID" javaType="UploadFile" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.UploadFileDao.getUploadFile" />
+	</resultMap>
+	
+	<select id="login" parameterType="User" resultMap="UserResultMap">
+		select * from USER where ACCOUNT=#{account} and PASSWORD=#{password}
+	</select>
+
+	<select id="getUserList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="com.gzsoftware.pet.entity.po.User"  resultMap="UserResultMap">
+		select * from USER where 1=1
+		<if test="condition!=null">
+			<if test="condition.userName!='' and condition.userName!=null">
+				and ( USER_NAME like CONCAT('%',#{condition.userName,
+				jdbcType=VARCHAR},'%')
+				or  ACCOUNT like CONCAT('%',#{condition.userName,
+				jdbcType=VARCHAR},'%'))
+			</if>
+			<if test="condition.isEnabled!=''and condition.isEnabled!=null">
+				and IS_ENABLED = #{condition.isEnabled}
+			</if>
+			<if test="condition.id!=''and condition.id!=null">
+				and ID = #{condition.id}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+	
+	<select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="Integer">
+		select count(*) from USER where 1=1
+		<if test="condition!=null">
+			<if test="condition.userName!='' and condition.userName!=null">
+				and ( USER_NAME like CONCAT('%',#{condition.userName,
+				jdbcType=VARCHAR},'%')
+				or  ACCOUNT like CONCAT('%',#{condition.userName,
+				jdbcType=VARCHAR},'%'))
+			</if>
+			<if test="condition.isEnabled!=''and condition.isEnabled!=null">
+				and IS_ENABLED = #{condition.isEnabled}
+			</if>
+			<if test="condition.id!=''and condition.id!=null">
+				and ID = #{condition.id}
+			</if>
+		</if>
+	</select>
+	
+	<select id="getUser" parameterType="java.lang.Integer" resultType="com.gzsoftware.pet.entity.po.User"  resultMap="UserResultMap">
+		select * from USER where ID = #{id}
+	</select>
+   
+   <select id="getUserByAccount" parameterType="java.lang.String" resultType="User">
+   select * from USER where ACCOUNT = #{account}
+   </select>
+   
+      <select id="getUserByUserName" parameterType="java.lang.String" resultType="User">
+   select * from USER where USER_NAME = #{userName}
+   </select>
+   
+    <select id="getUserListByUserName" parameterType="java.lang.String"
+		resultType="com.gzsoftware.pet.entity.po.User"  resultMap="UserResultMap">
+       select * from USER where  USER_NAME like CONCAT('%',#{skeyword,jdbcType=VARCHAR},'%')
+   </select>
+   
+   <select id="getUserListForSelect" parameterType="java.lang.String"
+		resultType="com.gzsoftware.pet.entity.po.User" >
+       select * from USER where 1=1 
+   </select>
+   <update id="updateUserLoginInfo" parameterType="User">
+		UPDATE USER SET LOGIN_COUNT = LOGIN_COUNT + 1,LAST_LOGIN_TIME = now()
+		WHERE ID = #{id}
+	</update>
+	
+	<insert id="addUser" parameterType="User"  useGeneratedKeys="true" keyProperty="id">
+		insert into USER(ACCOUNT, PASSWORD, USER_NAME,HEAD_FILE_ID,
+		UPDATE_TIME,REG_TIME,LAST_LOGIN_TIME,LAST_LOGIN_IP,LOGIN_COUNT,IS_ENABLED,
+		SEX,POS,LOCATION,SIGN,INTRO,TEL,WECHAT,QQ,LABELS,BALANCE_TOTAL,EMAIL)
+		values(#{account}, #{password}, #{userName},#{headFileId},#{updateTime},#{regTime},#{lastLoginTime},#{lastLoginIp},0,1,#{sex},#{pos},#{location},#{sign},#{intro},#{tel},#{wechat},#{qq},#{labels},#{balanceTotal},#{email})
+	</insert>
+	
+	<update id="updateUser" parameterType="User">
+		UPDATE USER SET
+		ACCOUNT=#{account},
+		PASSWORD=#{password},
+		USER_NAME=#{userName}, 
+		HEAD_FILE_ID = #{headFileId},
+		UPDATE_TIME =#{updateTime},
+		REG_TIME = #{regTime},
+		LAST_LOGIN_TIME=#{lastLoginTime},
+		LAST_LOGIN_IP=#{lastLoginIp},
+		LOGIN_COUNT=#{loginCount},
+		IS_ENABLED=#{isEnabled},
+		SEX = #{sex},
+		POS = #{pos},
+		EMAIL = #{email},
+		LOCATION = #{location},
+		SIGN = #{sign},
+		INTRO = #{intro},TEL=#{tel},WECHAT = #{wechat},QQ = #{qq},
+		LABELS = #{labels},BALANCE_TOTAL = #{balanceTotal}
+		WHERE ID = #{id}
+	</update>
+	
+	<update id="updateUserBalanceTotal" >
+		UPDATE USER SET BALANCE_TOTAL = #{balanceTotal} WHERE ID = #{id}
+	</update>
+	
+	<delete id="deleteUser" parameterType="java.lang.Integer">
+		delete from USER where ID = #{id}
+	</delete>
+
+	<update id="updateUserBalance" parameterType="User">
+		UPDATE USER SET BALANCE_TOTAL = #{balanceTotal} WHERE ID = #{id}
+	</update>
+</mapper> 

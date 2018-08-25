@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.LinkDao">
+	<cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+    <resultMap id="LinkResultMap" type="com.gzsoftware.pet.entity.po.Link">
+   		<association property="admin" column="LAST_UPDATE_ADMIN_ID" javaType="Admin" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.AdminDao.getSmAdmin" />
+    </resultMap>
+    
+  	<select id="getLink" parameterType="java.lang.Integer" resultMap="LinkResultMap">
+		select * from LINK where ID = #{id}
+	</select>
+	
+	<select id="getLinkList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="com.gzsoftware.pet.entity.po.Link" resultMap="LinkResultMap">
+		select * from LINK  where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+  
+  <select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="Integer">
+		select count(*) from LINK where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isEnabled!=''and condition.isEnabled!=null">
+				and IS_ENABLE = #{condition.isEnabled}
+			</if>
+		</if>
+
+	</select>
+	
+     <insert id="addLink" parameterType="com.gzsoftware.pet.entity.po.Link">
+     INSERT into LINK (ID, NAME_CN, NAME_EN, URL, 
+      LAST_UPDATE_ADMIN_ID, LAST_UPDATE_TIME)
+    values (#{id,jdbcType=INTEGER},  #{nameCn,jdbcType=VARCHAR}, 
+      #{nameEn,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{lastUpdateAdminId,jdbcType=INTEGER}, #{lastUpdateTime,jdbcType=TIMESTAMP})
+	</insert>
+
+
+	<update id="updateLink" parameterType="com.gzsoftware.pet.entity.po.Link">
+     UPDATE LINK
+      set 
+      NAME_CN = #{nameCn,jdbcType=VARCHAR},
+      NAME_EN = #{nameEn,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      LAST_UPDATE_ADMIN_ID = #{lastUpdateAdminId,jdbcType=INTEGER},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+      where ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<delete id="deleteLink" parameterType="java.lang.Integer">
+		delete from LINK where
+		ID = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	
+</mapper>

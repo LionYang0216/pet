@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.UserBalanceLogDao">
+ <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+	<resultMap type="com.gzsoftware.pet.entity.po.UserBalanceLog" id="UserBalanceLogResultMap">
+	   <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+	   <result column="PROD_ID" jdbcType="INTEGER" property="prodId" />
+	   <association property="user" column="USER_ID" javaType="User" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.UserDao.getUser" />
+   	   <association property="prod" column="PROD_ID" javaType="Prod" 
+   		fetchType="eager" select="com.gzsoftware.pet.dao.ProdDao.getProd" />
+	</resultMap>
+
+	<select id="getUserBalanceLogList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="com.gzsoftware.pet.entity.po.UserBalanceLog"  resultMap="UserBalanceLogResultMap">
+		select * from
+		 <choose>
+           <when test="condition!=null and condition.userName!='' and condition.userName!=null">
+           user_balance_log  LEFT JOIN  user ON user.id = user_balance_log.USER_ID  where user.USER_NAME like CONCAT('%',#{condition.userName,
+				jdbcType=VARCHAR},'%')
+           </when>
+           <otherwise>
+            user_balance_log  LEFT JOIN  user ON user.id = user_balance_log.USER_ID where 1=1
+          </otherwise>
+       </choose>
+		<if test="condition!=null">
+			<if test="condition.changeType!='' and condition.changeType!=null">
+				and CHANGE_TYPE = #{condition.changeType}
+			</if>
+			<if test="condition.chargeOrderNumber!=''and condition.chargeOrderNumber!=null">
+				and CHARGE_ORDER_NUMBER = #{condition.chargeOrderNumber}
+			</if>
+			<if test="condition.inputStartTime !='' and condition.inputStartTime!=null">
+				and  #{condition.inputStartTime} &lt;=  CHANGE_TIME
+			</if>
+			<if test="condition.inputEndTime !='' and condition.inputEndTime!=null">
+				and  CHANGE_TIME &lt;=  #{condition.inputEndTime}
+			</if>
+				<if test="condition.id!=''and condition.id!=null">
+				and USER_ID = #{condition.id}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+	
+	<select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="Integer">
+		select count(*) from
+		 <choose>
+           <when test="condition!=null and condition.userName!='' and condition.userName!=null">
+           user_balance_log  LEFT JOIN  user ON user.id = user_balance_log.USER_ID  where user.USER_NAME like CONCAT('%',#{condition.userName,
+				jdbcType=VARCHAR},'%')
+           </when>
+           <otherwise>
+            user_balance_log where 1=1
+          </otherwise>
+       </choose>
+		<if test="condition!=null">
+			<if test="condition.changeType!='' and condition.changeType!=null">
+				and CHANGE_TYPE = #{condition.changeType}
+			</if>
+			<if test="condition.chargeOrderNumber!=''and condition.chargeOrderNumber!=null">
+				and CHARGE_ORDER_NUMBER = #{condition.chargeOrderNumber}
+			</if>
+			<if test="condition.inputStartTime !='' and condition.inputStartTime!=null">
+				and  #{condition.inputStartTime} &lt;=  CHANGE_TIME
+			</if>
+			<if test="condition.inputEndTime !='' and condition.inputEndTime!=null">
+				and  CHANGE_TIME &lt;=  #{condition.inputEndTime}
+			</if>
+			<if test="condition.id!=''and condition.id!=null">
+				and USER_ID = #{condition.id}
+			</if>
+		</if>
+	</select>
+	
+	<select id="getUserBalanceLog" parameterType="java.lang.Integer" resultType="com.gzsoftware.pet.entity.po.UserBalanceLog"  resultMap="UserBalanceLogResultMap">
+		select * from user_balance_log where ID = #{id}
+	</select>
+	
+	<insert id="addUserBalanceLog" parameterType="UserBalanceLog">
+		insert into user_balance_log
+		(USER_ID,
+		CHANGE_AMOUNT,
+		CHANGE_TYPE,
+		CHANGE_TIME,
+		PROD_ID,
+		CHARGE_ORDER_NUMBER,
+		DESCRIPTION
+		)
+		values(#{userId},
+		       #{changeAmount},
+		       #{changeType},
+		       #{changeTime},
+		       #{prodId},
+		       #{chargeOrderNumber},
+		       #{description}
+		       )
+	</insert>
+	
+	<update id="updateUserBalanceLog" parameterType="UserBalanceLog">
+		UPDATE user_balance_log SET
+		CHANGE_AMOUNT=#{changeAmount},
+		CHANGE_TYPE=#{changeType}, 
+		CHANGE_TIME = #{changeTime},
+		CHARGE_ORDER_NUMBER = #{chargeOrderNumber},
+		DESCRIPTION=#{description}
+		WHERE ID = #{id}
+	</update>
+	
+	<delete id="deleteUserBalanceLog" parameterType="java.lang.Integer">
+		delete from user_balance_log where ID = #{id}
+	</delete>
+	
+	<select id="getUserBalanceTotal" parameterType="java.lang.Integer" resultType="java.lang.Double">
+		select sum(CHANGE_AMOUNT) from user_balance_log where USER_ID = #{id}
+	</select>
+	
+	<select id="getAllUserBalanceTotal" resultType="java.lang.Double">
+		select sum(CHANGE_AMOUNT) from user_balance_log where CHANGE_TYPE > 5;
+	</select>
+	
+	<select id="countLogCnt" resultType="Integer" >
+		select count(*) from user_balance_log where USER_ID= #{userId} and PROD_ID= #{prodId}
+	</select>
+	
+	<select id="checkChargeOrderNumber" resultType="Integer" >
+		select count(*) from user_balance_log where CHARGE_ORDER_NUMBER = #{chargeOrderNumber}
+	</select>
+	
+</mapper> 

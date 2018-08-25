@@ -1,0 +1,265 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="#/dashboard.html">首页</a>
+            <i class="fa fa-circle"></i>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+          
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                    <a href="#">
+                        <i class="icon-user"></i> New User </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-present"></i> New Event
+                        <span class="badge badge-success">4</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-basket"></i> New order </a>
+                </li>
+                <li class="divider"> </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-flag"></i> Pending Orders
+                        <span class="badge badge-danger">4</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-users"></i> Pending Users
+                        <span class="badge badge-warning">12</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h3 class="page-title"> 管理中心 </h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="dashboardCtrl">
+    <div class="note note-info">
+        <h3>正式版 v1.0
+            <span class="close" data-close="note"></span>
+        </h3>
+        <p> 
+        	更新日志：
+        	已完成所有功能。
+        </p>
+    </div>
+    <!-- BEGIN DASHBOARD STATS -->
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat blue">
+                <div class="visual">
+                    <i class="fa fa-comments"></i>
+                </div>
+                <div class="details">
+                    <div class="number">{{dashboard.prodCnt}} 款</div>
+                    <div class="desc"> 瓶库数 </div>
+                </div>
+                <a class="more" href="#/prod/list"> 更多
+                    <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat red">
+                <div class="visual">
+                    <i class="fa fa-bar-chart-o"></i>
+                </div>
+                <div class="details">
+                    <div class="number"> {{dashboard.balance}} 元 </div>
+                    <div class="desc"> 用户充值 </div>
+                </div>
+                <a class="more" href="#/userBalanceLog/list/"> 更多
+                    <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat green">
+                <div class="visual">
+                    <i class="fa fa-shopping-cart"></i>
+                </div>
+                <div class="details">
+                    <div class="number"> {{dashboard.wareCnt}} 款</div>
+                    <div class="desc"> 商品 </div>
+                </div>
+                <a class="more" href="#/ware/list/"> 更多
+                    <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat purple">
+                <div class="visual">
+                    <i class="fa fa-globe"></i>
+                </div>
+                <div class="details">
+                    <div class="number"> {{dashboard.userCnt}} 人</div>
+                    <div class="desc"> 用户数 </div>
+                </div>
+                <a class="more" href="#/user/list/"> 更多
+                    <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- END DASHBOARD STATS -->
+ 
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption caption-md">
+                        <i class="icon-globe font-green"></i>
+                        <span class="caption-subject font-green bold uppercase">待办事项</span>
+                    </div>
+                    <ul class="nav nav-tabs">
+                     <li class="active">
+                            <a href="#" data-target="#tab_prod" data-toggle="tab">设计师作品申请</a>
+                        </li>
+                        <li>
+                            <a href="#" data-target="#tab_shop" data-toggle="tab"> 开店申请 </a>
+                        </li>
+                        <li>
+                            <a href="#" data-target="#tab_money" data-toggle="tab"> 提现申请 </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="portlet-body">
+                    <!--BEGIN TABS-->
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="tab_prod">
+                            <div class="scroller" style="height: 306px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+                                <ul class="feeds">
+                                    <li data-ng-repeat="ptp in prodConList">
+                                   
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-bell-o"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc"> <a href="#/prod/form/{{ptp.id}}">{{ptp.user.userName}}&nbsp;申请审核设计师作品&nbsp;{{ptp.nameCn}}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col2">
+                                            <div class="date">{{ptp.lastUpdateTime}} </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_shop">
+                            <div class="scroller" style="height: 306px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+                                <ul class="feeds">
+                                    <li data-ng-repeat="ptp in shopList">
+                                   
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-bell-o"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc"> <a href="#/shop/form/{{ptp.id}}">{{ptp.nameCn}}&nbsp;提交了开店申请</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col2">
+                                            <div class="date">{{ptp.regTime}} </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_money">
+                            <div class="scroller" style="height: 337px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+                                <ul class="feeds">
+                                    <li data-ng-repeat="ptp in userDrawList">
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-bell-o"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc">  <a href="#/userDraw/form/{{ptp.id}}">{{ptp.user.userName}} 申请提现 {{ptp.drawAmount}} 元</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col2">
+                                            <div class="date"> {{ptp.userRequestTime}} </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--END TABS-->
+                </div>
+            </div>
+            <!-- END PORTLET-->
+        </div>
+   
+        <div class="col-md-6 col-sm-6">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption caption-md ">
+                        <i class="icon-bar-chart font-green"></i>
+                        <span class="caption-subject font-green bold uppercase">业务报表</span>
+                    </div>
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#" data-target="#tab_user" data-toggle="tab"> 热门瓶库 </a>
+                        </li>
+                        <li>
+                            <a href="#" data-target="#tab_prod" data-toggle="tab"> 热门商品 </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="portlet-body">
+                
+                	 <div class="tab-content">
+                        <div class="tab-pane active" id="tab_user">
+                        	<div id="echartsPie1" style="width:600px;height:300px;display:block;">
+                        	
+                        	</div>  
+                        </div>
+                        <div class="tab-pane" id="tab_prod">
+                        	<div id="echartsPie2" style="width:600px;height:300px;display:block;">
+                        	
+                        	</div> 
+                        </div>
+                      </div>
+                 </div>
+            </div>
+            <!-- END PORTLET-->
+        </div>
+    </div>
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+<script>
+    Dashboard.init();
+</script>
+<!-- BEGIN MAIN JS & CSS -->

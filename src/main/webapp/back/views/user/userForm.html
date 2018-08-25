@@ -1,0 +1,151 @@
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="userInfoForm" action="" enctype="multipart/form-data" method="post"
+			class="form-horizontal">
+			<div class="form-body">
+				<div hidden="hidden" class="form-group" style="height: 30px;">
+					ID:<input type="text" class="form-control" id="id" name="id" ng-model="user.id" />
+				</div>
+				<h3 class="form-section">会员信息</h3>
+					<div class="form-group">
+					<label class="control-label col-md-3"></label>
+					<div class="col-md-4">
+						<element ng-if="picFileUploader">
+							<input type="file" data-required="1"  style="display:none" name ="picFileUploader" id="picFileUploader" uploader="picFileUploader"  nv-file-select accept="image/*"/>
+							<a href="#" onclick="$('#picFileUploader').click()"> 
+							<img alt="会员头像" src="{{user.headFilePathLayout}}" class="img-circle" style="height:120px; width:100px; padding: 10px 0">
+							</a>
+						</element>
+						<input type="hidden" ng-model="user.headFileId" id="headFileId" name="headFileId"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">登陆账户<span class="required"> * </span>
+					</label>
+					<div class="col-md-2">
+						<input type="text" ng-disabled="disabledText" class="form-control" id="account" name="account" placeholder="登陆账户" ng-model="user.account" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">用户昵称<span class="required"> * </span>
+					</label>
+					<div class="col-md-2">
+						<input type="text" data-required="1" aria-required="true" class="form-control" id="userName" name="userName" placeholder="用户昵称" ng-model="user.userName" />
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<label class="control-label col-md-3">登陆密码<span class="required"> * </span>
+					</label>
+					<div class="col-md-2">
+						<input type="password"  class="form-control" id="password" name="password" placeholder="登陆密码" ng-model="user.password" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">性别
+					</label>
+					<div class="col-md-4">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="sex1" id="sex1" value="1" 
+							ng-model="user.sex" ng-checked="1" checked="checked">男</label> 
+							<label class="radio-inline"> <input type="radio" name="sex2" id="sex2" value="0" ng-model="user.sex" ng-checked="0">女
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">财富余额
+					</label>
+					<div class="col-md-2">
+						<input type="number"  class="form-control" id="balanceTotal" name="balanceTotal" placeholder="财富余额" ng-model="user.balanceTotal" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">电话/手机号码
+					</label>
+					<div class="col-md-2">
+						<input type="text"  class="form-control" id="tel" name="tel" placeholder="联系号码" ng-model="user.tel" />
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="control-label col-md-3">Email<span class="required"> * </span>
+					</label>
+					<div class="col-md-2">
+						<input type="text"  class="form-control" id="email" name="email" placeholder="email" ng-model="user.email" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">QQ
+					</label>
+					<div class="col-md-2">
+						<input type="text"  class="form-control" id="qq" name="qq" placeholder="QQ" ng-model="user.qq" />
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="control-label col-md-3">微信
+					</label>
+					<div class="col-md-2">
+						<input type="text"  class="form-control" id="wechat" name="wechat" placeholder="微信" ng-model="user.wechat" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">职业
+					</label>
+					<div class="col-md-2">
+						<input type="text"  class="form-control" id="pos" name="pos" placeholder="职业" ng-model="user.pos" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">所在地
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" id="location" name="location" placeholder="所在地" ng-model="user.location" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">签名
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" id="sign" name="sign" placeholder="签名" ng-model="user.sign" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">个人标签
+					</label>
+					<div class="col-md-5">
+						<input type="text"  class="form-control" id="labels" name="labels" placeholder="个人标签" ng-model="user.labels" />
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="col-md-3 control-label">是否启用</label>
+					<div class="col-md-4">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="isEnabled" id="optionsRadios1" value="1" ng-model="user.isEnabled" ng-checked="1" checked="checked">启用
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="isEnabled" id="optionsRadios2" value="0" ng-model="user.isEnabled" ng-checked="0">禁用
+							</label>
+						</div>
+					</div>
+				</div>
+	
+			<div>
+				<div class="row">
+					<div class="col-md-offset-3 col-md-9">
+						<a href="#/user/list/" class="btn default"> <i class="fa fa-reply"></i> 返回</a>  
+						<a href="#" class="btn  red" ng-click="toDeleteUser()" ng-show="showDelBtn"> 
+							<i class="fa fa-minus"></i> 
+							<span class="hidden-480">删除</span>
+						</a> 
+					    <a type="button" class="btn blue" ng-click="toSaveUser()"> <i class="fa fa-check"></i> 保存
+						</a>
+						
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>

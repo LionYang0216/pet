@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.AdminRoleDao">
+	<cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+	<resultMap type="AdminRole" id="AdminRoleResult"></resultMap>
+
+	<select id="getAdminRoleList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest"
+		resultType="AdminRole">
+		select * from admin_role where 1=1
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+
+
+	<select id="getAdminRole" parameterType="java.lang.Integer"
+		resultType="AdminRole">
+		select * from admin_role where ID = #{id}
+	</select>
+	<select id="getAminRoleListByAdminId" parameterType="java.lang.Integer"
+		resultType="AdminRole">
+		select * from admin_role where ADMIN_ID = #{id}
+	</select>
+
+
+	<insert id="addAdminRole" parameterType="AdminRole">
+		insert into
+		admin_role(ROLE_ID,ADMIN_ID) values(#{roleId}, #{adminId})
+	</insert>
+
+
+	<update id="updateAdminRole" parameterType="AdminRole">
+		UPDATE admin_role SET
+		ROLE_ID=#{roleId},ADMIN_ID = #{adminId} WHERE ID = #{id}
+	</update>
+
+	<delete id="deleteAdminRole" parameterType="java.lang.Integer">
+		delete from
+		admin_role where ID = #{id}
+	</delete>
+	<delete id="deleteAdminRoleByAdminId" parameterType="java.lang.Integer">
+		delete from
+		admin_role where ADMIN_ID = #{id}
+	</delete>
+</mapper> 

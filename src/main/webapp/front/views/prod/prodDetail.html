@@ -1,0 +1,147 @@
+<div class="form-body" id="prodCostDiv" style="display: none;">
+	<div id="needLoginDiv" style="text-align: center;font-size: 20px;letter-spacing: 2px;margin-top: 20px;height:500px;">
+		<b>查看该记录需要先<a ng-click="login()">登录</a></b>
+	</div>
+	<div id="needPayDiv" style="text-align: center;font-size: 20px;letter-spacing: 2px;margin-top: 20px;height:500px;">
+		<div>
+			<b>
+				亲，查看{{prod.nameCn}}({{prod.prodCost.name}})，需要扣费<span style="color:red;">{{prod.prodCost.cost}}</span> 元费用, 
+				您目前钱包余额是<span style="color:blue;">{{getUser.balanceTotal}}</span>元， 您要支付吗？
+			</b>
+		</div>
+		<div style="margin-top:200px;">
+			<button class="btn btn-lg btn-default" ng-click="toRecharge()">
+				<i class="glyphicon glyphicon-usd"></i> {{"Recharge" | translate}}
+			</button>
+			&nbsp;
+			<button class="btn btn-lg btn-default" ng-click="chargeViewProd()">
+				<i class="glyphicon glyphicon-shopping-cart"></i> {{"PAY" | translate}}
+			</button>
+			&nbsp;
+			<button class="btn btn-lg btn-default" ng-click="goBack()">
+				<i class="fa fa-reply"></i> {{"BACK" | translate}}
+			</button>
+		</div>
+	</div>
+</div>
+
+
+<div class="form-body" id="prodDetailDiv" style="display: none;">
+
+	<div align="center" style="font-size: 20px; font-weight: bold; margin-top: 30px;">
+		{{curLang=="zh" ? prod.nameCn : prod.nameEn}}<br/>
+		{{curLang=="zh" ? prod.extCnLayout : prod.extEnLayout}}
+	</div>
+
+	<!-- 图片滚动 -->
+	<div class="row col-center-block" style="max-width: 340px!important;" align="center">
+		<div class="page-slider margin-bottom-40 col-center-block" style="margin-top: 30px;" ng-if=" prod.prodPicList!=null" align="center">
+			<div class="fullwidthbanner-container revolution-slider" align="center" style="margin: 0 !important;">
+				<div class="fullwidthbanner" align="center">
+					<ul id="revolutionul" align="center">
+						<!-- THE NEW SLIDE -->
+						<li data-transition="fade" data-slotamount="5" data-masterspeed="500" data-delay="5400" ng-repeat="pic in prod.prodPicList">
+							<img src="../upload/{{pic.picFile.filePath}}" style="background-size: inherit;">
+						</li>
+					</ul>
+					<div class="tp-bannertimer tp-bottom"></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="row col-center-block" align="center">
+		<button id="" class="btn btn-lg btn-default" ng-click="addProdFavCnt()" ng-if="curUser!=null&&fav==0" style="background-color: orange;color:#FFFFFF;margin:10px 0;">
+			<i class="fa fa-heart-o"></i>
+			<!-- 这里如果是已收藏，用fa-heart -->
+			{{"FAV" | translate}}
+		</button>
+		<button id="" class="btn btn-lg btn-default " ng-click="removeProdFavCnt()" ng-if="curUser!=null&&fav==1" style="margin:10px 0;" >
+			<i class="fa fa-heart"></i>
+			<!-- 这里如果是已收藏，用fa-heart -->
+			{{"NOTFAV" | translate}}
+		</button>
+		<button id="" class="btn btn-lg btn-default" ng-click="addProdUpCnt()"  style="background-color: orange;color:#FFFFFF;margin:10px 0;">
+			<i class="glyphicon glyphicon-thumbs-up"></i>
+			{{"UP" | translate}}
+		</button>
+		<button  class="btn btn-lg btn-default" ng-click="goRefProd(refProd.id)" ng-repeat="refProd in refProdList" ng-if="refProd.id!=prod.id" style="margin:10px 5px 10px 0;">
+				关联品：&nbsp;{{refProd.refName}}
+		</button>
+	</div>
+
+
+	<!--基本特性  -->
+	<div class="row">
+		<div class="col-md-12 " align="center" style="background-color: #878DA5; margin-top: 20px; height: 50px;">
+			<div class="col-md-8" style="color: #FFFFFF; text-align: left; padding-top: 10px; font-size: 20px; letter-spacing: 2px;">{{"PRODDETAIL" | translate}}</div>
+			<div class="col-md-4" style="color: #FFFFFF; text-align: right; padding: 10px 20px 0 0; font-size: 20px;"></div>
+		</div>
+		<div class="col-md-12 " style="margin-top: 15px;" align="center">
+			<table id="prodInfo" style="width: 90%;" border="1" cellspacing="1" cellpadding="1">
+				<tr>
+					<td class="prodDetail tdLeft">{{"NAME" | translate}} : {{curLang=="zh" ? prod.nameCn : prod.nameEn}}</td>
+					<td class="tdMid" rowspan="4" align="center"><img src="../upload/{{prod.majorPic.picFile.filePath}}" style="width: 210px; height: auto;" /></td>
+					<td class="prodDetail tdRight">
+						{{"CAPACITY" | translate}}:
+							
+						<span ng-if="prod.prodTypeCon!=null">{{curLang=="zh" ? prod.prodTypeCon.nameCn : prod.prodTypeCon.nameEn}}</span>
+						<span ng-if="prod.prodTypeCon==null">{{"UNKNOW" | translate}}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="prodDetail tdLeft">
+						{{"TYPE" | translate}}:
+						<span ng-if="prod.prodTypeBiz!=null">{{curLang=="zh" ? prod.prodTypeBiz.nameCn : prod.prodTypeBiz.nameEn}}</span>
+						<span ng-if="prod.prodTypeBiz==null">{{"UNKNOW" | translate}}</span>	
+					</td>
+					<td class="prodDetail tdRight">
+						{{"HEIGHT" | translate}}:
+						<span ng-if="prod.prodTypeHig!=null">{{curLang=="zh" ? prod.prodTypeHig.nameCn : prod.prodTypeHig.nameEn}}</span>
+						<span ng-if="prod.prodTypeHig==null">{{"UNKNOW" | translate}}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="prodDetail tdLeft">
+						{{"FILLING" | translate}}:					
+						<span ng-if="prod.prodTypeJar!=null">{{curLang=="zh" ? prod.prodTypeJar.nameCn : prod.prodTypeJar.nameEn}}</span>
+						<span ng-if="prod.prodTypeJar==null">{{"UNKNOW" | translate}}</span>
+					</td>
+					<td class="prodDetail tdRight">
+						{{"WIDTH" | translate}}:
+						<span ng-if="prodTypeWid!=null">{{curLang=="zh" ? prod.prodTypeWid.nameCn : prod.prodTypeWid.nameEn}}</span>
+						<span ng-if="prodTypeWid==null">{{"UNKNOW" | translate}}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="prodDetail tdLeft">
+						{{"AREA" | translate}}:
+						<span ng-if="prod.prodTypeAre!=null">{{curLang=="zh" ? prod.prodTypeAre.nameCn : prod.prodTypeAre.nameEn}}</span>
+						<span ng-if="prod.prodTypeAre==null">{{"UNKNOW" | translate}}</span>
+					</td>
+					<td class="prodDetail tdRight">
+						{{"NECK" | translate}}:						
+						<span ng-if="prod.prodTypeNek!=null">{{curLang=="zh" ? prod.prodTypeNek.nameCn : prod.prodTypeNek.nameEn}}</span>
+						<span ng-if="prod.prodTypeNek==null">{{"UNKNOW" | translate}}</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="col-md-12 " align="center" style="background-color: #878DA5; margin-top: 30px; height: 50px;">
+			<div class="col-md-8" style="color: #FFFFFF; text-align: left; padding-top: 10px; font-size: 20px; letter-spacing: 2px;">{{"DETAIL" | translate}}</div>
+		</div>
+		<div class="col-md-12 " ng-bind-html="curLang=='zh' ? prod.descriptionCn : prod.descriptionEn" id="prodContent" align="center"></div>
+
+		<div align="center" class="margin-bottom-40">
+			<br>
+			<button class="btn btn-lg btn-default" ng-click="goBack()">
+				<i class="fa fa-reply"></i> {{"BACK" | translate}}
+			</button>
+			<br>
+		</div>
+
+	</div>
+
+</div>

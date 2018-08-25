@@ -1,0 +1,117 @@
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="gameInfoForm" action="" enctype="multipart/form-data" method="post"
+			class="form-horizontal">
+			<div class="form-body">
+				<div hidden="hidden" class="form-group" style="height: 30px;">
+					ID:<input type="text" class="form-control" id="gameId" name="id" ng-model="game.id" />
+				</div>
+				<h3 class="form-section">赛事信息</h3>
+				<div class="form-group">
+					<label class="control-label col-md-3">中文标题<span class="required"> * </span>
+					</label>
+					<div class="col-md-4">
+						<input type="text" data-required="1" aria-required="true" class="form-control" id="nameCn" name="nameCn" placeholder="中文标题" ng-model="game.nameCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">英文标题 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" id="nameEn" name="nameEn" placeholder="英文标题" ng-model="game.nameEn" />
+					</div>
+				</div>
+			<div class="form-group">
+					<label class="control-label col-md-3">主题图片<span class="required"> * </span></label>
+					<div class="col-md-4">
+						<element ng-if="picFileUploader">
+							<input type="file" data-required="1"  style="display:none" name ="picFileUploader" id="picFileUploader" uploader="picFileUploader"  nv-file-select accept="image/*"/>
+							<a type="button" class="btn btn-sm blue-hoki " onclick="$('#picFileUploader').click()"><i class="fa fa-cloud-upload"></i> 浏览.. </a>
+						</element>
+						<input type="hidden" ng-model="game.picFileId" id="picFileId" name="picFileId"/>
+						&nbsp;&nbsp;<a href="../upload/{{game.picFile.filePath}}" target="_blank" ng-show="game.picFile.filePath">{{game.picFile.fileName}}</a>
+						&nbsp;&nbsp; <a href="#" class="fa fa-remove" style="color:Red;" ng-click="game.picFile={};game.picFileId=''" ng-show="game.picFile.filePath"></a>
+						&nbsp;&nbsp;<span style="font-size:14px;color:blue-hoki;">注：请上传1920*720尺寸的图片</span>
+					</div>
+				</div>
+			<div class="form-group">
+					<label class="control-label col-md-3">参赛申请表 </label>
+					<div class="col-md-4">
+					<element ng-if="docFileUploader">
+							<input type="file" data-required="1"  style="display:none" name ="docFileUploader" id="docFileUploader" uploader="docFileUploader"  nv-file-select />
+							<a type="button" class="btn btn-sm blue-hoki " onclick="$('#docFileUploader').click()"><i class="fa fa-cloud-upload"></i> 浏览.. </a>
+						</element>
+						<input type="text" ng-model="game.docFileId" hidden="hidden"  id="docFileId" name="docFileId"/>
+						&nbsp;&nbsp;<a href="../upload/{{game.docFile.filePath}}" target="_blank" ng-show="game.docFile.filePath">{{game.docFile.fileName}}</a>
+						&nbsp;&nbsp; <a href="#" class="fa fa-remove" style="color:Red;" ng-click="game.docFile={}" ng-show="game.docFile.filePath"></a>
+					</div>
+				</div> 
+					<div class="form-group">
+					<label class="col-md-3 control-label">是否启用</label>
+					<div class="col-md-4">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="isEnable" id="optionsRadios1" value="1" ng-model="game.isEnable" ng-checked="1" checked="checked">启用
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="isEnable" id="optionsRadios2" value="0" ng-model="game.isEnable" ng-checked="0">禁用
+							</label>
+						</div>
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="control-label col-md-3">排序号<span class="required"> * </span>
+					</label>
+					<div class="col-md-1">
+					<input type="number" data-required="1" class="form-control" id="priority" name="priority" placeholder="排序号" ng-model="game.priority"  />
+					</div>
+				</div>
+			<div class="form-group last">
+				<label class="control-label col-md-3">赛事表述 <span class="required"> * </span></label>
+				<div class="col-md-9">
+					<div class="portlet light bordered" >
+		                  <div class="portlet-title tabbable-line">
+			                  <div class="caption">
+	                               <span class="caption-subject">注：如果英文部分为空，则在提交后自动赋值为中文内容</span>
+	                           </div>
+		                      <ul class="nav nav-tabs">
+		                        <li class="active">
+		                              <a href="./#descCn" data-toggle="tab" aria-expanded="true"> 中文 </a>
+		                          </li>
+		                          <li class="">
+		                              <a href="./#descEn" data-toggle="tab" aria-expanded="false"> 英文 </a>
+		                          </li>
+		                      </ul>
+		                  </div>
+		                  <div class="portlet-body">
+		                      <div class="tab-content">
+		                          <div class="tab-pane active" id="descCn">
+		                           		<textarea class="form-control" name="descriptionCn" rows="8" id="descriptionCn" ng-model="game.descriptionCn"></textarea>
+		                          </div>
+		                          <div class="tab-pane" id="descEn">
+		                           		<textarea class="form-control" name="descriptionEn" rows="8" id="descriptionEn" ng-model="game.descriptionEn"></textarea>
+		                          </div>
+		                      </div>
+		                  </div>
+		            </div>
+				</div>
+			</div>
+			<div>
+				<div class="row">
+					<div class="col-md-offset-3 col-md-9">
+						<a href="#/game/list" class="btn default"> <i class="fa fa-reply"></i> 返回</a> 
+						<a href="#" class="btn  red" ng-click="toDeleteGame()" ng-show="showDelBtn"> 
+							<i class="fa fa-minus"></i> 
+							<span class="hidden-480">删除</span>
+						</a> 
+					    <a type="button" class="btn blue" ng-click="toSaveGame()"> <i class="fa fa-check"></i> 保存
+						</a>
+						
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>

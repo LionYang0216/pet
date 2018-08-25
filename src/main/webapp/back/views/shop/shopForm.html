@@ -1,0 +1,185 @@
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="shopInfoForm" action="" enctype="multipart/form-data" method="post"
+			class="form-horizontal">
+			<div class="form-body">
+				<div hidden="hidden" class="form-group" style="height: 30px;">
+					ID:<input type="text" class="form-control" id="shopId" name="id" ng-model="shop.id" />
+				</div>
+				<h3 class="form-section">店铺信息</h3>
+			   <div class="form-group">
+					<label class="control-label col-md-3">归属者
+					</label>
+					<div class="col-md-4">
+						<select id="searchProdTypeNek" ng-model="shop.userId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.userName for (key, value) in userList" >
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">店铺中文名<span class="required"> * </span>
+					</label>
+					<div class="col-md-4">
+						<input type="text" data-required="1" aria-required="true" class="form-control" id="nameCn" name="nameCn" placeholder="中文名" ng-model="shop.nameCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">店铺英文名 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" id="nameEn" name="nameEn" placeholder="英文名" ng-model="shop.nameEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">浏览次数
+					</label>
+					<div class="col-md-1">
+					<input type="number" data-required="1" class="form-control" id="visitCnt" name="visitCnt"  ng-model="shop.visitCnt"  />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">收藏次数
+					</label>
+					<div class="col-md-1">
+					<input type="number" data-required="1" class="form-control" id="favCnt" name="favCnt"  ng-model="shop.favCnt"  />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">经营模式 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" id="operMode" name="operMode" placeholder="经营模式 " ng-model="shop.operMode" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">联系电话 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" id="tel" name="tel" placeholder="联系电话" ng-model="shop.tel" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">企业网站 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" id="url" name="url" placeholder="企业网站" ng-model="shop.url" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">中英文地址 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  class="form-control" id="location" name="location" placeholder="中英文地址" ng-model="shop.location" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">店铺LOGO<span class="required"> * </span></label>
+					<div class="col-md-4">
+						<element ng-if="logoFileUploader">
+							<input type="file" data-required="1"  style="display:none" name ="logoFileUploader" id="logoFileUploader" uploader="logoFileUploader"  nv-file-select accept="image/*"/>
+							<a type="button" class="btn btn-sm blue-hoki " onclick="$('#logoFileUploader').click()"><i class="fa fa-cloud-upload"></i> 浏览.. </a>
+						</element>
+						<input type="hidden" ng-model="shop.logoFileId" id="logoFileId" name="logoFileId"/>
+						&nbsp;&nbsp;<a href="../upload/{{shop.logoFile.filePath}}" target="_blank" ng-show="shop.logoFile.filePath">{{shop.logoFile.fileName}}</a>
+						&nbsp;&nbsp; <a href="#" class="fa fa-remove" style="color:Red;" ng-click="shop.logoFile={};shop.logoFileId=''" ng-show="shop.logoFile.filePath"></a>
+						&nbsp;&nbsp;<span style="font-size:14px;color:blue-hoki;"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">营业执照<span class="required"> * </span></label>
+					<div class="col-md-4">
+						<element ng-if="regFileUploader">
+							<input type="file" data-required="1"  style="display:none" name ="regFileUploader" id="regFileUploader" uploader="regFileUploader"  nv-file-select accept="image/*"/>
+							<a type="button" class="btn btn-sm blue-hoki " onclick="$('#regFileUploader').click()"><i class="fa fa-cloud-upload"></i> 浏览.. </a>
+						</element>
+						<input type="hidden" ng-model="shop.regFileId" id="regFileId" name="picFileId"/>
+						&nbsp;&nbsp;<a href="../upload/{{shop.regFile.filePath}}" target="_blank" ng-show="shop.regFile.filePath">{{shop.regFile.fileName}}</a>
+						&nbsp;&nbsp; <a href="#" class="fa fa-remove" style="color:Red;" ng-click="shop.regFile={};shop.regFileId=''" ng-show="shop.regFile.filePath"></a>
+						&nbsp;&nbsp;<span style="font-size:14px;color:blue-hoki;"></span>
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="col-md-3 control-label">状态</label>
+					<div class="col-md-4">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="status" id="optionsRadios1" value="0" ng-model="shop.status" ng-checked="shop.status==0" ng-click="toHideReject()" >未审批
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="status" id="optionsRadios2" value="1" ng-model="shop.status" ng-checked="shop.status==1" ng-click="toHideReject()">已审批
+							</label>
+							<label class="radio-inline"> <input type="radio" name="status" id="optionsRadios3" value="2" ng-model="shop.status" ng-checked="shop.status==2" ng-click="toShowReject()">拒绝
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group" ng-show="showReject=='show'">
+					<label class="control-label col-md-3">拒绝原因
+					</label>
+					<div class="col-md-4">
+						<input type="text" data-required="1" aria-required="true" class="form-control" id="rejectReason" name="rejectReason" placeholder="拒绝原因" ng-model="shop.rejectReason" />
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="control-label col-md-3">等级<span class="required"> * </span>
+					</label>
+					<div class="col-md-1">
+						<select id="level" ng-model="shop.level" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="level.id as level.name for level in levels" >
+						</select>
+					</div>
+				</div>
+			<div class="form-group last">
+				<label class="control-label col-md-3">简介 <span class="required"> * </span></label>
+				<div class="col-md-9">
+					<div class="portlet light bordered" >
+		                  <div class="portlet-title tabbable-line">
+			                  <div class="caption">
+	                              
+	                           </div>
+		                      <ul class="nav nav-tabs">
+		                        <li class="active">
+		                              <a href="./#introDp" data-toggle="tab" aria-expanded="true"> 店铺介绍</a>
+		                          </li>
+		                          <li class="">
+		                              <a href="./#introWl" data-toggle="tab" aria-expanded="false"> 物流介绍</a>
+		                          </li>
+		                          <li class="">
+		                              <a href="./#introFw" data-toggle="tab" aria-expanded="false"> 服务介绍</a>
+		                          </li>
+		                      </ul>
+		                  </div>
+		                  <div class="portlet-body">
+		                      <div class="tab-content">
+		                          <div class="tab-pane active" id="introDp">
+		                           		<textarea class="form-control" name="introEnt" rows="8" id="introEnt" ng-model="shop.introEnt"></textarea>
+		                          </div>
+		                          <div class="tab-pane" id="introWl">
+		                           		<textarea class="form-control" name="introLog" rows="8" id="introLog" ng-model="shop.introLog"></textarea>
+		                          </div>
+		                          <div class="tab-pane" id="introFw">
+		                           		<textarea class="form-control" name="introSrv" rows="8" id="introSrv" ng-model="shop.introSrv"></textarea>
+		                          </div>
+		                      </div>
+		                  </div>
+		            </div>
+				</div>
+			</div>
+			<div>
+				<div class="row">
+					<div class="col-md-offset-3 col-md-9">
+						<a href="#/shop/list/" class="btn default"> <i class="fa fa-reply"></i> 返回</a> 
+						<a href="#" class="btn  red" ng-click="toDeleteShop()" ng-show="showDelBtn"> 
+							<i class="fa fa-minus"></i> 
+							<span class="hidden-480">删除</span>
+						</a> 
+					    <a type="button" class="btn blue" ng-click="toSaveShop()"> <i class="fa fa-check"></i> 保存
+						</a>
+						
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>

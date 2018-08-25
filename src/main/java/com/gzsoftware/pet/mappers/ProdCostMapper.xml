@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.ProdCostDao">
+	<cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+  
+  <select id="getProdCost" parameterType="java.lang.Integer" resultType="com.gzsoftware.pet.entity.po.ProdCost">
+    	select * from prod_cost where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 获取个数 -->
+  <select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultType="Integer">
+		select count(*) from prod_cost where 1=1
+		<if test="condition!=null">
+			<if test="condition.name!='' and condition.name!=null">
+				and NAME like CONCAT('%',#{condition.name,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.cost!=null">
+				and cost = #{cost,jdbcType=DECIMAL}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+	
+	<select id="getProdCostList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultType="com.gzsoftware.pet.entity.po.ProdCost">
+		select * from prod_cost where 1=1
+		<if test="condition!=null">
+			<if test="condition.name!='' and condition.name!=null">
+				and NAME like CONCAT('%',#{condition.name,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.cost!=null">
+				and cost = #{cost,jdbcType=DECIMAL}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+	
+   <select id="getProdCostSelect"  resultType="com.gzsoftware.pet.entity.po.ProdCost">
+		select * from prod_cost
+	</select>
+	
+    <delete id="deleteProdCost" parameterType="java.lang.Integer">
+    delete from prod_cost
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="addProdCost" parameterType="com.gzsoftware.pet.entity.po.ProdCost">
+    insert into prod_cost (ID, COST, NAME)
+    values (#{id,jdbcType=INTEGER}, #{cost,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateProdCost" parameterType="com.gzsoftware.pet.entity.po.ProdCost">
+    update prod_cost
+    set cost = #{cost,jdbcType=DECIMAL},
+      NAME = #{name,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

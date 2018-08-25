@@ -1,0 +1,166 @@
+<html lang="en" data-ng-app="frontApp">
+<!-- BEGIN HEAD -->
+<head>
+<title>PET技术交流平台</title>
+<link href="../favicon.ico" rel="icon" type="image/x-icon" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"> 
+<meta name="keywords" content="PET技术交流平台,大模网,PET,星联,包装行业交流平台,瓶样,瓶坯,专利,模具,PET包装行业交流平台,广东星联精密机械有限公司,gdxl,广州软科计算机技术有限公司,Gz-software,佛山工业设计" />
+<meta name="description" content="广东星联精密机械有限公司，成立于1993年，注册资本5000万元人民币。现有员工400多人，其中从事研发与技术工作的有60多人。企业自成立以来，一直专注于PET吹瓶模具、注坯模具的研发与制造，以及为客户对PET瓶坯、吹瓶生产线进行优化的改造项目。"/>
+<meta name="author" content="pango leung" />
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<link href="../assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" type="text/css" />
+<link href="../assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" type="text/css" />
+<!-- END PAGE LEVEL PLUGINS -->
+
+<!-- Page level plugin styles START -->
+<link href="../assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet">
+<link href="../assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css" rel="stylesheet">
+<link href="../assets/global/plugins/slider-revolution-slider/rs-plugin/css/settings.css" rel="stylesheet">
+<!-- Page level plugin styles END -->
+
+<!-- Theme styles START -->
+<link href="../assets/global/css/components.min.css" rel="stylesheet">
+ <link href="../assets/global/plugins/marquee/pages/css/portfolio.css" rel="stylesheet">
+<link href="../assets/global/plugins/marquee/layout/css/style.css" rel="stylesheet">
+<link href="../assets/global/plugins/marquee/pages/css/style-revolution-slider.css" rel="stylesheet">
+<!-- metronic revo slider styles -->
+<link href="../assets/global/plugins/marquee/layout/css/style-responsive.css" rel="stylesheet">
+<link href="../assets/global/plugins/marquee/layout/css/themes/red.css" rel="stylesheet" id="style-color">
+<link href="../assets/global/plugins/marquee/layout/css/custom.css" rel="stylesheet">
+<!-- Theme styles END -->
+
+
+<!-- BEGIN DYMANICLY LOADED CSS FILES(all plugin and page related styles must be loaded between GLOBAL and THEME css files ) -->
+<link id="ng_load_plugins_before" />
+<!-- END DYMANICLY LOADED CSS FILES -->
+<!-- BEGIN THEME STYLES -->
+<!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+<!-- <link href="../assets/global/css/components.min.css" id="style_components" rel="stylesheet" type="text/css" /> -->
+<link href="../assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/layouts/layout/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+<link href="../assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
+<link href="../assets/project/css/front/front.css" rel="stylesheet" type="text/css" />
+<!-- END THEME STYLES -->
+
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body ng-controller="frontCtrl" style="background-color: #FFFFFF;" oncontextmenu="return isEnableRightClick()" onselectstart="return isEnableRightClick()" oncopy="return isEnableRightClick()" oncut="return isEnableRightClick()" ondragstart="return isEnableRightClick()">
+	<!-- END PAGE SPINNER -->
+	
+	<!-- BEGIN HEADER -->
+	<div data-ng-include="'tpl/header.html'" data-ng-controller="headerCtrl" class="fade-in-up"></div>
+	<!-- END HEADER -->
+	
+	<!-- BEGIN USER LOGIN MODAL -->
+	<div data-ng-include="'views/user/userLoginModal.html'" data-ng-controller="userLoginCtrl"></div>
+	<!-- END USER LOGIN MODAL -->
+	
+	<!-- BEGIN SERVICE MODAL -->
+	<div data-ng-include="'tpl/service.html'" class="fade-in-up"></div>
+	<!-- END SERVICE MODAL -->
+	
+	
+	<!-- BEGIN CONTAINER -->
+
+	<!-- BEGIN CONTENT -->
+	<div class="page-content">
+		<!-- BEGIN ACTUAL CONTENT -->
+		<div ui-view class="fade-in-up"></div>
+		<!-- END ACTUAL CONTENT -->
+	</div>
+	<!-- END CONTENT -->
+
+	<!-- END QUICK SIDEBAR -->
+
+	<!-- END CONTAINER -->
+	<!-- BEGIN FOOTER -->
+	<div data-ng-include="'tpl/footer.html'" data-ng-controller="footerCtrl" style="background-color: #333333;" class="fade-in-up"></div>
+	<!-- END FOOTER -->
+
+	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+	<!-- BEGIN CORE JQUERY PLUGINS -->
+	<!--[if lt IE 9]>
+	<script src="../assets/global/plugins/respond.min.js"></script>
+	<script src="../assets/global/plugins/excanvas.min.js"></script> 
+	<![endif]-->
+	<script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+	
+	
+	<!-- END CORE JQUERY PLUGINS -->
+
+
+
+	<!-- BEGIN CORE ANGULARJS PLUGINS -->
+	<script src="../assets/global/plugins/angularjs/angular.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/angularjs/angular-sanitize.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/angularjs/angular-touch.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/angularjs/plugins/angular-ui-router.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/angularjs/angular-sanitize.js"></script>
+	<script src="../assets/global/plugins/angularjs/angular-resource.js"></script>
+	<script src="../assets/global/plugins/angularjs/angular-route.js"></script>
+	<script src="../assets/global/plugins/angularjs/angular-social.js"></script>
+	<script src="../assets/global/plugins/angularjs/angular-translate.min.js"></script>
+	<script src="../assets/global/plugins/angularjs/angular-translate-loader-static-files.min.js"></script>
+	<script src="../assets/global/plugins/angularjs/embed-codepen.min.js"></script>
+	<script src="../assets/global/plugins/angularjs/plugins/angular-file-upload/angular-file-upload.min.js" type="text/javascript"></script>
+	<!-- END CORE ANGULARJS PLUGINS -->
+
+	<!-- BEGIN PAGES SCRIPTS -->
+	<script src="../assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
+	<!-- END PAGES SCRIPTS -->
+	
+	<!-- BEGIN PROJECT UTIL SCRIPTS -->
+	<script src="../assets/project/scripts/gzsoftware.js" type="text/javascript"></script>
+		<script src="../assets/project/scripts/petProdTypeSelect.js" type="text/javascript"></script>
+	<!-- END PROJECT UTIL SCRIPTS -->
+
+	<!-- BEGIN APP LEVEL ANGULARJS SCRIPTS -->
+	<script src="js/frontApp.js" type="text/javascript"></script>
+	<script src="js/controllers/headerCtrl.js" type="text/javascript"></script>
+	<script src="js/frontDirectives.js" type="text/javascript"></script>
+	<script src="js/controllers/userCtrl.js" type="text/javascript"></script>
+	<!-- END APP LEVEL ANGULARJS SCRIPTS -->
+
+
+
+	<!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) -->
+	<script src="../assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
+	<!-- slider for products -->
+
+	<!-- BEGIN RevolutionSlider -->
+	<script src="../assets/global/plugins/slider-revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/slider-revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js" type="text/javascript"></script>
+	<!-- END RevolutionSlider -->
+
+	<script src="../assets/global/plugins/marquee/layout/scripts/layout.js" type="text/javascript"></script>
+ 	<!-- 
+ 	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1269230733'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1269230733' type='text/javascript'%3E%3C/script%3E"));</script>
+	 -->
+	<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+
+</html>

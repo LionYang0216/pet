@@ -1,0 +1,35 @@
+<div class="form-body">
+	<div class="page-header-menu">
+		<div class="container">
+			<div class="row" style="min-height: 350px; background-color: #FFFFFF; margin-bottom: 30px;">
+				<div class="col-md-10 col-center-block" style="margin-bottom: 10px;">
+					<div class="game gameTitle text-center" >
+						{{curLang=="zh" ? news.titleCn : news.titleEn}}
+					</div>
+					<div class=" gameTime text-center" >{{"GAME_AUTHOR" | translate}}&nbsp;:&nbsp;{{news.admin.adminName}}</div>
+					<div class=" gameTime text-center" >{{"GAME_PUBLISH" | translate}}&nbsp;:&nbsp;{{news.lastUpdateTimeLayout}}</div>
+					<div class=" text-center">
+						<img src="../upload/{{news.picFile.filePath}}" class="game-image">
+					</div>
+					
+					<div ng-bind-html="curLang=='zh' ? news.descriptionCn : news.descriptionEn" class="game gameContent"></div>
+				</div>
+				
+				<div class="col-md-10 col-center-block text-center" style="margin-bottom: 30px;">
+					<ul class="pagination" style="display: inline-block; float: none;">
+						<li>
+							<button class="btn btn-lg btn-default" ng-click="addNewsUpCnt()" style="background-color:orange;color:#FFFFFF;">
+								<i class="glyphicon glyphicon-thumbs-up"></i> {{"UP" | translate}}
+							</button>
+						</li>
+						<li>
+							<button class="btn btn-lg btn-default" ng-click="back()">
+								<i class="fa fa-reply"></i> {{"BACK" | translate}}
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

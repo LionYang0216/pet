@@ -1,0 +1,305 @@
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="wareInfoForm" action="" enctype="multipart/form-data" class="mt-repeater form-horizontal">
+						
+			<div class="form-body">
+				<div hidden="hidden" class="form-group" style="height: 30px;">
+					ID:<input type="text" class="form-control" id="wareId" name="id" ng-model="ware.id" />
+				</div>
+
+				<element hidden="hidden">
+					<input type="text" class="form-control" id="shopId" name="shopId" ng-model="ware.shopId" />
+				</element>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"CNName" | translate}}
+					</label>
+					<div class="col-md-5">
+						<input type="text"  data-required="1" class="form-control" id="wareNameCn" name="nameCn" placeholder="中文名称 (必填)" ng-model="ware.nameCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"ENName" | translate}}
+					</label>
+					<div class="col-md-5">
+						<input type="text"  data-required="1" class="form-control" id="wareNameEn" name="nameEn" placeholder="英文名称 (选填)" ng-model="ware.nameEn" />
+					</div>
+				</div>
+				<div class="form-group" ng-if="wareID>0">
+					<label class="col-md-3 control-label">{{"Status" | translate}}</label>
+					<div class="col-md-5">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="isEnable" id="optionsRadios" value="1" ng-model="ware.isEnable" ng-checked="1">上架
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="isEnable" id="optionsRadios" value="0" ng-model="ware.isEnable" ng-checked="0">下架
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" ng-if="wareID>0">
+					<label class="col-md-3 control-label">{{"IsNew" | translate}}</label>
+					<div class="col-md-5">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="isNew" id="optionsRadiosNew" value="1" ng-model="ware.isNew" ng-checked="1" >是
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="isNew" id="optionsRadiosNew" value="0" ng-model="ware.isNew" ng-checked="0">否
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"RawMaterial" | translate}}
+					</label>
+					<div class="col-md-5">
+						<select id="searchwareTypeSrc" ng-model="ware.wareTypeSrcId" class="table-group-action-input form-control input-inline input-small input-sm"  ng-options="value.id as value.nameCn for (key, value) in wareTypeSrcList" >
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"Machine" | translate}}
+					</label>
+					<div class="col-md-5">
+						<select id="searchwareTypeMch" ng-model="ware.wareTypeMchId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in wareTypeMchList" >
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>				<div class="form-group">
+					<label class="col-md-4 control-label">{{"Mold" | translate}}
+					</label>
+					<div class="col-md-5">
+						<select id="searchwareTypeSte" ng-model="ware.wareTypeSteId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in wareTypeSteList" >
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_PRICE" | translate}}</label>
+					<div class="col-md-1">
+					<input type="number" data-required="1" class="form-control" id="priority" name="priority"  ng-model="ware.price" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_BRAND_CN" | translate}}
+					</label>
+					<div class="col-md-5">
+					<input type="text"  data-required="1" class="form-control" id="brandCn" name="brandCn" placeholder="品牌中文" ng-model="ware.brandCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_BRAND_EN" | translate}}
+					</label>
+					<div class="col-md-5">
+					<input type="text"  data-required="1" class="form-control" id="brandEn" name="brandEn" placeholder="品牌英文" ng-model="ware.brandEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_EXPRESS_CN" | translate}}
+					</label>
+					<div class="col-md-5">
+						<input type="text"  data-required="1" class="form-control" id="expressCn" name="expressCn" placeholder="运费说明中文 " ng-model="ware.expressCn" />
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_EXPRESS_EN" | translate}}
+					</label>
+					<div class="col-md-5">
+						<input type="text"  data-required="1" class="form-control" id="expressEn" name="expressEn" placeholder="运费说明英文 " ng-model="ware.expressEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_AFTERSERVICE_CN" | translate}}
+					</label>
+					<div class="col-md-5">
+						<input type="text"  data-required="1" class="form-control" id="afterServiceCn" name="afterServiceCn" placeholder="售后 中文" ng-model="ware.afterServiceCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_AFTERSERVICE_EN" | translate}}
+					</label>
+					<div class="col-md-5">
+						<input type="text"  data-required="1" class="form-control" id="afterServiceEn" name="afterServiceEn" placeholder="售后 英文" ng-model="ware.afterServiceEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_MODAL_CN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="modalCn" name="modalCn" placeholder="型号中文 " ng-model="ware.modalCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_MODAL_EN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="modalEn" name="modalEn" placeholder="型号英文" ng-model="ware.modalEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_ADAPTMACHINE_CN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="adaptMachineCn" name="adaptMachineCn" placeholder="适用型号中文" ng-model="ware.adaptMachineCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_ADAPTMACHINE_EN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="adaptMachineEn" name="adaptMachineEn" placeholder="适用型号英文" ng-model="ware.adaptMachineEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_LOCATION_CN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="locationCn" name="locationCn" placeholder="地址中文" ng-model="ware.locationCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_LOCATION_EN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="locationEn" name="locationEn" placeholder="地址英文" ng-model="ware.locationEn" />
+					</div>
+				</div>
+		
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_RUNNER_CN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="runnerCn" name="runnerCn" placeholder="流道中文" ng-model="ware.runnerCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_RUNNER_EN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="runnerEn" name="runnerEn" placeholder="流道英文" ng-model="ware.runnerEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_PRODUCT_CN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceProductCn" name="produceProductCn" placeholder="产出品中文" ng-model="ware.produceProductCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_PRODUCT_EN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceProductEn" name="produceProductEn" placeholder="产出品英文" ng-model="ware.produceProductEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_MAKEMODAL_CN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="makeModeCn" name="makeModeCn" placeholder="塑造模式中文" ng-model="ware.makeModeCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_MAKEMODAL_EN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="makeModeEn" name="makeModeEn" placeholder="塑造模式英文" ng-model="ware.makeModeEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_PROSOURCE_CN" | translate}} 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceSourceCn" name="produceSourceCn" placeholder="生产材料中文 " ng-model="ware.produceSourceCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_PROSOURCE_EN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceSourceEn" name="produceSourceEn" placeholder="生产材料英文 " ng-model="ware.produceSourceEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_PROABILITY_CN" | translate}} 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceAbilityCn" name="produceAbilityCn" placeholder="生产能力中文 " ng-model="ware.produceAbilityCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WARE_TITLE_PROABILITY_EN" | translate}}
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceAbilityEn" name="produceAbilityEn" placeholder="生产能力英文  " ng-model="ware.produceAbilityEn" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"PIC" | translate}}</label>
+					<div class="col-md-5">
+						<element ng-if="picFileUploader">
+							<input type="file" data-required="1"  style="display:none" name ="picFileUploader" id="picFileUploader" uploader="picFileUploader"  nv-file-select accept="image/*"/>
+							<a type="button" class="btn btn-sm blue-hoki " onclick="$('#picFileUploader').click()"><i class="fa fa-cloud-upload"></i> 浏览.. </a>
+						</element>
+						<input type="hidden" ng-model="ware.picFileId" id="picFileId" name="picFileId"/>
+						&nbsp;&nbsp;<a href="../upload/{{ware.picFile.filePath}}" target="_blank" ng-show="ware.picFile.filePath" style="color: #337ab7;">{{ware.picFile.fileName}}</a>
+						&nbsp;&nbsp; <a href="#" class="fa fa-remove" style="color:Red;" ng-click="ware.picFile={};ware.picFileId=''" ng-show="ware.picFile.filePath"></a>
+						&nbsp;&nbsp;<span style="font-size:14px;color:blue-hoki;">注：请上传高宽比为4:3尺寸的图片</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label"> {{"WAREDETAIL" | translate}}
+					</label>
+					<div class="col-md-5">
+						<div class="portlet light bordered" >
+		                  <div class="portlet-title tabbable-line">
+			                  <div class="caption" style="font-size:14px;line-height:0px;">
+	                               <span>注：如果英文部分为空，则在提交后自动赋值为中文内容</span>
+	                           </div>
+		                      <ul class="nav nav-tabs">
+		                        <li class="active">
+		                              <a href="./#wareDescCn" data-toggle="tab" aria-expanded="true"> 中文 </a>
+		                          </li>
+		                          <li class="">
+		                              <a href="./#wareDescEn" data-toggle="tab" aria-expanded="false"> 英文 </a>
+		                          </li>
+		                      </ul>
+		                  </div>
+		                  <div class="portlet-body">
+		                      <div class="tab-content">
+		                          <div class="tab-pane active" id="wareDescCn">
+		                           		<textarea class="form-control" name="descriptionCn" rows="8" id="descriptionCn" ng-model="ware.descriptionCn"></textarea>
+		                          </div>
+		                          <div class="tab-pane" id="wareDescEn">
+		                           		<textarea class="form-control" name="descriptionEn" rows="8" id="descriptionEn" ng-model="ware.descriptionEn"></textarea>
+		                          </div>
+		                      </div>
+		                  </div>
+		            	</div>
+					</div>
+				</div>
+			</div>
+			<div>
+                 <div class="row">
+                     <div align="center">
+						<button class="btn btn-lg btn-default" ng-click="toWareList()">
+							<i class="fa fa-reply"></i> {{"BACK" | translate}}
+						</button>
+						
+						<button class="btn btn-lg btn-default blue" ng-click="toSaveWare()">
+							<i class="glyphicon glyphicon-ok"></i> {{"SAVE" | translate}}
+						</button>
+	
+                     </div>
+                 </div>
+             </div>
+
+		</form>
+		<!-- END FORM-->
+			<br><br><br><br><br>
+	</div>
+</div>
+

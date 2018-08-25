@@ -1,0 +1,599 @@
+*{
+	margin:0;
+	padding:0;
+}
+.color-black {
+	color: #333333;
+}
+
+.color-white {
+	color: #FFFFFF;
+}
+
+.clear {
+	clear: both;
+}
+
+.col-center-block {
+	float: none;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btnBorder{
+	border:1px solid #333333!important;	
+}
+
+.tetx-center{
+	text-align:center;
+}
+
+.imgSize {
+	max-width: 280px !important;
+	max-height: 280px !important;
+}
+
+.textellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.foot-title a:hover {
+	color: #FFFFFF !important;
+}
+
+.foot-title a:link, a:active {
+	color: #FFFFFF !important;
+}
+
+/*设置遮罩层透明度*/
+.home-bg-opacity {
+	filter: alpha(Opacity = 80);
+	-moz-opacity: 0.8;
+	opacity: 0.8;
+}
+
+.home-title {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.home-garyBlock {
+	width: 50px;
+	height: 25px;
+	background-color: #FAFAFA;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.home-recommend-image {
+	width: 95%;
+	max-width: 1920px;
+	height: auto;
+	margin: 10px 5px 10px 0;
+}
+
+.home-goods-image {
+	width: 100%;
+	height: auto;
+}
+
+.product-select-title {
+	font-size: 12px;
+	font-weight: bold;
+	color: #6C6C6C !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	padding-left: 6px !important;
+	padding-right: 6px !important;
+}
+
+.product-select-title-div {
+	min-height: 80px;
+	padding: 10px 0px;
+}
+
+.brandTab {
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.brandTab tr td {
+	padding: 10px 10px;
+}
+
+.no-paddingLeft {
+	padding-left: 0px !important;
+}
+
+.no-paddingRight {
+	padding-right: 0px !important;
+}
+
+.div-border {
+	border: 1px solid #333333;
+}
+
+.product-icon-img {
+	width: 24px;
+	height: 24px;
+	margin: 10px;
+}
+
+.div-border-bottom-helf {
+	width: 70%;
+	height: 40px;
+	border-bottom: 1px solid #333333;
+}
+
+.foot-title {
+	margin: 10px 0;
+	color: #ffffff;
+	letter-spacing: 2px;
+}
+
+.product-ul-li-margin {
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+.product-ul-li-margin a:hover {
+	color: #333333 !important;
+}
+
+.product-img-font-margin {
+	margin-right: 30px;
+}
+
+.pages-a {
+	border-radius: 0 !important;
+	border: 1px solid #333333 !important;
+}
+
+.prod-image {
+	width: 400px;
+	height: auto;
+	margin-top: 10px;
+}
+
+.prodDetail {
+	color: #808080;
+	letter-spacing: 2px;
+	padding-left: 75px;
+	font-size: 24px;
+}
+
+.game {
+	padding: 5px 0;
+	margin-top: 10px;
+	letter-spacing: 1.5px;
+}
+
+.game-image {
+	max-width: 1980px;
+	display: inline-block;
+	max-width: 100%;
+	height: auto;
+	margin-top: 10px;
+}
+
+.gameTitle {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.gameTitle a:link, a:hover, a:active {
+	color: #333333 !important;
+}
+
+.gameTime {
+	font-size: 12px;
+	color: #A0A0A0;
+}
+
+.gameContent {
+	color: #333333;
+	font-size: 14px;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.gameContent table {
+	color: #333333;
+	font-size: 14px;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.ware {
+	letter-spacing: 1px;
+}
+
+.wareList {
+	margin-top: 30px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.wareList:hover{
+	background-color:#EEEEEE;
+}
+
+.wareTitle {
+	color: #333333;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.wareDetailTitle {
+	color: #333333;
+	font-size: 22px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.wareInfo {
+	color: #808080;
+	font-size: 12px;
+	margin-bottom: 5px;
+}
+
+.wareDetailInfo{
+	color: #808080;
+	font-size: 16px;
+	margin-bottom:10px;
+}
+
+.warePrice {
+	color: #C20607;
+	font-size: 12px;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+
+.wareSmallImg {
+	width: 110px;
+	height: auto;
+}
+
+
+#wareDetTab tr{
+	line-height:35px;
+	font-size:1vw;
+}
+
+#wareDetTab tr td{
+	font-size:1vw;
+}
+
+.wareCollect {
+	width: 90px !important;
+	height: 30px;
+	font-size: 14px;
+	color: #333333;
+	letter-spacing: 1px;
+	border: 1px solid #333333;
+	padding: 5px;
+}
+
+.wareSelect {
+	border: 1px solid #808080;
+	padding: 10px 10px;
+	letter-spacing: 2px;
+}
+
+.wareGray {
+	background-color: #E5E5E5;
+}
+
+.ware-control-feedback {
+	position: absolute;
+	top: 10;
+	left: 0;
+	z-index: 2;
+	display: block;
+	width: 30px;
+	height: auto;
+	text-align: center;
+	pointer-events: none
+}
+
+
+.wareDetail{
+	color: #808080;
+	letter-spacing: 2px;
+	padding-left: 15px;
+	font-size: 24px;
+}
+
+.wareTdLeft{
+	width:20%;
+	background-color:#EEEEEE;
+}
+
+.wareTdRight{
+	width:30%;
+}
+
+
+
+.btn.btn-outline.black {
+	color: #FFFFFF;
+	background: #333333;
+	line-height: 1 !important;
+	border: 1px solid #333333;
+}
+
+.btn.btn-outline.black:hover, .btn.btn-outline.black:active, .btn.btn-outline.black:active:hover,
+	.btn.btn-outline.black:active:focus, .btn.btn-outline.black:focus, .btn.btn-outline.black.active {
+	border: 1px solid #333333;
+	color: #333333;
+	background-color: #FFFFFF;
+	line-height: 1 !important;
+}
+
+.no-boder-bottom {
+	border-bottom: 0px !important;
+}
+
+.no-boder-left {
+	border-left: 0px !important;
+}
+
+.no-boder-right {
+	border-right: 0px !important;
+}
+
+.no-boder-top {
+	border-top: 0px !important;
+}
+
+.selectActive {
+	background-color: #eeeeee;
+}
+
+.tdLeft {
+	width: 35%;
+}
+
+.tdMid {
+	width: 30%;
+}
+
+.tdRight {
+	width: 35%;
+}
+
+.regError {
+	color: red;
+	font-size: 16px;
+	margin: 5px 0;
+}
+
+.myHeaderSelect {
+	font-size: 20px;
+	letter-spacing: 2px;
+}
+
+.myWorkSelectDiv {
+	height: 35px;
+	border-bottom: 1px solid #333333;
+	padding-top: 10px;
+}
+
+.myWork-select {
+	font-size: 12px;
+	color: #6C6C6C;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	padding-left: 6px !important;
+	padding-right: 6px !important;
+}
+
+.myWork-select-active {
+	color: red;
+}
+
+.myWorkListDiv {
+	display: block;
+	opacity: 1;
+	margin: 10px 40px 10px 0px;
+}
+
+.myTabHide {
+	display: none;
+}
+
+.myWareCntBlock {
+	background: url('../../img/front/my/myWareList1.jpg') no-repeat;
+	margin: 0px 10px 10px 10px;
+	width: 47%;
+	float: left;
+	height: 150px;
+}
+
+.myWareCntBlockTitle {
+	padding: 5px 0 0 35px;
+	letter-spacing: 2px;
+	font-size: 22px;
+}
+
+.myWareCntBlockDetail {
+	width: 45%;
+	float: left;
+	padding: 5px 0 0 0px;
+	letter-spacing: 2px;
+	text-align: center;
+	color: #FFFFFF;
+}
+
+.myWareCntBlockLine {
+	width: 10%;
+	border-right: 1px solid #FFFFFF;
+	float: left;
+}
+
+
+
+.myWareIssue {
+	border: 1px solid #FFFFFF;
+	width: 130px;
+	height: 130px;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	background-color: #32B16C;
+	color: #FFFFFF;
+	font-size: 18px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle
+}
+
+.myShopInfoTab {
+	color: #434343;
+	line-height: 35px;
+	width: 100%;
+}
+
+.myShopInfoTabLeft {
+	width: 30%;
+	padding-left: 25px;
+	font-size: 14px;
+}
+
+.myShopInfoTabRight {
+	width: 60%;
+	font-size: 14px;
+}
+
+.myWareImg {
+	width: 80px;
+	height: 100px;
+}
+
+.myListTab {
+	width:100%;color:#bcbcbc;
+	font-size:14px;
+	letter-spacing: 2px;
+	text-align: center;
+}
+
+.myListTab tr{
+	height:110px;
+	color:#333333;
+}
+
+.mwListTd1 {
+	width: 120px;
+	max-width: 120px;
+	
+}
+
+.mwListTd2 {
+	width: 200px;
+}
+
+.mwListTd3 {
+	width: 100px;
+	color: red;
+}
+
+.mwListTd4 {
+	width: 85px;
+}
+
+.mwListTd5 {
+	width: 280px;
+}
+
+.myWorkTab tr td{
+	line-height:25px;
+}
+
+
+.myWorkTabTd{
+	font-size:12px;
+	color:#808080;	
+}
+
+.myFavUl div{
+	float:left;
+	width:85px;
+	height:35px;
+	font-size:16px;
+	text-align:center;
+}
+
+
+.myFavUl li a{
+	text-decoration: none;
+}
+
+.myFavActive{
+	font-weight:bold;
+}
+
+.li-margin{
+	margin:0  40px;
+}
+
+.myBaTitle{
+	text-align: center;
+	margin-bottom:5px;
+	letter-spacing: 2px;
+	font-weight:bold;
+	font-size:16px;
+}
+.myBaDetail{
+	margin:10px 0px;
+	letter-spacing: 2px;
+}
+
+.news-image{
+	width:90%;
+	height: auto;
+	max-height:180px;
+	margin-top: 10px;
+	display: inline-block;
+
+}
+.newsContent{
+	width:100%;
+	height:70px;
+	color: #808080;
+	font-size: 14px;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+.newsContent p{
+	 margin:5px 0!important;
+}
+
+.wareShopTab{
+	width:100%;
+}
+
+.wareShopTab tr td{
+	height:25px;
+}
+
+
+.wareTabLeft{
+	width:10%;
+	letter-spacing:2px;
+	font-size:13px;
+}
+
+.wareTabRight{
+	width:90%;
+	border-right:1px solid #333333;
+	border-top:1px solid #333333;
+	padding:10px 5px 5px 5px;
+}
+
+#home_brand  img{
+	width:99%;
+}

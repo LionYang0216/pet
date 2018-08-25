@@ -1,0 +1,240 @@
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+  <style>
+  .custom-combobox {
+    position: relative;
+    display: inline-block;
+  }
+  .custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+    /* 支持： IE7 */
+    *height: 1.7em;
+    *top: 0.1em;
+  }
+  .custom-combobox-input {
+    margin: 0;
+    padding: 0.3em;
+  }
+  </style>
+  <script>
+  (function( $ ) {
+    $.widget( "custom.combobox", {
+      _create: function() {
+        this.wrapper = $( "<span>" )
+          .addClass( "custom-combobox" )
+          .insertAfter( this.element );
+ 
+        this.element.hide();
+        this._createAutocomplete();
+        this._createShowAllButton();
+      },
+ 
+      _createAutocomplete: function() {
+        var selected = this.element.children( ":selected" ),
+          value = selected.val() ? selected.text() : "";
+ 
+        this.input = $( "<input>" )
+          .appendTo( this.wrapper )
+          .val( value )
+          .attr( "title", "" )
+          .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+          .autocomplete({
+            delay: 0,
+            minLength: 0,
+            source: $.proxy( this, "_source" )
+          })
+          .tooltip({
+            tooltipClass: "ui-state-highlight"
+          });
+ 
+        this._on( this.input, {
+          autocompleteselect: function( event, ui ) {
+            ui.item.option.selected = true;
+            this._trigger( "select", event, {
+              item: ui.item.option
+            });
+          },
+ 
+          autocompletechange: "_removeIfInvalid"
+        });
+      },
+ 
+      _createShowAllButton: function() {
+        var input = this.input,
+          wasOpen = false;
+ 
+        $( "<a>" )
+          .attr( "tabIndex", -1 )
+          .attr( "title", "Show All Items" )
+          .tooltip()
+          .appendTo( this.wrapper )
+          .button({
+            icons: {
+              primary: "ui-icon-triangle-1-s"
+            },
+            text: false
+          })
+          .removeClass( "ui-corner-all" )
+          .addClass( "custom-combobox-toggle ui-corner-right" )
+          .mousedown(function() {
+            wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+          })
+          .click(function() {
+            input.focus();
+ 
+            // 如果已经可见则关闭
+            if ( wasOpen ) {
+              return;
+            }
+ 
+            // 传递空字符串作为搜索的值，显示所有的结果
+            input.autocomplete( "search", "" );
+          });
+      },
+ 
+      _source: function( request, response ) {
+        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+        response( this.element.children( "option" ).map(function() {
+          var text = $( this ).text();
+          if ( this.value && ( !request.term || matcher.test(text) ) )
+            return {
+              label: text,
+              value: text,
+              option: this
+            };
+        }) );
+      },
+ 
+      _removeIfInvalid: function( event, ui ) {
+ 
+        // 选择一项，不执行其他动作
+        if ( ui.item ) {
+          return;
+        }
+ 
+        // 搜索一个匹配（不区分大小写）
+        var value = this.input.val(),
+          valueLowerCase = value.toLowerCase(),
+          valid = false;
+        this.element.children( "option" ).each(function() {
+          if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+            this.selected = valid = true;
+            return false;
+          }
+        });
+ 
+        // 找到一个匹配，不执行其他动作
+        if ( valid ) {
+          return;
+        }
+ 
+        // 移除无效的值
+        this.input
+          .val( "" )
+          .attr( "title", value + " didn't match any item" )
+          .tooltip( "open" );
+        this.element.val( "" );
+        this._delay(function() {
+          this.input.tooltip( "close" ).attr( "title", "" );
+        }, 2500 );
+        this.input.data( "ui-autocomplete" ).term = "";
+      },
+ 
+      _destroy: function() {
+        this.wrapper.remove();
+        this.element.show();
+      }
+    });
+  })( jQuery );
+ 
+  $(function() {
+    $( "#combobox" ).combobox();
+
+  });
+  </script>
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="userBalanceLogInfoForm" action="" enctype="multipart/form-data" method="post"
+			class="form-horizontal">
+			<div class="form-body">
+				<h3 class="form-section">会员消费记录</h3>
+				<div class="form-group">
+					<label class="control-label col-md-3">选择用户<span class="required"> * </span>
+					</label>
+					<div class="col-md-2" id="InputName"  >
+					 <input type="text"  data-required="1" ng-disabled="disabledText" class="form-control" id="userName" name="userName"  ng-model="userBalanceLog.user.userName" />
+					 </div>
+					 <div class="col-md-2" id="selectName">
+					 <input type="text"  data-required="1" ng-disabled="disabledText" ng-keyup ="changeSelect()" aria-required="true" class="form-control" id="userName" name="userName" placeholder="用户昵称" ng-model="userBalanceLog.user.userName" />
+					 <!--  <select id="combobox"  class="form-control"  name="userName" ng-model="userBalanceLog.userId">
+					  <option value="">请选择...</option>
+                      <option ng-repeat="user in userList" value={{user.id}} ng-selected="userBalanceLog.userId == user.id">{{user.userName}}</option> 
+                      </select> -->
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="control-label col-md-3">消费类型<span class="required"> * </span>
+					</label>
+					<div class="col-md-2">
+						<select id="changeType" ng-model="userBalanceLog.changeType" data-size="8"
+						class="form-control" ng-change="changeType()">
+						   <option value="0" ng-selected="userBalanceLog.changeType==0">请选择</option>
+						    <option value="1" ng-disabled="disabledSelect" ng-selected="userBalanceLog.changeType==1">查看瓶库消费</option>
+							<option value="2" ng-selected="userBalanceLog.changeType==2">线下提现</option>
+							<option value="6" ng-selected="userBalanceLog.changeType==6">微信充值</option>
+							<option value="7" ng-selected="userBalanceLog.changeType==7">支付宝充值</option>
+							<option value="8" ng-selected="userBalanceLog.changeType==8">线下充值</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">影响金额<span class="required"> * </span>
+					</label>
+					<div class="col-md-2">
+						<input type="number"  class="form-control"  id="changeAmount" name="changeAmount" placeholder="影响金额" ng-model="userBalanceLog.changeAmount" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">消费时间<span class="required"> * </span>
+					</label>
+					<div class="col-md-2">
+						<input type="text"   class="form-control datetimepicker" data-date-format="yyyy-mm-dd hh:ii" id="changeTime" name="changeTime" placeholder="消费时间" ng-model="userBalanceLog.changeTime" />
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="control-label col-md-3">消费单号<span class="required"> * </span>
+					</label>
+					<div class="col-md-2">
+						<input type="text"  class="form-control" id="chargeOrderNumber" name="chargeOrderNumber" placeholder="消费单号" ng-model="userBalanceLog.chargeOrderNumber" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">备注
+					</label>
+					<div class="col-md-5">
+						<input type="text"  class="form-control" id="description" name="description" placeholder="备注" ng-model="userBalanceLog.description" />
+					</div>
+				</div>
+			<div>
+				<div class="row">
+					<div class="col-md-offset-3 col-md-9">
+						<a href="#/userBalanceLog/list/" class="btn default"> <i class="fa fa-reply"></i> 返回</a> 
+						<a href="#" class="btn  red" ng-click="toDeleteuserBalanceLog()" ng-show="showDelBtn"> 
+							<i class="fa fa-minus"></i> 
+							<span class="hidden-480">删除</span>
+						</a> 
+					    <a type="button" class="btn blue" ng-click="toSaveuserBalanceLog()"> <i class="fa fa-check"></i> 保存
+						</a>
+						
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>

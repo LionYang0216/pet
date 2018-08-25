@@ -1,0 +1,348 @@
+
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="wareInfoForm" action="" enctype="multipart/form-data" class="mt-repeater form-horizontal">
+						
+			<div class="form-body">
+				<div hidden="hidden" class="form-group" style="height: 30px;">
+					ID:<input type="text" class="form-control" id="wareId" name="id" ng-model="ware.id" />
+				</div>
+				<h3 class="form-section">产品</h3>
+				<element ng-if="ware.id!=null || ware.id!='' ">
+					<input type="hidden" class="form-control" id="shopId" name="shopId" ng-model="ware.shopId" />
+				</element>
+				<element ng-if="ware.id==null">
+				<div class="form-group">
+					<label class="control-label col-md-3">商铺
+					</label>
+					<div class="col-md-4">
+						<select id="shop" ng-model="ware.shopId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in shopList" >
+						</select>
+					</div>
+				</div>
+				</element>
+				<div class="form-group">
+					<label class="control-label col-md-3">中文名称<span class="required"> * </span>
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="nameCn" name="nameCn" placeholder="中文名称" ng-model="ware.nameCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">英文名称
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="nameEn" name="nameEn" placeholder="英文名称" ng-model="ware.nameEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">状态</label>
+					<div class="col-md-4">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="isEnable" id="optionsRadios" value="1" ng-model="ware.isEnable">上架
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="isEnable" id="optionsRadios" value="0" ng-model="ware.isEnable">下架
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">置顶首页</label>
+					<div class="col-md-4">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="isNew" id="optionsRadiosNew" value="1" ng-model="ware.isNew"  >是
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="isNew" id="optionsRadiosNew" value="0" ng-model="ware.isNew">否
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">排序号</label>
+					<div class="col-md-1">
+					<input type="number" data-required="1" class="form-control" id="priority" name="priority"  ng-model="ware.priority"  />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">浏览次数
+					</label>
+					<div class="col-md-1">
+					<input type="number" data-required="1" class="form-control" id="visitCnt" name="visitCnt"  ng-model="ware.visitCnt"  />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">点赞次数
+					</label>
+					<div class="col-md-1">
+					<input type="number" data-required="1" class="form-control" id="upCnt" name="upCnt"  ng-model="ware.upCnt"  />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">收藏次数
+					</label>
+					<div class="col-md-1">
+					<input type="number" data-required="1" class="form-control" id="favCnt" name="favCnt"  ng-model="ware.favCnt"  />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">原材料
+					</label>
+					<div class="col-md-4">
+						<select id="searchwareTypeSrc" ng-model="ware.wareTypeSrcId" class="table-group-action-input form-control input-inline input-small input-sm"  ng-options="value.id as value.nameCn for (key, value) in wareTypeSrcList" >
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">机器类型
+					</label>
+					<div class="col-md-4">
+						<select id="searchwareTypeMch" ng-model="ware.wareTypeMchId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in wareTypeMchList" >
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>				
+				<div class="form-group">
+					<label class="control-label col-md-3">机器模具
+					</label>
+					<div class="col-md-4">
+						<select id="searchwareTypeSte" ng-model="ware.wareTypeSteId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in wareTypeSteList" >
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">制品类型
+					</label>
+					<div class="col-md-4">
+						<select id="searchwareTypeSte" ng-model="ware.wareTypePrdId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in wareTypePrdList" >
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">价格</label>
+					<div class="col-md-1">
+					<input type="number" data-required="1" class="form-control" id="priority" name="priority"  ng-model="ware.price"  />
+					</div>
+				</div>
+			    <div class="form-group">
+					<label class="control-label col-md-3">品牌中文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="brandCn" name="brandCn" placeholder="品牌中文" ng-model="ware.brandCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">品牌英文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="brandEn" name="brandEn" placeholder="品牌英文" ng-model="ware.brandEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">运费说明中文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="expressCn" name="expressCn" placeholder="运费说明中文 " ng-model="ware.expressCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">运费说明英文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="expressEn" name="expressEn" placeholder="运费说明英文 " ng-model="ware.expressEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">售后中文 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="afterServiceCn" name="afterServiceCn" placeholder="售后 中文" ng-model="ware.afterServiceCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">售后英文 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="afterServiceEn" name="afterServiceEn" placeholder="售后 英文 " ng-model="ware.afterServiceEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">型号中文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="modalCn" name="modalCn" placeholder="型号中文 " ng-model="ware.modalCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">型号英文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="modalEn" name="modalEn" placeholder="型号英文" ng-model="ware.modalEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">适用型号中文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="adaptMachineCn" name="adaptMachineCn" placeholder="适用型号中文" ng-model="ware.adaptMachineCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">适用型号英文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="adaptMachineEn" name="adaptMachineEn" placeholder="适用型号英文" ng-model="ware.adaptMachineEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">地址中文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="locationCn" name="locationCn" placeholder="地址中文" ng-model="ware.locationCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">地址英文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="locationEn" name="locationEn" placeholder="地址英文" ng-model="ware.locationEn" />
+					</div>
+				</div>
+		
+				<div class="form-group">
+					<label class="control-label col-md-3">流道中文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="runnerCn" name="runnerCn" placeholder="流道中文" ng-model="ware.runnerCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">流道英文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="runnerEn" name="runnerEn" placeholder="流道英文" ng-model="ware.runnerEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">产出品中文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceProductCn" name="produceProductCn" placeholder="产出品中文" ng-model="ware.produceProductCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">产出品英文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceProductEn" name="produceProductEn" placeholder="产出品英文" ng-model="ware.produceProductEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">塑造模式中文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="makeModeCn" name="makeModeCn" placeholder="塑造模式中文" ng-model="ware.makeModeCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">塑造模式英文
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="makeModeEn" name="makeModeEn" placeholder="塑造模式英文" ng-model="ware.makeModeEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">生产材料中文 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceSourceCn" name="produceSourceCn" placeholder="生产材料中文 " ng-model="ware.produceSourceCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">生产材料英文 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceSourceEn" name="produceSourceEn" placeholder="生产材料英文 " ng-model="ware.produceSourceEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">生产能力中文 
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceAbilityCn" name="produceAbilityCn" placeholder="生产能力中文 " ng-model="ware.produceAbilityCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">生产能力英文  
+					</label>
+					<div class="col-md-4">
+						<input type="text"  data-required="1" class="form-control" id="produceAbilityEn" name="produceAbilityEn" placeholder="生产能力英文  " ng-model="ware.produceAbilityEn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">商品图片<span class="required"> * </span></label>
+					<div class="col-md-4">
+						<element ng-if="picFileUploader">
+							<input type="file" data-required="1"  style="display:none" name ="picFileUploader" id="picFileUploader" uploader="picFileUploader"  nv-file-select accept="image/*"/>
+							<a type="button" class="btn btn-sm blue-hoki " onclick="$('#picFileUploader').click()"><i class="fa fa-cloud-upload"></i> 浏览.. </a>
+						</element>
+						<input type="hidden" ng-model="ware.picFileId" id="picFileId" name="picFileId"/>
+						&nbsp;&nbsp;<a href="../upload/{{ware.picFile.filePath}}" target="_blank" ng-show="ware.picFile.filePath">{{ware.picFile.fileName}}</a>
+						&nbsp;&nbsp; <a href="#" class="fa fa-remove" style="color:Red;" ng-click="ware.picFile={};ware.picFileId=''" ng-show="ware.picFile.filePath"></a>
+						&nbsp;&nbsp;<span style="font-size:14px;color:blue-hoki;"></span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3"> 商品描述 
+					</label>
+					<div class="col-md-9">
+						<div class="portlet light bordered" >
+		                  <div class="portlet-title tabbable-line">
+			                  <div class="caption">
+	                               <span class="caption-subject">注：如果英文部分为空，则在提交后自动赋值为中文内容</span>
+	                           </div>
+		                      <ul class="nav nav-tabs">
+		                        <li class="active">
+		                              <a href="./#descCn" data-toggle="tab" aria-expanded="true"> 中文 </a>
+		                          </li>
+		                          <li class="">
+		                              <a href="./#descEn" data-toggle="tab" aria-expanded="false"> 英文 </a>
+		                          </li>
+		                      </ul>
+		                  </div>
+		                  <div class="portlet-body">
+		                      <div class="tab-content">
+		                          <div class="tab-pane active" id="descCn">
+		                           		<textarea class="form-control" name="descriptionCn" rows="8" id="descriptionCn" ng-model="ware.descriptionCn"></textarea>
+		                          </div>
+		                          <div class="tab-pane" id="descEn">
+		                           		<textarea class="form-control" name="descriptionEn" rows="8" id="descriptionEn" ng-model="ware.descriptionEn"></textarea>
+		                          </div>
+		                      </div>
+		                  </div>
+		            </div>
+					</div>
+				</div>
+			</div>
+			<div>
+                 <div class="row">
+                     <div class="col-md-offset-3 col-md-9">
+                     	<a href="#/ware/list/" class="btn default"> <i class="fa fa-reply"></i> 返回</a>  
+						<a href="#" class="btn  red" ng-click="toDeleteWare()" ng-show="showDelBtn"> 
+							<i class="fa fa-minus"></i> 
+							<span class="hidden-480">删除</span>
+						</a> 
+						<a type="button" class="btn blue" ng-click="toSaveWare()"> <i class="fa fa-check"></i> 保存</a>
+                     </div>
+                 </div>
+             </div>
+
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>
+

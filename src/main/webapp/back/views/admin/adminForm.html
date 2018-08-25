@@ -1,0 +1,77 @@
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="adminInfoForm" action="" enctype="multipart/form-data" class="form-horizontal">
+			<div class="form-body">
+				<div hidden="hidden" class="form-group" style="height: 30px;">
+					ID:<input type="text" class="form-control" id="adminId" name="id" ng-model="admin.id" />
+				</div>
+				<h3 class="form-section">管理员信息</h3>
+				<div class="form-group">
+					<label class="control-label col-md-3"></label>
+					<div class="col-md-4">
+						<element ng-if="picFileUploader">
+							<input type="file" data-required="1"  style="display:none" name ="picFileUploader" id="picFileUploader" uploader="picFileUploader"  nv-file-select accept="image/*"/>
+							<a href="#" onclick="$('#picFileUploader').click()"> 
+								<img alt="管理员头像" src="{{admin.headFilePathLayout}}" class="img-circle" style="height:120px; width:100px; padding: 10px 0">
+							</a>
+						</element>
+						<input type="hidden" ng-model="admin.headFileId" id="headFileId" name="headFileId"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">账号 <span class="required"> * </span>
+					</label>
+					<div class="col-md-4">
+						<input type="text" data-required="1" class="form-control" id="account" name="account" placeholder="账号" ng-model="admin.account" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">密码 <span class="required"> * </span>
+					</label>
+					<div class="col-md-4">
+						<input type="password" data-required="1" class="form-control" id="password" name="password" placeholder="密码" ng-model="admin.password" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">管理员名称 <span class="required"> * </span>
+					</label>
+					<div class="col-md-4">
+						<input type="text" data-required="1" class="form-control" id="adminName" name="adminName" placeholder="管理员名称" ng-model="admin.adminName" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-3 control-label">权限</label>
+					<div class="col-md-4">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="isEnabled" id="optionsRadios1" value="1" ng-model="admin.isEnabled" ng-checked="1" checked="checked">可用
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="isEnabled" id="optionsRadios2" value="0" ng-model="admin.isEnabled" ng-checked="0">禁用
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+				<label class="col-md-3 control-label">设置角色</label>
+					<div class="col-md-4">
+                  		<div id="roleTree" class="col-md-4" > </div>
+                    </div>
+                  </div>
+			</div>
+			<div>
+                 <div class="row">
+                     <div class="col-md-offset-3 col-md-9">
+                     	<a href="#/admin/list" class="btn default"> <i class="fa fa-reply"></i> 返回</a> 
+						<a href="#" class="btn  red" ng-click="toDeleteAdmin()" ng-show="showDelBtn"> <i class="fa fa-minus"></i>
+						 	删除
+						 </a> 
+						<a type="button" class="btn blue" ng-click="toSaveAdmin()"> <i class="fa fa-check"></i> 保存</a>
+                     </div>
+                 </div>
+             </div>
+
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>

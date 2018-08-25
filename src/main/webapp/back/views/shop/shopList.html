@@ -1,0 +1,75 @@
+
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="#/dashboard.html">首页</a>
+           >店铺管理
+        </li>
+       
+    </ul>
+  
+</div>
+<h3 class="page-title"> 店铺管理
+</h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        
+        <!-- Begin: life time stats -->
+        <div class="portlet light portlet-fit portlet-datatable bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa icon-basket-loaded"></i> 店铺管理列表 </div>
+                <div class="actions">
+               
+						<input id="searchName" ng-model="shopCondition.nameCn" class="form-control input-sm input-small input-inline" placeholder="请输入店铺名称" aria-controls="sample_1" type="search">
+						<select id="searchEnabled" ng-model="shopCondition.status" class="table-group-action-input form-control input-inline input-small input-sm">
+							<option value="">全部</option>
+							<option value="1">已通过</option>
+							<option value="0">未审批</option>
+						    <option value="2">拒绝</option>
+						</select>
+						<button class="btn btn-sm green table-group-action-submit" ng-click="reloadTable()">
+							<i class="fa fa-check"></i> 搜索
+						</button>
+					
+                
+                    <a href="#/shop/form/" class="btn btn-outline green">
+                        <i class="fa fa-plus"></i>
+                        <span class="hidden-480"> 新增</span>
+                    </a>     
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-container" >
+					<table class="table table-striped table-bordered table-hover table-checkable" style="width:100%;" id="shopListDataTable">
+                        <thead>
+                            <tr role="row" class="heading">
+                                <th width="5px">
+                            	   No.
+                            	</th>
+                            	<th width="40px">LOGO</th>
+                                <th width="380px">店名</th>
+                                <th width="150px">会员</th>
+                                <th width="150px">联系电话</th>
+                                <th width="180px">开通时间</th>
+                                <th width="180px">更新时间</th>
+                                <th width="60px">状态</th>
+                                <th width="50px">商品</th>
+                                <th width="35px">
+                                   	 请选择
+                                </th>
+                            </tr>                         
+                        </thead>
+                        <tbody> </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+    
+</div>
+<!-- END MAIN CONTENT -->

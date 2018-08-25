@@ -1,0 +1,245 @@
+
+<div class="tab-pane" id="tab_1">
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form id="myWorkForm" action="" enctype="multipart/form-data" class="mt-repeater form-horizontal">
+						
+			<div class="form-body">
+				<div hidden="hidden" class="form-group" style="height: 30px;">
+					ID:<input type="text" class="form-control" id="prodCostId" name="id" ng-model="prodCost.id" />
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"WORK_TITLE_Source" | translate}} </label>
+					<div class="col-md-5">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="sou" id="optionsRadiosSou" value="1" ng-model="prod.prodTypeSouId" >{{"Original" | translate}}
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="sou" id="optionsRadiosSou" value="2" ng-model="prod.prodTypeSouId">{{"Collection" | translate}}
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label">{{"TYPE" | translate}}</label>
+					<div class="col-md-5">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="phy" id="optionsRadiosPhy" value="1" ng-model="prod.prodTypePhyId">{{"HOME_TITLE_BOTTLE" | translate}} 
+							</label>
+							<label class="radio-inline"> <input type="radio" name="phy" id="optionsRadiosPhy" value="2" ng-model="prod.prodTypePhyId">{{"HOME_TITLE_CAP" | translate}} 
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-4">{{"CNName" | translate}}
+					</label>
+					<div class="col-md-5">
+						<input type="text"  data-required="1" class="form-control" id="nameCn" name="nameCn" placeholder="中文名称 (必填)" ng-model="prod.nameCn" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-4">{{"ENName" | translate}}
+					</label>
+					<div class="col-md-5">
+						<input type="text"  data-required="1" class="form-control" id="nameEn" name="nameEn" placeholder="英文名称 (选填)" ng-model="prod.nameEn" />
+					</div>
+				</div>
+				<div class="form-group" hidden="hidden">
+					<label class="control-label col-md-4">关联CODE
+					</label>
+					<div class="col-md-5">
+						<input type="text"  data-required="1" class="form-control" id="refCode" name="refCode" placeholder="关联编码" ng-model="prod.refCode" />
+					</div>
+				</div>
+				<div class="form-group" hidden="hidden">
+					<label class="control-label col-md-4">关联显示名
+					</label>
+					<div class="col-md-5">
+						<input type="text"  data-required="1" class="form-control" id="refName" name="refName" placeholder="关联显示名" ng-model="prod.refName" />
+					</div>
+				</div>
+				
+				
+				<div class="form-group" hidden="hidden">
+					<label class="col-md-4 control-label">状态</label>
+					<div class="col-md-5">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="isEnable" id="optionsRadios" value="1" ng-model="prod.isEnable">上架
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="isEnable" id="optionsRadios" value="0" ng-model="prod.isEnable">下架
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" hidden="hidden">
+					<label class="col-md-4 control-label">新品</label>
+					<div class="col-md-5">
+						<div class="radio-list" style="margin-left: 15px;">
+							<label class="radio-inline"> <input type="radio" name="isNew" id="optionsRadiosNew" value="1" ng-model="prod.isNew"  >是
+							</label> 
+							<label class="radio-inline"> <input type="radio" name="isNew" id="optionsRadiosNew" value="0" ng-model="prod.isNew">否
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group" hidden="hidden">
+					<label class="control-label col-md-4">地区
+					</label>
+					<div class="col-md-5">
+						<select id="searchProdTypeAre" ng-model="prod.prodTypeAreId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in prodTypeAreList">
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group" hidden="hidden">
+					<label class="control-label col-md-4">图样
+					</label>
+					<div class="col-md-5">
+						<select id="searchProdTypePic" ng-model="prod.prodTypePicId" class="table-group-action-input form-control input-inline input-small input-sm" ng-change="changePic()" ng-options="value.id as value.nameCn for (key, value) in prodTypePicList">
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group" hidden="hidden">
+					<label class="control-label col-md-4">业务
+					</label>
+					<div class="col-md-5">
+						<select id="searchProdTypeBiz" ng-model="prod.prodTypeBizId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in prodTypeBizList">
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group" hidden="hidden">
+					<label class="control-label col-md-4">灌装
+					</label>
+					<div class="col-md-5">
+						<select id="searchProdTypeJar" ng-model="prod.prodTypeJarId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in prodTypeJarList">
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group" hidden="hidden">
+					<label class="control-label col-md-4">瓶口
+					</label>
+					<div class="col-md-5">
+						<select id="searchProdTypeNek" ng-model="prod.prodTypeNekId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in prodTypeNekList" >
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group" hidden="hidden">
+					<label class="control-label col-md-4">容量
+					</label>
+					<div class="col-md-5">
+						<select id="searchProdTypeCon" ng-model="prod.prodTypeConId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in prodTypeConList">
+							<option value="">全部</option>
+							<option data-ng-repeat="ptp in prodTypeConList" value="{{ptp.id}}" ng-selected="prod.prodTypeConId==ptp.id">{{ptp.nameCn}}</option>  
+						</select>
+					</div>
+				</div>
+				<div class="form-group" hidden="hidden">
+					<label class="control-label col-md-4">高度
+					</label>
+					<div class="col-md-5">
+						<select id="searchProdTypeHig" ng-model="prod.prodTypeHigId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in prodTypeHigList">
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group" hidden="hidden">
+					<label class="control-label col-md-4">宽度
+					</label>
+					<div class="col-md-5">
+						<select id="searchProdTypeWid" ng-model="prod.prodTypeWidId" class="table-group-action-input form-control input-inline input-small input-sm" ng-options="value.id as value.nameCn for (key, value) in prodTypeWidList" >
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+			
+				<div class="form-group" hidden="hidden">
+					<label class="control-label col-md-4">费用
+					</label>
+					<div class="col-md-5">
+						<select id="searchProdCost" ng-model="prod.prodCostId" class="table-group-action-input form-control input-inline input-small input-sm"   ng-options="value.id as value.name for (key, value) in prodCostList">
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					    <label class="control-label col-md-4">{{"PIC" | translate}}
+					    </label>
+					    <div class="col-md-6">
+
+						<div id="pordPicListDiv">
+								<div data-ng-repeat="ptp in prod.prodPicList track by $index"   class="divider">
+								  <a type="button" ng-click="toAddPic()" class="btn btn-success mt-repeater-add"><i class="fa fa-plus"></i> 添加</a>
+								  <a  type="button" class="btn btn-danger mt-repeater-delete" ng-click="toDeletePic($index)"><i class="fa fa-minus"></i> 删除</a>
+									&nbsp;&nbsp;&nbsp;
+									<label class="mt-radio mt-radio-outline"> 主要&nbsp;&nbsp;
+                                        <input type="radio" ng-model="prod.prodPicList[$index].isMajor" value="1" name="picIsMajor" ng-checked="prod.prodPicList[$index].isMajor==1" data-pic-index="{{$index}}"/>
+                                        <span></span>
+                                    </label>
+									<input type="file" data-required="1"  style="display:none" name ="picFileUploader{{$index}}" id="picFileUploader{{$index}}" uploader="picFileUploader{{$index}}"  nv-file-select accept="image/*"/>
+									<label style="margin-top: 5px;" >描述：<input type="text"  ng-model="prod.prodPicList[$index].nameCn" class="form-control input-inline input-small"   value=""/>&nbsp;&nbsp;&nbsp;&nbsp;</label>
+									<a type="button" class="btn btn-sm blue-hoki " ng-click="clickUploadBt($index)"><i class="fa fa-cloud-upload"></i> 浏览.. </a>
+									<input type="hidden" ng-model="prod.prodPicList[$index].picFileId" id="picFileId{{$index}}" name="picFileId{{$index}}"/>&nbsp;&nbsp;
+									<a href="../upload/{{prod.prodPicList[$index].picFile.filePath}}" target="_blank" ng-show="prod.prodPicList[$index].picFile.filePath" style="color: #337ab7;">{{prod.prodPicList[$index].picFile.fileName}}</a>&nbsp;&nbsp;
+								    <a href="#" class="fa fa-remove" style="color:Red;" ng-click="prod.prodPicList[$index].picFile={};prod.prodPicList[$index].picFileId=''" ng-show="prod.prodPicList[$index].picFile.filePath"></a>&nbsp;&nbsp;
+									
+								</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="form-group">
+				
+					<label class="control-label col-md-4">
+						{{"Introduce" | translate}}
+					</label>
+					<div class="col-md-5" align="center">
+						<div class="portlet light bordered" style="width:100%!important;" >
+		                  <div class="portlet-title tabbable-line">
+			                  <div class="caption" style="font-size:14px;line-height:0px;">
+	                               <span>注：如果英文部分为空，则在提交后自动赋值为中文内容</span>
+	                           </div>
+		                      <ul class="nav nav-tabs">
+		                        <li class="active">
+		                              <a href="./#descCn" data-toggle="tab" aria-expanded="true">{{"OPT_LANG_ZH" | translate}} </a>
+		                          </li>
+		                          <li class="">
+		                              <a href="./#descEn" data-toggle="tab" aria-expanded="false"> {{"OPT_LANG_EN" | translate}} </a>
+		                          </li>
+		                      </ul>
+		                  </div>
+		                  <div class="portlet-body" >
+		                      <div class="tab-content" >
+		                          <div class="tab-pane active" id="descCn">
+		                           		<textarea class="form-control" name="prodDescriptionCn" rows="8" id="prodDescriptionCn" ng-model="prod.descriptionCn" ></textarea>
+		                          </div>
+		                          <div class="tab-pane" id="descEn">
+		                           		<textarea class="form-control" name="prodDescriptionEn" rows="8" id="prodDescriptionEn" ng-model="prod.descriptionEn" ></textarea>
+		                          </div>
+		                      </div>
+		                  </div>
+		            </div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12" align="center" style="margin-top:15px;">
+				<button class="btn btn-lg btn-default" ng-click="toWorkList()">
+					<i class="fa fa-reply"></i> {{"BACK" | translate}}
+				</button>
+				&nbsp;
+				<button class="btn btn-lg btn-default blue" ng-click="toSaveProd()">
+					<i class="glyphicon glyphicon-ok"></i> {{"CONFIRM" | translate}}
+				</button>
+			</div>
+		</form>
+		<!-- END FORM-->
+		<br><br><br><br><br>
+	</div>
+</div>
+

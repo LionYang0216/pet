@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzsoftware.pet.dao.ProdTypeBizDao">
+  <cache type="com.gzsoftware.pet.entity.vo.RedisCache" />
+
+   <resultMap id="ProdTypeBizResultMap" type="com.gzsoftware.pet.entity.po.ProdTypeBiz">
+   		<association property="lastUpdateAdmin" column="LAST_UPDATE_ADMIN_ID" javaType="Admin" fetchType="eager" select="com.gzsoftware.pet.dao.AdminDao.getSmAdmin" />
+    </resultMap>
+  
+  
+  <select id="getProdTypeBiz" parameterType="java.lang.Integer" resultMap="ProdTypeBizResultMap">
+    	select * from prod_type_biz where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 获取物理类目个数 -->
+  <select id="countAll" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultType="Integer">
+		select count(*) from prod_type_biz where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.nameEn!='' and condition.nameEn!=null">
+				and NAME_EN like CONCAT('%',#{condition.nameEn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isEnable!=''and condition.isEnable!=null">
+				and IS_ENABLE = #{condition.isEnable}
+			</if>
+		</if>
+	</select>
+	
+	<select id="getProdTypeBizList" parameterType="com.gzsoftware.pet.entity.vo.DataTablesRequest" resultMap="ProdTypeBizResultMap">
+		select * from prod_type_biz where 1=1
+		<if test="condition!=null">
+			<if test="condition.nameCn!='' and condition.nameCn!=null">
+				and NAME_CN like CONCAT('%',#{condition.nameCn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.nameEn!='' and condition.nameEn!=null">
+				and NAME_EN like CONCAT('%',#{condition.nameEn,
+				jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.isEnable!=''and condition.isEnable!=null">
+				and IS_ENABLE = #{condition.isEnable}
+			</if>
+		</if>
+		<if test="orderBySql!=null and orderBySql!=''">
+			order by ${orderBySql}
+		</if>
+		limit ${start},${length}
+	</select>
+	
+	<select id="getProdTypeBizSelect"  resultMap="ProdTypeBizResultMap">
+		select * from prod_type_biz where IS_ENABLE = 1 	order by PRIORITY asc
+	</select>
+		
+  <delete id="deleteProdTypeBiz" parameterType="java.lang.Integer">
+    delete from prod_type_biz
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="addProdTypeBiz" parameterType="com.gzsoftware.pet.entity.po.ProdTypeBiz">
+    insert into prod_type_biz (ID, NAME_CN, NAME_EN, 
+      LAST_UPDATE_ADMIN_ID, LAST_UPDATE_TIME, PRIORITY, 
+      IS_ENABLE)
+    values (#{id,jdbcType=INTEGER}, #{nameCn,jdbcType=VARCHAR}, #{nameEn,jdbcType=VARCHAR}, 
+      #{lastUpdateAdminId,jdbcType=INTEGER}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{priority,jdbcType=INTEGER}, 
+      #{isEnable,jdbcType=SMALLINT})
+  </insert>
+  
+  <update id="updateProdTypeBiz" parameterType="com.gzsoftware.pet.entity.po.ProdTypeBiz">
+    update prod_type_biz
+    set NAME_CN = #{nameCn,jdbcType=VARCHAR},
+      NAME_EN = #{nameEn,jdbcType=VARCHAR},
+      LAST_UPDATE_ADMIN_ID = #{lastUpdateAdminId,jdbcType=INTEGER},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      PRIORITY = #{priority,jdbcType=INTEGER},
+      IS_ENABLE = #{isEnable,jdbcType=SMALLINT}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>
